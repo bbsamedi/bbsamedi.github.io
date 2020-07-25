@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bbsamedi.github.io/about/index.html</loc>
+    
+    <lastmod>2020-07-25T14:58:03.426Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://bbsamedi.github.io/archives/index.html</loc>
     
     <lastmod>2020-07-25T14:17:51.868Z</lastmod>
@@ -30,13 +37,6 @@
   </url>
   
   <url>
-    <loc>https://bbsamedi.github.io/2020/07/23/shen-tou-ce-shi/jin-qi-web-an-quan-suo-xue-zong-jie/</loc>
-    
-    <lastmod>2020-07-23T08:05:19.290Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://bbsamedi.github.io/navigate/index.html</loc>
     
     <lastmod>2020-07-21T10:05:11.978Z</lastmod>
@@ -59,13 +59,6 @@
   
   <url>
     <loc>https://bbsamedi.github.io/404.html</loc>
-    
-    <lastmod>2020-07-01T09:09:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bbsamedi.github.io/about/index.html</loc>
     
     <lastmod>2020-07-01T09:09:44.000Z</lastmod>
     

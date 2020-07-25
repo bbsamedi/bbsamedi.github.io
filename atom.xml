@@ -39,36 +39,6 @@
   </entry>
   
   <entry>
-    <title>test-shentouceshi</title>
-    <link href="https://bbsamedi.github.io/2020/07/23/shen-tou-ce-shi/jin-qi-web-an-quan-suo-xue-zong-jie/"/>
-    <id>https://bbsamedi.github.io/2020/07/23/shen-tou-ce-shi/jin-qi-web-an-quan-suo-xue-zong-jie/</id>
-    <published>2020-07-23T03:27:43.000Z</published>
-    <updated>2020-07-23T08:05:19.290Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;script&gt;
-        document.querySelectorAll(&#39;.github-emoji&#39;)
-          .forEach(el =&gt; {
-            if (!el.dataset.src) { return; }
-       
-        
-      
-    
-    </summary>
-    
-      <category term="渗透测试" scheme="https://bbsamedi.github.io/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
-    
-    
-      <category term="渗透测试" scheme="https://bbsamedi.github.io/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
     <title>About Me</title>
     <link href="https://bbsamedi.github.io/2020/07/20/about/"/>
     <id>https://bbsamedi.github.io/2020/07/20/about/</id>
