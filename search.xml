@@ -44,25 +44,6 @@
     </entry>
     
     
-    
-    <entry>
-      <title>About Me</title>
-      <link href="/2020/07/20/about/"/>
-      <url>/2020/07/20/about/</url>
-      
-        <content type="html"><![CDATA[<blockquote><p>A Coder, live in Wuhan, China.</p></blockquote><p>姓名：Dusk<br>现居：武汉<br>GitHub: <a href="https://github.com/bbsamedi" target="_blank" rel="noopener">bbsamedi</a><br>twitter: <a href="https://twitter.com/" target="_blank" rel="noopener"></a><br>QQ: <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=1584518096&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener">1584518096</a><br>微信: A-samedi</p><a id="more"></a><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 随笔 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
   
   
 </search>
