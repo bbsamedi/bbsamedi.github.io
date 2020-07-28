@@ -11,7 +11,7 @@
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
     <meta name="description" content="掌控安全Web安全所学总结从掌控安全学习web渗透入门，到现在还一直没有总结过所学知识，虽然有写笔记，但是还是觉得知识有些零散，使用起来不是那么得心应手，我想，再把那些知识复习总结一下会好很多。
 持续更新中~
-正则表达式用途判断字符串是否符">
+在这里声明一下，以下知识是按照">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.6k
+                        2.8k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        6 分
+                        10 分
                     </div>
                     
                 
@@ -661,6 +661,7 @@
             <div id="articleContent">
                 <h1 id="掌控安全Web安全所学总结"><a href="#掌控安全Web安全所学总结" class="headerlink" title="掌控安全Web安全所学总结"></a>掌控安全Web安全所学总结</h1><p>从掌控安全学习web渗透入门，到现在还一直没有总结过所学知识，虽然有写笔记，但是还是觉得知识有些零散，使用起来不是那么得心应手，我想，再把那些知识复习总结一下会好很多。</p>
 <p>持续更新中~</p>
+<p>在这里声明一下，以下知识是按照MySQL数据库和PHP来讲解的，但是原理都一样，其他的数据库和其他的语言出问题的地方也都存在相似之处。</p>
 <h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><h3 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h3><p>判断字符串是否符合某一规则（判断是否符合手机号，邮箱规则）</p>
 <p>从一个字符串中找出符合规则的所有字符串（取HTML标签名）</p>
 <h3 id="标识"><a href="#标识" class="headerlink" title="标识"></a>标识</h3><p>PHP中使用正则规则而一定要加代表正则的标识    <strong>/ /</strong></p>
@@ -780,10 +781,120 @@
 <p>通过某些平台（微步社区 云悉）</p>
 <p>使用工具爆破DNS服务器（SubBrute、Knockpy  github有下载） 泛解析（没有设置过的解析）</p>
 <p>网页内蜘蛛爬虫    </p>
-<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>子域名的挖掘的意义在于扩大资产，渗透测试的话很可能测试一个域名，自住哪也都是测试范围，我们可以从子站中获得信息，或者拿到子站权限，对主网进行内网渗透。</p>
+<h3 id="Google-Hacking"><a href="#Google-Hacking" class="headerlink" title="Google Hacking"></a>Google Hacking</h3><table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>“”</td>
+<td>双引号内的内容不可拆分</td>
+</tr>
+<tr>
+<td>site:</td>
+<td>指定域名</td>
+</tr>
+<tr>
+<td>inurl:</td>
+<td>url存在关键字的网页</td>
+</tr>
+<tr>
+<td>intext</td>
+<td>网页正文中的关键字</td>
+</tr>
+<tr>
+<td>filetype</td>
+<td>指定文件类型</td>
+</tr>
+<tr>
+<td>intitle</td>
+<td>网页标题中的关键字</td>
+</tr>
+<tr>
+<td>link</td>
+<td>link:baidu.com  表示所有和biadu.com做了连接的url</td>
+</tr>
+<tr>
+<td>info</td>
+<td>查找指定站点的一些基本信息</td>
+</tr>
+</tbody></table>
+<p>这里只是列举出一些简单的用法，详细的谷歌语法百度就可以学到</p>
+<h3 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h3><h4 id="端口状态："><a href="#端口状态：" class="headerlink" title="端口状态："></a>端口状态：</h4><p>在信息收集中，目标副武器的端口状态也是我们要留意的</p>
+<p>open(开放的)</p>
+<p>close(关闭的)</p>
+<p>Filtered(被过滤的)</p>
+<p>unfiltered(未被过滤的)</p>
+<p>open|filtered(开放或被过滤的)</p>
+<p>closed|filtered(关闭或被过滤的)</p>
+<h4 id="查端口方法："><a href="#查端口方法：" class="headerlink" title="查端口方法："></a>查端口方法：</h4><p>​    nmap -p  80,22   url/ip                自定义想要扫描的端口</p>
+<p>​    nmap -P  1-255    url/ip                自定义端口范围</p>
+<p>​    nmap  -r    url/ip                            随机扫描端口</p>
+<h4 id="端口类型："><a href="#端口类型：" class="headerlink" title="端口类型："></a>端口类型：</h4><p>周知端口：0-1023</p>
+<p>动态端口：49152-65535</p>
+<p>注册端口：1024-49151</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>子域名的挖掘的意义在于扩大资产，渗透测试的话很可能测试一个域名，自住哪也都是测试范围，我们可以从子站中获得信息，或者拿到子站权限，对主网进行内网渗透。</p>
 <p>对于一些网站，他的主站采用CDN加速，但是他的子站可能没有，因此，也可以从子站查询真实ip</p>
 <p>whois查询到的信息可用来社工或者根据邮箱手机号进行密码组合用以爆破</p>
 <p>目标的真实ip也许会对我们的渗透测试提供很多便利</p>
+<h2 id="SQL注入原理分析"><a href="#SQL注入原理分析" class="headerlink" title="SQL注入原理分析"></a>SQL注入原理分析</h2><h3 id="注入的本质："><a href="#注入的本质：" class="headerlink" title="注入的本质："></a>注入的本质：</h3><p>把用户输入的数据当作代码执行。</p>
+<p>这里要满足两个条件：</p>
+<ol>
+<li><p>用户能控制输入</p>
+</li>
+<li><p>原本程序要执行的代码，拼接了用户输入的数据然后进行执行</p>
+</li>
+</ol>
+<h3 id="显错注入——联合查询："><a href="#显错注入——联合查询：" class="headerlink" title="显错注入——联合查询："></a>显错注入——联合查询：</h3><h4 id="1、判断注入点"><a href="#1、判断注入点" class="headerlink" title="1、判断注入点"></a>1、判断注入点</h4><p>最古老的方法：</p>
+<p>​        and 1=1   页面显示正常</p>
+<p>​        and 1=2    页面显示不正常</p>
+<p>最简单的方法：</p>
+<p>​        传参后面加’，看是否报错</p>
+<p>若为数字型传参，可以用-1</p>
+<p>例如：</p>
+<p><a href="http://www.xxx.com/new.php?id=1" target="_blank" rel="noopener">http://www.xxx.com/new.php?id=1</a>            页面显示id=1的新闻</p>
+<p><a href="http://www.xxx.com/new.php?id=2-1" target="_blank" rel="noopener">http://www.xxx.com/new.php?id=2-1</a>        页面显示id=1的新闻</p>
+<p>只要发生上面的这些情况的，就是存在SQL注入漏洞。</p>
+<p>一般来说and 1=1和and 1=2被拦截的可能性太高了，可以尝试一下and -1=-1;and -1=-2;and 1&gt;0 or 1=1</p>
+<p>或者直接尝试or sleep(5)            让页面延迟5秒显示</p>
+<p><strong>其目的就是为了判断我们输入的东西是否被当做了代码来执行了</strong>。</p>
+<h4 id="2、判断字段数"><a href="#2、判断字段数" class="headerlink" title="2、判断字段数"></a>2、判断字段数</h4><p>如何知道表里面的字段数，就用:</p>
+<p>order    by    1        以第1个字段进行排序</p>
+<p>order    by    2        以第2个字段进行排序</p>
+<p>……</p>
+<p>例如，当order    by    3    输进去之后，页面显示不正常了，那么显示这个页面的这张表就只有两个字段。</p>
+<h4 id="3、判断输出点"><a href="#3、判断输出点" class="headerlink" title="3、判断输出点"></a>3、判断输出点</h4><p>select    1,2            输出第1和第2个字段</p>
+<p>这个就是用来判断在这个页面中存在sql注入的显错点在哪，只有找到了显错点，我们才能从显错点来获取数据库表中的数据。</p>
+<p>这里假如2是输出点，那我们就可以用database()这个函数来获取数据库的库名</p>
+<p>select    1,database()</p>
+<br>
+
+<p>获取数据库常规写法：</p>
+<p>​    select    字段名    from    表名    where    条件</p>
+<p>那么我们知道了库名之后，要怎么获取字段名和表名呢，这里有两个方法</p>
+<p>①.猜，常用的字段名和表名</p>
+<p>②.在mysql中高于5.0版本的有一个系统自带库information_schema，这个库中有两张表，分别是：</p>
+<p><strong>information_schema.tables</strong>                存放表名和库的对应的表</p>
+<p><strong>information_schema.columns</strong>            存放字段名和表名的对应</p>
+<h4 id="4、去系统自带库的表中查表名、字段名"><a href="#4、去系统自带库的表中查表名、字段名" class="headerlink" title="4、去系统自带库的表中查表名、字段名"></a>4、去系统自带库的表中查表名、字段名</h4><p>查表名，例：</p>
+<p>url    and    1=2    union    select    1,table_name    from    infomation_schema.tables    where    table_schema=database()    limit    0,1</p>
+<p>用limit    0,1；limit    1,1;limit    2,1 这样来一个一个的显示表名</p>
+<p>查字段名，例：</p>
+<p>url    and    1=2    union    select    1,column_name    from    information_schema.columns    where        table_schema=database()    and    table_name=’刚刚查到的表名’    limit    0,1</p>
+<p>这里也同样用limit    1,1    2,1来着查看字段名</p>
+<br>
+
+<p>遇到字符型传参，如id=1’1’</p>
+<p>加上’%23或者’–+</p>
+<p>其主要目的就是闭合单引号，当然也有可能别人用的是双引号，这个要自己尝试，因为他不会显示出来</p>
+<p>出现小括号也是一样的，如id=(‘1’)</p>
+<p>用’)来闭合它，再加上%23或者–+来闭合</p>
+<br>
+
+<p>最后，查到了我们想要的表名和字段名</p>
+<p>union    select        1,字段名    from    表名</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1530,7 +1641,7 @@
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">1.8k</span> 字
+                <span class="white-color">2.9k</span> 字
             
 
             
@@ -1746,5 +1857,5 @@ $(function () {
             </script>
         
 
-    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script><script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body>
+    <script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
 </html>
