@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3.8k
+                        4.6k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        14 分
+                        17 分
                     </div>
                     
                 
@@ -955,7 +955,45 @@ a' union select 1,2,database()#</code></pre><p>然后其他的就跟get注入一
 <p>用or的时候，前面的对了，则后面的不执行；前面的错了，则后面的执行；</p>
 <p>所以，如果用or不行，就换and。</p>
 <p>报错注入要一个字段一个字段的拿</p>
-<script>
+<h2 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>盲注就是服务器无回显的时候完成的注入攻击</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>盲注分为布尔盲注和时间盲注，</p>
+<p>布尔盲注就是True和Flase；</p>
+<p>时间盲注就是页面返回值只有一种，true，无论输入任何值，返回情况都会按照正常的来处理。</p>
+<h3 id="需要认识的函数"><a href="#需要认识的函数" class="headerlink" title="需要认识的函数"></a>需要认识的函数</h3><p>length()：返回字符串的长度；</p>
+<p>substr()：截取字符串；（语法    substr(str,pos,len);    pos代表从哪里开始截取）</p>
+<p>ascii()：返回字符串的ascii码;；</p>
+<p>sleep()：将程序挂起n秒；</p>
+<p>if(exp1,exp2,exp3)：判断语句，如果第一个语句正确就执行第二个语句，如果错误则执行第三个语句。</p>
+ <br>
+
+<p>示例：</p>
+<pre><code>and length(database())&gt;12 #
+如果页面正常，则数据库名有12个字符
+
+and substr(database(),1,1)=1 #
+可以用burp进行爆破，替换a，显示正常则字符正确，第一个正确了，就测试第二个，然后第三个......
+
+and ascii(substr(database(),1,1))&gt;100 #
+用字符的ASCII码来缩小查找范围
+
+ascii(substr((select table_name from information_schema.tables=database( limit 0,1),1,1)))=102 #    
+更换1,1中的前面的那个1和102来判断表名</code></pre><p>数据库名、表名、字段名都可以按照这个方法来判断</p>
+<h2 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h2><p>magic_quotes_gpc：魔术引号开关，在php中的作用是判断用户提交的数据，如包含有：post、get、cookie、过来的数据增加转义字符“\”，以确保这些数据不会引起程序，特别是数据库语句因为特殊字符引起的污染，而出现致命的错误。</p>
+<p>出现魔术引号的时候，会经过PHP处理出现’或者”或者\导致我们输入的东西无法闭合</p>
+<p>这时候我们就需要寻找不需要闭合的注入点或者使用宽字节注入</p>
+<br>
+
+<p>这里我们要知道一个编码格式：GBK编码，是一种多字符编码，双字节编码</p>
+<p>而且，当汉字是GBK编码的时候是两个字节，是UTF-8表面的的时候是3个字节。</p>
+<p>我们可以用汉子来吧魔术引号的\屏蔽掉，相当于是一种绕过</p>
+<p>当我们遇到的是GET传参的时候，就用GBK编码来代表汉字，例</p>
+<pre><code>id=1 %5d%5c' union select 1,2,3 -- qwe
+假如说我们这个时候已经获取了数据库名，那么就将数据库名转换为16进制数
+id=1 %5d%5c' union select 1,2,table_name from information_schema tables where table_shcema=0x76738572
+因为MySQL是支持十六进制的，我们如果直接输入数据库名的话，要加单引号，而单引号会被魔术引号注释掉，导致失效，而直接用database()来代替数据库名可能会出错</code></pre><p>当我们遇到是POST传参的时候，直接输入汉字进行绕过即可，其余与GET传参无异</p>
+<p>同时也可以</p>
+<pre><code>a') or 1=1 -- qwe
+也可以用burp在hex中把a所代表的那个十六进制改成df来进行绕过</code></pre><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -1701,7 +1739,7 @@ a' union select 1,2,database()#</code></pre><p>然后其他的就跟get注入一
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">4k</span> 字
+                <span class="white-color">4.7k</span> 字
             
 
             
