@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.6k
+                        5.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        17 分
+                        20 分
                     </div>
                     
                 
@@ -993,7 +993,37 @@ id=1 %5d%5c' union select 1,2,table_name from information_schema tables where ta
 因为MySQL是支持十六进制的，我们如果直接输入数据库名的话，要加单引号，而单引号会被魔术引号注释掉，导致失效，而直接用database()来代替数据库名可能会出错</code></pre><p>当我们遇到是POST传参的时候，直接输入汉字进行绕过即可，其余与GET传参无异</p>
 <p>同时也可以</p>
 <pre><code>a') or 1=1 -- qwe
-也可以用burp在hex中把a所代表的那个十六进制改成df来进行绕过</code></pre><script>
+也可以用burp在hex中把a所代表的那个十六进制改成df来进行绕过</code></pre><h2 id="Access注入——cookie注入"><a href="#Access注入——cookie注入" class="headerlink" title="Access注入——cookie注入"></a>Access注入——cookie注入</h2><h3 id="什么是Cookie？"><a href="#什么是Cookie？" class="headerlink" title="什么是Cookie？"></a>什么是Cookie？</h3><p>cookie就是代表你身份的一串字符串，网站根据Cookie来识别你是谁，如果你获取了管理员的Cookie，你可以无需密码直接登录管理员账号。</p>
+<h3 id="为什么Cookie和注入擦出火花？"><a href="#为什么Cookie和注入擦出火花？" class="headerlink" title="为什么Cookie和注入擦出火花？"></a>为什么Cookie和注入擦出火花？</h3><p>在动态语言中存在超全局变量可以获取多种传参方式，很多时候开发在开发的时候为了考虑到多种接收参数，在接收参数的时候都用多种解释传参的方式。</p>
+<p>例如：php中的$_REQUEST可以获取POST|GET|COOKIE传参</p>
+<p><strong>php5.4以上版本不接受Cookie传参</strong></p>
+<br>
+
+<p>Cookie注入不仅仅存在于Access数据库中，其他数据库中也有；</p>
+<p><strong>Cookie注入是在POST，GET传参被拦截的情况下所使用的</strong></p>
+<h3 id="实现Cookie注入要满足的条件："><a href="#实现Cookie注入要满足的条件：" class="headerlink" title="实现Cookie注入要满足的条件："></a>实现Cookie注入要满足的条件：</h3><p>1、注入满足的条件；</p>
+<p>2、网站会获取Cookie传参，然后和原有的SQL语句拼接再传入数据库。</p>
+<h3 id="设置Cookie的方法："><a href="#设置Cookie的方法：" class="headerlink" title="设置Cookie的方法："></a>设置Cookie的方法：</h3><h4 id="一、用Burp"><a href="#一、用Burp" class="headerlink" title="一、用Burp"></a>一、用Burp</h4><p>找到包中Cookie传参的那一行，在Cookie中的数据后面加上分号，然后进行传参</p>
+<p>例：我们抓取了一个网站的新闻页面的包，id传参为171，将url栏中的?id=171去掉，然后Cookie:……….; id=171</p>
+<h4 id="二、浏览器插件EditCookie"><a href="#二、浏览器插件EditCookie" class="headerlink" title="二、浏览器插件EditCookie"></a>二、浏览器插件EditCookie</h4><p><strong>Cookie的传参会进行url解码，所以传参的时候不要忘记进行url编码</strong></p>
+<p>其次Cookie注入和sql注入没有区别</p>
+<p>查询Access数据库必须要带表名，而且Access数据库没有系统自带库，所以就要强行蔡姐来猜测表名</p>
+<pre><code>and exists(select *from 表名)        #不要忘记进行url编码</code></pre><p>这段代码可以判断数据库中是否存在此表，显示正常则代表存在。</p>
+<p>我们可以用burp来爆破表名</p>
+<p>假如我们已经获得了表名为admin，并且判断出表中有三个字段</p>
+<p>那么就要判断输出点，用EditCookie新建一个cookie，命名为id，内容为</p>
+<pre><code>171 union select 1,2,3 from admin        #不要忘记进行url编码</code></pre><p>判断完输出点，这个时候我们就要得到字段名来获得数据，这里有两个方法获取字段名：①、强猜；②、偏移注入</p>
+<p>偏移注入后面就会讲，这里用强猜，常用的字段名都可以尝试，例如username;password;id…….</p>
+<pre><code>171 union select 1,username,3 from admin        #不要忘记进行url编码
+171 union select 1,password,3 from admin</code></pre><h4 id="三、用js设置Cookie"><a href="#三、用js设置Cookie" class="headerlink" title="三、用js设置Cookie"></a>三、用js设置Cookie</h4><p>F12打开Console，我们用浏览器的控制台的时候记得要把插件关掉</p>
+<p>用js来进行SQL注入的话我们就不需要进行url编码了</p>
+<p>进入Console后直接输入</p>
+<pre><code>document.cookie="id="+escape("171 order by 1")</code></pre><p>记得要把URL栏中的?id=171删掉，只要替换括号内的语句就可以了</p>
+<br>
+
+<p>我们用SQLmap跑cookie注入的时候</p>
+<pre><code>python sqlmap.py -u .......?id=171(这个?id=171记得要删掉) --cookie "id=171" --level 2</code></pre><p>Cookie注入一般在ASP站中容易遇到，因为这样的站都是一些老网站，都用的是Access数据库。</p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -1739,7 +1769,7 @@ id=1 %5d%5c' union select 1,2,table_name from information_schema tables where ta
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">4.7k</span> 字
+                <span class="white-color">5.5k</span> 字
             
 
             
@@ -1955,5 +1985,5 @@ $(function () {
             </script>
         
 
-    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script><script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body>
+    <script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
 </html>
