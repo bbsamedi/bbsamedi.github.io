@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        7.9k
+                        8.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        30 分
+                        32 分
                     </div>
                     
                 
@@ -1160,6 +1160,27 @@ id=1000 union all select 1,null,to_nchar(column_name) from (select rownum r,colu
 select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</code></pre><h3 id="Oracle报错注入"><a href="#Oracle报错注入" class="headerlink" title="Oracle报错注入"></a>Oracle报错注入</h3><p>CTXSYS.DRITHSX.SN(user,(select banner from v$version where rownum=1))</p>
 <p>：去查询关于主题的对应关键词，然后因为查询失败（应该是这个用户没有创建和查询的权限，默认情况没有创建，爆出未查询到的错误，从而爆出查询内容）</p>
 <pre><code>id=1000 and 1=CTXSYS.DRITHSX.SN(1,(select table_name from user_tables where rownum=1))</code></pre><p>报错不需要union，之后的跟显错注入是一样的。</p>
+<h2 id="XSS原理分析与解剖"><a href="#XSS原理分析与解剖" class="headerlink" title="XSS原理分析与解剖"></a>XSS原理分析与解剖</h2><p>如果我们想进入管理员后台？</p>
+<p>1.找后台地址，输入正确的账号密码</p>
+<p>2.通过cookie，不用账号密码</p>
+<p>Cookie是以分号结尾的，第一个等号的后面都是值</p>
+<p>XSS最大的作用就是窃取Cookie，Cookie是存放在用户的浏览器中的</p>
+<br>
+
+<p>XSS也是注入的一种：前段注入</p>
+<p>XSS可以：窃取Cookie（用的最频繁）、获取内网ip、获取浏览器中保存的明文密码、截取网页屏幕、网页上的键盘记录</p>
+<p>XSS分类：</p>
+<p>​    反射型：你提交的数据成功的实现了XSS，不会放入数据库中，但是仅仅是对你这次访问产生了影响，是非持久型攻击；</p>
+<p>​    存储型：你提交的数据成功的实现了XSS，存入了数据库中，别人访问这个页面的时候就会自动触发；</p>
+<p>​    DOM型：完全是客户机的事情，与前端交互。</p>
+<h3 id="我们与网站之间的交互是怎样的？"><a href="#我们与网站之间的交互是怎样的？" class="headerlink" title="我们与网站之间的交互是怎样的？"></a>我们与网站之间的交互是怎样的？</h3><p>请求网站，网站返回前端代码，浏览器根据前端代码解析执行，渲染出好看的页面</p>
+<p>PHP是服务器执行的，前端代码是被浏览器执行的。</p>
+<h3 id="怎么测试网站是否存在XSS？"><a href="#怎么测试网站是否存在XSS？" class="headerlink" title="怎么测试网站是否存在XSS？"></a>怎么测试网站是否存在XSS？</h3><p>三种触发方法：</p>
+<h4 id="标签触发"><a href="#标签触发" class="headerlink" title="标签触发"></a>标签触发</h4><pre><code>&lt;script&gt;alert(1)&lt;/script&gt;</code></pre><p>弹窗使用来证明是否存在XSS的，但是弹窗危害有些大，尽量避免使用，可以使用其他的html代码来证明是否被当做html代码执行了</p>
+<p>在真正的项目上，还是要用弹窗来证明是否存在XSS，或直接打攻击代码窃取Cookie</p>
+<h4 id="伪协议触发"><a href="#伪协议触发" class="headerlink" title="伪协议触发"></a>伪协议触发</h4><pre><code>JavaScript：alert(123)</code></pre><p>上面的JavaScript就是伪协议，后面的东西就会被当做js代码执行，需要点击触发，例</p>
+<pre><code>&lt;a href="Javascript:alert(123)"&gt;abc&lt;/a&gt;</code></pre><h4 id="事件触发"><a href="#事件触发" class="headerlink" title="事件触发"></a>事件触发</h4><p>满足某种条件自动触发，例</p>
+<pre><code>&lt;img src="#" onerror=alert(1) //&gt;</code></pre><p>当此图片没有加载成功的时候会触发弹窗</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1906,7 +1927,7 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">8k</span> 字
+                <span class="white-color">8.6k</span> 字
             
 
             
