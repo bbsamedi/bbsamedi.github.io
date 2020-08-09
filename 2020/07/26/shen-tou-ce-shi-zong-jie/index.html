@@ -635,7 +635,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        8.4k
+                        8.6k
                     </div>
                     
 
@@ -1181,6 +1181,14 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 <h4 id="伪协议触发"><a href="#伪协议触发" class="headerlink" title="伪协议触发"></a>伪协议触发</h4><pre><code>JavaScript：alert(123)</code></pre><p>上面的JavaScript就是伪协议，后面的东西就会被当做js代码执行，需要点击触发，例</p>
 <pre><code>&lt;a href="Javascript:alert(123)"&gt;abc&lt;/a&gt;</code></pre><h4 id="事件触发"><a href="#事件触发" class="headerlink" title="事件触发"></a>事件触发</h4><p>满足某种条件自动触发，例</p>
 <pre><code>&lt;img src="#" onerror=alert(1) //&gt;</code></pre><p>当此图片没有加载成功的时候会触发弹窗</p>
+<h2 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h2><p>在什么情况下双引号能够替代单引号？</p>
+<p>1、本身就是单引号闭合，但是页面上因为浏览器渲染看着是双引号闭合</p>
+<p>2、就没写单引号闭合</p>
+<h3 id="存储型XSS会出现在什么地方？"><a href="#存储型XSS会出现在什么地方？" class="headerlink" title="存储型XSS会出现在什么地方？"></a>存储型XSS会出现在什么地方？</h3><p>任何可能插入数据库的地方</p>
+<p>但是数据不一定存储在数据库中，如日志、文件</p>
+<p>也不是只有框才会交互，数据传参要用GET、POST、HEAD，并不一定要有框，所以见框就插是一种方法，但并不唯一</p>
+<p><strong>用户的输入，一般控制的很严格；</strong></p>
+<p><strong>系统的获取，一般控制的不严格</strong></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1927,7 +1935,7 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">8.6k</span> 字
+                <span class="white-color">8.7k</span> 字
             
 
             
@@ -2143,5 +2151,5 @@ $(function () {
             </script>
         
 
-    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script><script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body>
+    <script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
 </html>
