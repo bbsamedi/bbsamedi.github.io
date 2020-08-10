@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        8.6k
+                        9.2k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        32 分
+                        34 分
                     </div>
                     
                 
@@ -1189,6 +1189,95 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 <p>也不是只有框才会交互，数据传参要用GET、POST、HEAD，并不一定要有框，所以见框就插是一种方法，但并不唯一</p>
 <p><strong>用户的输入，一般控制的很严格；</strong></p>
 <p><strong>系统的获取，一般控制的不严格</strong></p>
+<h2 id="DOM-Based-XSS"><a href="#DOM-Based-XSS" class="headerlink" title="DOM Based XSS"></a>DOM Based XSS</h2><p>通过js对网页进行修改的就是DOM型XSS</p>
+<p>DOM是一个与平台、编程语言无关的接口，他允许程序或脚本动态地访问和更新文档内容、结构和样式，处理后的结果能够成为系那是页面的一部分。</p>
+<p>DOM——based XSS漏洞是基于文档对象模型（Document Object Model，DOM）的一种漏洞</p>
+<p>DOM中有很多对象，其中一些使用户可以操纵的，如url，location，refelTer等。</p>
+<p>客户端的脚本程序可以通过DOM动态的检查和修改页面内容，它不依赖于提交数据到服务器端，而从客户端获得DOM中的数据在本地执行，如果DOM中的数据没有经过严格确认，就会产生DOM——based XSS漏洞。</p>
+<br>
+
+<p>每个载入浏览器的HTML文档都会成为Document对象，Document对象使我们可以从脚本中对HTML页面中的所有元素进行访问。</p>
+<p>Document对象属性</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>body</td>
+<td align="left">提供对&lt;body&gt;元素的直接访问。对于定义了框架集的文档，改属性引用最外层的&lt;frameset&gt;。</td>
+</tr>
+<tr>
+<td>cookie</td>
+<td align="left">设置或返回与当前文档有关的所有cookie。</td>
+</tr>
+<tr>
+<td>domain</td>
+<td align="left">返回当前文档的域名。</td>
+</tr>
+<tr>
+<td>lastModified</td>
+<td align="left">返回文档被最后修改的日期和时间。</td>
+</tr>
+<tr>
+<td>referrer</td>
+<td align="left">返回载入当前文档的文档的URL。</td>
+</tr>
+<tr>
+<td>title</td>
+<td align="left">返回当前文档的标题。</td>
+</tr>
+<tr>
+<td>URL</td>
+<td align="left">返回当前文档的URL</td>
+</tr>
+</tbody></table>
+<p>document.cookie     可以读取cookie</p>
+<p>JS 存在的意义就是让更多的工作在访问者自己的电脑中去处理，从而降低对服务器资源的占用</p>
+<p>用document.lastModified  可以返回时间</p>
+<p>静态页面所返回的时间是不变的，伪静态页面所返回的时间是变化的</p>
+<p><strong>动态和伪静态页面漏洞相较于静态页面会更多</strong></p>
+<p>Document对象方法</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>close()</td>
+<td>关闭用document.open()方法打开的输出流，并显示选定的数据。</td>
+</tr>
+<tr>
+<td>getElementById()</td>
+<td>返回对拥有指定id的第一个对象的引用。</td>
+</tr>
+<tr>
+<td>getElementsByName()</td>
+<td>返回带有指定名称的对象集合。</td>
+</tr>
+<tr>
+<td>getElementByTagName()</td>
+<td>返回带有指定标签名的对象集合。</td>
+</tr>
+<tr>
+<td>open()</td>
+<td>打开一个流，以收集来自任何document.write()或document.writeln()方法的输出。</td>
+</tr>
+<tr>
+<td>write()</td>
+<td>向文档写HTML 表达式或JavaScript代码。</td>
+</tr>
+<tr>
+<td>writeln()</td>
+<td>等同于write()方法，不同的是在每个表达式之后写一个换行符。</td>
+</tr>
+</tbody></table>
+<p>document.write()        他可以接受native编码值</p>
+<p><strong>JS触发的XSS就是DOM型XSS，是前端产生了问题</strong></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1935,7 +2024,7 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">8.7k</span> 字
+                <span class="white-color">9.4k</span> 字
             
 
             
@@ -2151,5 +2240,5 @@ $(function () {
             </script>
         
 
-    <script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
+    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script><script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body>
 </html>
