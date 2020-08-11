@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        9.2k
+                        9.8k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        34 分
+                        37 分
                     </div>
                     
                 
@@ -1278,6 +1278,19 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 </tbody></table>
 <p>document.write()        他可以接受native编码值</p>
 <p><strong>JS触发的XSS就是DOM型XSS，是前端产生了问题</strong></p>
+<h2 id="跨站请求伪造——CSRF"><a href="#跨站请求伪造——CSRF" class="headerlink" title="跨站请求伪造——CSRF"></a>跨站请求伪造——CSRF</h2><p>CSRF：借用你的Cookie；XSS：窃取你的Cookie</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>当访问了一个有CSRF的网站，同时又访问了一个之前登陆过的网站，这时，这个登陆过的网站中的你的账号内的有些东西会被更改。</p>
+<p>CSRF（Cross-site request forgery）跨站请求伪造：也被称为“One Click Attack”或者“Session Riding”，通常缩写为CSRF或者XSRF，是一种对网站的恶意利用。尽管听起来像跨站脚本（XSS），但它与XSS非常不同，XSS利用站点内的新人用户，而CSRF攻击往往不大流行（因此对其进行防范的资源也相当稀少）和难以防范，所以被认为比XSS更具危险性。</p>
+<p>其实说白了，CSRF漏洞的成因就是网站的Cookie在浏览器中不会过期，只要不关闭浏览器或者退出登录，那以后只要是访问这个网站，都会默认你已经登录的状态。而在这个期间，攻击者发送了构造好的CSRF脚本或者包含CSRF脚本的链接，可能会执行一些用户不想的功能（比如是添加账号等）。</p>
+<p>CSRF核心在于缺乏验证</p>
+<p>1、像验证码是他做好的方法，但开发不可能给每一个步骤都添加验证码，因为那样用户体验感极差；</p>
+<p>2、开发为了安全，设置了一个东西叫做Token，Token是一种验证机制，每个请求的表单中都存在着一个Token字段</p>
+<br>
+
+<h3 id="例"><a href="#例" class="headerlink" title="例"></a>例</h3><p>现在A站创建一个用户，并修改它的个人资料，在那个A站想要改其内容的页面用burp抓一个包，然后右键-&gt;Engagemant tools-&gt;GGenerate CSRF POC</p>
+<p>将产生的html代码保存在一个html文件中，此代码即为攻击代码</p>
+<p>再注册另一个账号，然后打开那个保存在本地上的攻击页面，点击按钮，然后刷新第二个站好的个人资料页面，发现内容变了，那么这个地方就存在CSRF漏洞。</p>
+<p>也可以设置自动触发：将攻击页面的那个按钮里的</p><form></form>以及内容删掉，然后在函数后的一行<script>与</script>内加上一行submitReques()，也就是直接运行这个函数。<p></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -2024,7 +2037,7 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">9.4k</span> 字
+                <span class="white-color">10k</span> 字
             
 
             
