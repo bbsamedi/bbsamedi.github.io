@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        9.8k
+                        11.1k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        37 分
+                        41 分
                     </div>
                     
                 
@@ -1291,6 +1291,61 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 <p>将产生的html代码保存在一个html文件中，此代码即为攻击代码</p>
 <p>再注册另一个账号，然后打开那个保存在本地上的攻击页面，点击按钮，然后刷新第二个站好的个人资料页面，发现内容变了，那么这个地方就存在CSRF漏洞。</p>
 <p>也可以设置自动触发：将攻击页面的那个按钮里的</p><form></form>以及内容删掉，然后在函数后的一行<script>与</script>内加上一行submitReques()，也就是直接运行这个函数。<p></p>
+<h2 id="文件上传漏洞——解析、验证、伪造（一）（黑名单）"><a href="#文件上传漏洞——解析、验证、伪造（一）（黑名单）" class="headerlink" title="文件上传漏洞——解析、验证、伪造（一）（黑名单）"></a>文件上传漏洞——解析、验证、伪造（一）（黑名单）</h2><p>首先讲一下各种shell的含义：</p>
+<p>webshell：网站权限</p>
+<p>getshell：获取权限</p>
+<p>反弹shell：受害及其会访问攻击机</p>
+<p>正常shell：攻击机连接木马</p>
+<br>
+
+<p>PHP常用的一句话木马：</p>
+<pre><code>&lt;?php eval($_REQUEST['a'])?&gt;</code></pre><br>
+
+<p>webshell管理工具有:</p>
+<p>中国菜刀、蚁剑、冰蝎等</p>
+<br>
+
+<p>数据库一般是外界访问不到的，所以密码一般都不会改</p>
+<p>正常黑客思维：</p>
+<p>我就是要拿权限，怎么拿不重要，大部分思路-&gt;SQL注入，获得密码，进入后台，上传文件，有的时候，前台上传一句话木马拿下服务器也是常见的。</p>
+<p>黑白名单机制：</p>
+<p>黑名单：不允许上传什么</p>
+<p>白名单：只允许上传什么</p>
+<p>白名单相比于黑名单更安全</p>
+<h3 id="上传遇到的情况："><a href="#上传遇到的情况：" class="headerlink" title="上传遇到的情况："></a>上传遇到的情况：</h3><p>前端检测的情况：一般是在网页上写一段JS代码，用Js去检测，验证上传文件的后缀名，有白名单也有和名单</p>
+<p>判断方法：在浏览加载文件，但未点击上传按钮时便弹出对话框，内容如：只允许上传.jpg/.jpeg/.png后缀名的文件，而此时并没有发送数据包，所以可以通过抓包来判断，如果弹出不允许上传，但是没有抓到数据包，那么就是前端验证</p>
+<p>前端验证非常不可靠，传正常文件改数据包就可以绕过，甚至关闭JS都可以尝试绕过</p>
+<br>
+
+<p>服务端检测的情况：</p>
+<p>常见手段：检查Content-Type（内容类型）、检查后缀（检查后缀是主流）、检查文件头</p>
+<p>如何绕过Content-Type和文件头检测，这个时候我们就要去制作一个图片马了；</p>
+<h4 id="制作图片马"><a href="#制作图片马" class="headerlink" title="制作图片马"></a>制作图片马</h4><p>图片马制作很简单，写一个一句话木马放在TXT文件，然后找一张你喜欢的图片（注意文件大小，越小越好），然后打开cmd</p>
+<pre><code>copy a.jpg/b+1.txt 123.jpg        (将a.jpg和1.txt合并为123.jpg)</code></pre><p>图片马可以很好的绕过内容类型和文件头</p>
+<p>/b的意思是将它以二进制的方法去合并，为了防止图片破碎</p>
+<h4 id="判断黑白名单"><a href="#判断黑白名单" class="headerlink" title="判断黑白名单"></a>判断黑白名单</h4><p>上传一个2.a文件，若能上传就是黑名单机制</p>
+<h3 id="上传绕过方法："><a href="#上传绕过方法：" class="headerlink" title="上传绕过方法："></a>上传绕过方法：</h3><h4 id="1、最不可靠的前端验证"><a href="#1、最不可靠的前端验证" class="headerlink" title="1、最不可靠的前端验证"></a>1、最不可靠的前端验证</h4><p>直接抓包，将上传的jpg改为php即可</p>
+<h4 id="2、Content-Type绕过"><a href="#2、Content-Type绕过" class="headerlink" title="2、Content-Type绕过"></a>2、Content-Type绕过</h4><p>既然是检查文件类型，拿出我们的图片马，web容器是根据后缀来识别格式的，我只要上传的文件后缀是.php就行</p>
+<h4 id="3、黑名单绕过"><a href="#3、黑名单绕过" class="headerlink" title="3、黑名单绕过"></a>3、黑名单绕过</h4><p>如果.php无法上传，那我们就尝试.php3、.php4、.php5、.phtml，这些默认都会被解析为php的</p>
+<h4 id="4、-htaccess文件绕过"><a href="#4、-htaccess文件绕过" class="headerlink" title="4、.htaccess文件绕过"></a>4、.htaccess文件绕过</h4><p>.htaccess是什么？</p>
+<p>全称是Hypertext Access(超文本入口)，.htaccess文件也被称为分布式配置文件，提供了针对目录改变配置的方法，在一个特定的文档目录中放置一个包含一个或多个指令的文件，以作用于此目录及其所有子目录。</p>
+<p>.htaccess功能：</p>
+<p>文件夹密码保护、用户自定义重定向、自定义404页面、扩展名伪静态化、禁止特定IP地址的用户、只允许特定IP地址的用户、禁止目录列表</p>
+<p><strong>很可以，这么一个强大的功能默认是不开启的</strong></p>
+<p>写一个文件1.txt，内容为</p>
+<pre><code>AddType application/x-httpd-php .jpg</code></pre><p>这个指令代表着.jpg文件会被当做php来解析，重命名这个文件为.htaccess</p>
+<pre><code>ren 1.txt .htaccess</code></pre><p>上传图片马之后再上传.htaccess文件，图片马便会被解析</p>
+<h4 id="5、大小写绕过"><a href="#5、大小写绕过" class="headerlink" title="5、大小写绕过"></a>5、大小写绕过</h4><p>我们可以通过大小写去绕过，web容器除非非常老的版本，不然都不区分大小写</p>
+<p>例：PHp</p>
+<h4 id="6、文件后缀（空）绕过"><a href="#6、文件后缀（空）绕过" class="headerlink" title="6、文件后缀（空）绕过"></a>6、文件后缀（空）绕过</h4><p>在文件名后面留一个空格，然后上传上去后空格会被自动的省略，添加空格是在burp中进行的。</p>
+<h4 id="7、文件后缀（点）绕过"><a href="#7、文件后缀（点）绕过" class="headerlink" title="7、文件后缀（点）绕过"></a>7、文件后缀（点）绕过</h4><p>windows有一个特性，会自动去掉后缀名最后的.</p>
+<h4 id="8、-DATA（Windows文件流绕过）"><a href="#8、-DATA（Windows文件流绕过）" class="headerlink" title="8、::$DATA（Windows文件流绕过）"></a>8、::$DATA（Windows文件流绕过）</h4><p>这里利用了NTFS交换数据流（ADS），ADS是NTFS磁盘格式的一个特性，在NTFS文件系统下，每个文件都可以存在多个数据流。通俗的理解，就是其他文件可以“寄宿”在某个文件身上，而在资源管理器中却只能看到宿主文件，找不到寄宿文件。</p>
+<p>我们肯定不太懂这什么意思，我们现在cmd运行一个</p>
+<pre><code>echo abcd&gt;&gt;a.txt:b.txt</code></pre><p>​    将abcd写入到a.txt:b.txt中，很明显会生成一个a.txt，但是我们打开a.txt却什么都没发现，我们要编辑就要</p>
+<pre><code>notepad a.txt:b.txt</code></pre><p>我们用dir  /R 就可以看到a.txt:b.txt</p>
+<p>我们饶过，就在burp中将文件名改为1.php::$DATA即可</p>
+<h4 id="9、用php-空-绕过"><a href="#9、用php-空-绕过" class="headerlink" title="9、用php.空.绕过"></a>9、用php.空.绕过</h4><p>因为判断代码可能只去掉结尾的点</p>
+<h4 id="10、pphphp绕过"><a href="#10、pphphp绕过" class="headerlink" title="10、pphphp绕过"></a>10、pphphp绕过</h4><p>若遇到黑名单中出现的字符串都会被变成空值，那么就用pphphp绕过，其原理就是缺乏二次校验</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -2037,7 +2092,7 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">10k</span> 字
+                <span class="white-color">11.3k</span> 字
             
 
             
@@ -2253,5 +2308,5 @@ $(function () {
             </script>
         
 
-    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script><script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body>
+    <script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
 </html>
