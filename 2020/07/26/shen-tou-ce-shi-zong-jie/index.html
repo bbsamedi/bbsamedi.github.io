@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        11.1k
+                        12.1k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        41 分
+                        45 分
                     </div>
                     
                 
@@ -1346,6 +1346,34 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 <p>我们饶过，就在burp中将文件名改为1.php::$DATA即可</p>
 <h4 id="9、用php-空-绕过"><a href="#9、用php-空-绕过" class="headerlink" title="9、用php.空.绕过"></a>9、用php.空.绕过</h4><p>因为判断代码可能只去掉结尾的点</p>
 <h4 id="10、pphphp绕过"><a href="#10、pphphp绕过" class="headerlink" title="10、pphphp绕过"></a>10、pphphp绕过</h4><p>若遇到黑名单中出现的字符串都会被变成空值，那么就用pphphp绕过，其原理就是缺乏二次校验</p>
+<h2 id="文件上传漏洞——解析、验证、伪造（二）（白名单）"><a href="#文件上传漏洞——解析、验证、伪造（二）（白名单）" class="headerlink" title="文件上传漏洞——解析、验证、伪造（二）（白名单）"></a>文件上传漏洞——解析、验证、伪造（二）（白名单）</h2><h3 id="00截断和00截断"><a href="#00截断和00截断" class="headerlink" title="%00截断和00截断"></a>%00截断和00截断</h3><p>了解%00实际上我们要先了解0x00，0x00实际上是一个十六进制表示方法，实际上就是表示ascii码值为0，有些函数在处理这些字符的时候会把这个字符当做结束符，他们就读取到这里认为这一段结束了</p>
+<p>这有什么用呢？</p>
+<p>在文件上传时，如果遇到了白名单机制只允许上传jpg后缀的，在没有解析漏洞的情况下我们该怎么办？</p>
+<p>jpg格式并不会被解析，那么我们需要绕过上传过滤。</p>
+<p>假如我们写了1.php%00.jpg传参之后，这些过滤都是直接匹配字符串，他强行匹配到了结尾是.jpg，然后允许上传，但是php的函数去执行的时候他读取到0x00认为结束了，那么这个文件就变成了1.php</p>
+<p>%00实际上和00截断是一模一样的原理，只不过%00是经过URL编码的，%00编码后就是0x00阶段的那个字符</p>
+<h3 id="上传绕过方法：-1"><a href="#上传绕过方法：-1" class="headerlink" title="上传绕过方法："></a>上传绕过方法：</h3><h4 id="1、-00截断绕过"><a href="#1、-00截断绕过" class="headerlink" title="1、%00截断绕过"></a>1、%00截断绕过</h4><p>上传图片马123.jpg，burp抓包，在第一行有save_path=../upload</p>
+<p>在他后面加上/1.php%00，查看我们上传的图片的时候把url栏中的1.php后面的删掉就可以传参或者连菜刀了</p>
+<h4 id="2、00截断绕过"><a href="#2、00截断绕过" class="headerlink" title="2、00截断绕过"></a>2、00截断绕过</h4><p>%00是一个url编码后的结果，其实url编码就是显示16进制，0x代表16进制，%也代表16进制</p>
+<p>burp抓包发现中的../upload，那么在后面加上/1.phpa，然后在hex模式下找到这个a，a的ascii码为61，把他的hex改为00即可</p>
+<h4 id="3、二次渲染绕过"><a href="#3、二次渲染绕过" class="headerlink" title="3、二次渲染绕过"></a>3、二次渲染绕过</h4><p>二次渲染会让你的图片马内的一句话木马变成其他的东西，然后图片马就失效了</p>
+<p>这里通过gif图片绕过，因为二次渲染后的gif图片，文件内容有一部分是不会被改动的</p>
+<p>那么我们就可以在gif图片不变的这部分中写上一句话木马&lt;?php eval($_REQUEST[‘a’])?&gt;</p>
+<p>若木马正常，但还是用不了这个木马，那就要配合其它漏洞，如文件包含解析漏洞</p>
+<h4 id="4、条件竞争"><a href="#4、条件竞争" class="headerlink" title="4、条件竞争"></a>4、条件竞争</h4><p>核心：</p>
+<p>先检测还是先上传 ；</p>
+<p>先上传，再检测，删除；</p>
+<br>
+
+<p>无论是什么电脑服务器，运算肯定要时间，若我们足够快的话，能不能做到，当文件上传还在检测的时候，就访问到木马</p>
+<p>php有函数能写文件，当访问到的时候写文件函数运行了，及时我们上传的图片马被删除了，喜闻见函数也已经写入了一个文件，就可以用这个新的木马文件</p>
+<p>file_put_contents()：把一个字符串写入文件中</p>
+<p>我们可以构造这样一条语句</p>
+<pre><code>&lt;?php file_put_contents('1.php','&lt;?php eval($_REQUEST[1])?&gt;'); ?&gt;</code></pre><p>上传一个图片马，然后打开查看图片的页面，改url栏为</p>
+<pre><code>/upload/1.php?a=&lt;?php file_put_contents('1.php','&lt;?php eval($_REQUEST[1])?&gt;'); ?&gt;</code></pre><p>这个是访问包，同时我们再次上传一个图片马，再上传过程中抓取上传包</p>
+<p>在上传包中，将1.jpg改为1.php，然后随便选一个要跑的地方，payload type改为NUll Payloads，次数为10000次，Options中Number of Threads为15就可以了</p>
+<p>访问包跟上面一样，访问的options为30比较好，访问的比上传快一些，比较容易成功</p>
+<p>然后两遍同时开始跑包，当生成新木马之后就可以访问连接了</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -2092,7 +2120,7 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">11.3k</span> 字
+                <span class="white-color">12.2k</span> 字
             
 
             
