@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        12.1k
+                        12.6k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        45 分
+                        47 分
                     </div>
                     
                 
@@ -1374,7 +1374,32 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 <p>在上传包中，将1.jpg改为1.php，然后随便选一个要跑的地方，payload type改为NUll Payloads，次数为10000次，Options中Number of Threads为15就可以了</p>
 <p>访问包跟上面一样，访问的options为30比较好，访问的比上传快一些，比较容易成功</p>
 <p>然后两遍同时开始跑包，当生成新木马之后就可以访问连接了</p>
-<script>
+<h2 id="文件上传解析漏洞（三）"><a href="#文件上传解析漏洞（三）" class="headerlink" title="文件上传解析漏洞（三）"></a>文件上传解析漏洞（三）</h2><p>如果某站点，你上传了PHP没有用或者无法上传的时候，是不是可以尝试下其他的脚本语言；</p>
+<p>IIS一般来说是默认都支持ASP的；</p>
+<p>对于网站来说，文件是怎么处理的是由后缀决定的；</p>
+<h3 id="IIS6-0畸形解析漏洞一"><a href="#IIS6-0畸形解析漏洞一" class="headerlink" title="IIS6.0畸形解析漏洞一"></a>IIS6.0畸形解析漏洞一</h3><p>asa、cer、cdx都会被当做asp解析【这个是一个默认的设置】</p>
+<p>我们上传asp图片马</p>
+<pre><code>&lt;%eval request("a")%&gt;</code></pre><p>用burp将后缀改为asa，将文件存储地址复制下来然后去访问，可以用?a=a()，看是否报错来判断木马是否有效，当然用菜刀连更直接</p>
+<h3 id="IIS6-0解析漏洞二"><a href="#IIS6-0解析漏洞二" class="headerlink" title="IIS6.0解析漏洞二"></a>IIS6.0解析漏洞二</h3><p>x.asp;.jpg</p>
+<p>IIS会认为这是一个asp文件来解析，分号相当于结束</p>
+<p>IIS5.1和7.5均无此漏洞</p>
+<h3 id="IIS6-0解析漏洞三"><a href="#IIS6-0解析漏洞三" class="headerlink" title="IIS6.0解析漏洞三"></a>IIS6.0解析漏洞三</h3><p>在IIS6.0中，文件夹名若是x.asp，那么这个文件夹下任意文件都会被当做asp来执行</p>
+<p>FCK编辑器或者是后台，有很多功能-&gt;可移动文件，可创建目录</p>
+<p>IIS7.5及以上的，若没有关闭报错的话，会爆出他的绝对路径</p>
+<h3 id="CGI解析漏洞"><a href="#CGI解析漏洞" class="headerlink" title="CGI解析漏洞"></a>CGI解析漏洞</h3><p>上传php图片马之后，查看图片，url后加上/.php图片就会被解析进而可以传参</p>
+<p>这就是CGI解析漏洞</p>
+<p>适用范围：PHP（只有PHP能用）</p>
+<p>中间件任意：IIS7.5  Nginx这些</p>
+<h4 id="如何判断此漏洞是否存在？"><a href="#如何判断此漏洞是否存在？" class="headerlink" title="如何判断此漏洞是否存在？"></a>如何判断此漏洞是否存在？</h4><p>打开这个网站中的某张图片，然后/.php，如果乱码了，则存在CGI解析漏洞，找到上传点就可以撸掉</p>
+<br>
+
+<h3 id="文件上传的目的是为了什么？"><a href="#文件上传的目的是为了什么？" class="headerlink" title="文件上传的目的是为了什么？"></a>文件上传的目的是为了什么？</h3><p>就是为了上传的文件可以任意代码执行，达到对目标的控制，也就是getshell</p>
+<p>getshell的方法有很多，不止有上传文件</p>
+<p>例：</p>
+<p>1、备份数据库，修改数据库名，在老CMS里，备份文件的名字可以自定义，数据库里写一个小马的数据，然后备份文件名改为xxx.asp就可以解析</p>
+<p>2、后台功能强大，可以新建文件；</p>
+<p>有些编辑器，他们可以改变上传文件类型的配置，若拥有执行SQL语句的能力，可以用</p>
+<pre><code>select 1 into dump file 'C:/1.txt'</code></pre><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -2120,7 +2145,7 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">12.2k</span> 字
+                <span class="white-color">12.8k</span> 字
             
 
             
@@ -2336,5 +2361,5 @@ $(function () {
             </script>
         
 
-    <script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
+    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script><script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body>
 </html>
