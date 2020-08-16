@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        13.7k
+                        14.3k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        51 分
+                        53 分
                     </div>
                     
                 
@@ -1435,7 +1435,20 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 
 <p>在注册之前，通过预先设定一个密保问题，忘记密码时，通过此密保进行认证，认证成功进入密码修改页面。</p>
 <p>密保问题可能容易直接被猜解（比如很多学校的知道学号和身份证号码就可以重置校园通的密码）</p>
-<p>密保问题答案页面中显示（数据包里面可能自带了密保答案，可能在JS里面）</p>
+<p>密保问题答案页面中显示（数据包里面可能自带了密保答案，可能在JS里面</p>
+<h2 id="越权——通过修改参数获取管理员权限"><a href="#越权——通过修改参数获取管理员权限" class="headerlink" title="越权——通过修改参数获取管理员权限"></a>越权——通过修改参数获取管理员权限</h2><p>越权访问：这类漏洞是指应用在检查授权时存在纰漏，使得攻击者在获得低权限用户账号后，可以利用一些方法绕故宫权限检测，访问或者操作原本无权访问的高权限功能。在实际的代码安全审查中，这类漏洞往往很难通过工具进行自动化检测，因此在实际应用中危害很大。其与未授权访问有一定差别。目前存在这两种操作类型：水平越权和垂直越权操作。</p>
+<p>水平越权：是指相同权限下不同的用户可以互相访问；</p>
+<p>垂直越权：是指使用权限低的用户可以访问到权限较高的用户水平越权测试方法主要就是看看能够通过A用户操作影响到B用户；</p>
+<p>垂直越权的测试四楼就是低权限用户使用高权限用户的功能，比如普通用户可使用管理员功能。</p>
+<p>还有一种交叉越权：A用户既能修改掉B用户的密码，也能修改掉管理员的密码</p>
+<h4 id="越权测试过程"><a href="#越权测试过程" class="headerlink" title="越权测试过程"></a>越权测试过程</h4><p>越权测试</p>
+<p>登录A用户时，正常更改或者是查看A用户信息，然后抓取数据包，将传参ID修改为其他用户，如果成功查看或者修改了同权限其他用户的信息就属于水平越权测试。（如果可以影响到高权限用户就是垂直越权）</p>
+<p>传参ID参数需要自己检测（常见：uid= id= user=等）通常使用burp进行爆破传参（传承可能在GET、POST、COOKIE）</p>
+<p>常见平行越权（不需要输入原密码的修改密码，抓包该用户名或者用户id修改他人密码；修改资料的时候修改用户id；查看订单的时候，遍历订单id等）</p>
+<br>
+
+<p>还有一种叫做未授权访问，严格意义上而言这个不属于越权漏洞，但是在日常测试中常常会遇到（只要输入正确的网址就可以直接访问，例如：/admin默认是登录，登录后跳转到了user.php，然后你直接访问user.php，发现你直接有后台权限）</p>
+<p>可以通过目录爆破来得到页面地址</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -2182,7 +2195,7 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">13.8k</span> 字
+                <span class="white-color">14.4k</span> 字
             
 
             
@@ -2398,5 +2411,5 @@ $(function () {
             </script>
         
 
-    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script><script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body>
+    <script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
 </html>
