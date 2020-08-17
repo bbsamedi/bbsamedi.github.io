@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        14.3k
+                        15.1k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        53 分
+                        55 分
                     </div>
                     
                 
@@ -1441,7 +1441,7 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 <p>垂直越权：是指使用权限低的用户可以访问到权限较高的用户水平越权测试方法主要就是看看能够通过A用户操作影响到B用户；</p>
 <p>垂直越权的测试四楼就是低权限用户使用高权限用户的功能，比如普通用户可使用管理员功能。</p>
 <p>还有一种交叉越权：A用户既能修改掉B用户的密码，也能修改掉管理员的密码</p>
-<h4 id="越权测试过程"><a href="#越权测试过程" class="headerlink" title="越权测试过程"></a>越权测试过程</h4><p>越权测试</p>
+<h3 id="越权测试过程"><a href="#越权测试过程" class="headerlink" title="越权测试过程"></a>越权测试过程</h3><p>越权测试</p>
 <p>登录A用户时，正常更改或者是查看A用户信息，然后抓取数据包，将传参ID修改为其他用户，如果成功查看或者修改了同权限其他用户的信息就属于水平越权测试。（如果可以影响到高权限用户就是垂直越权）</p>
 <p>传参ID参数需要自己检测（常见：uid= id= user=等）通常使用burp进行爆破传参（传承可能在GET、POST、COOKIE）</p>
 <p>常见平行越权（不需要输入原密码的修改密码，抓包该用户名或者用户id修改他人密码；修改资料的时候修改用户id；查看订单的时候，遍历订单id等）</p>
@@ -1449,6 +1449,38 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 
 <p>还有一种叫做未授权访问，严格意义上而言这个不属于越权漏洞，但是在日常测试中常常会遇到（只要输入正确的网址就可以直接访问，例如：/admin默认是登录，登录后跳转到了user.php，然后你直接访问user.php，发现你直接有后台权限）</p>
 <p>可以通过目录爆破来得到页面地址</p>
+<h2 id="SSRF——服务器端请求伪造"><a href="#SSRF——服务器端请求伪造" class="headerlink" title="SSRF——服务器端请求伪造"></a>SSRF——服务器端请求伪造</h2><p>SSRF就是你可以控制目标站点去访问其他网站</p>
+<p>有一种经典的环境就是在线翻译，那么翻译是怎么翻译的呢？</p>
+<p>①、获取你访问的页面，然后翻译；</p>
+<p>②、翻译网站的服务器去访问页面，然后翻译给你。</p>
+<p>访问ip.cn查看自己的公网IP，对照翻译网站访问的ip.cn查看的ip，如果不一样则为②，但是这样的网站不一定存在SSRF</p>
+<h3 id="SSRF划分界限："><a href="#SSRF划分界限：" class="headerlink" title="SSRF划分界限："></a>SSRF划分界限：</h3><p>第一种说法：</p>
+<p>​    只要能发起网络请求就是存在漏洞，因为有风险。例：假如我们找有道翻译，然后攻击政府网站，那有道就成了我们的跳板；</p>
+<p>第二种说法：</p>
+<p>​    只有访问到内网和本机才算存在SSRF，因为第一种说法是不可避免的</p>
+<p>为什么访问到本机和内网才有严重危害呢？正是因为外紧内松的原因；</p>
+<p>本机比内网更加脆弱，本机就是自己的电脑，自己访问自救属于很正常的操作</p>
+<h3 id="SSRF能做什么？"><a href="#SSRF能做什么？" class="headerlink" title="SSRF能做什么？"></a>SSRF能做什么？</h3><p>扫描内部网络；</p>
+<p>向内部任意主机的任意端口发送精心构造的包；</p>
+<p>DOS（请求大文件，始终保持连接keep-Aline Always）；</p>
+<p>暴力穷举（users/dirs/Files）。</p>
+<p>很多站点和防护软件，对127.0.0.1的本地访问并不会拦截，当你有网站管理员权限的时候，某些站点的自带防护也不会拦截</p>
+<p><strong>信息安全的本质——信任问题</strong></p>
+<p>第一种危害：我们可以通过过http访问到一些未开发完的网站</p>
+<p>第二种危害：SSRF不只有支持HTTP协议，通过file协议可以获取到php的源码，能够读取是很有用的，去读一些配置文件很有可能得到数据库的账号密码，不只有file协议，还有很多其他的协议也支持；dict协议（字典协议）：查询开放的端口</p>
+<h3 id="怎么寻找SSRF"><a href="#怎么寻找SSRF" class="headerlink" title="怎么寻找SSRF"></a>怎么寻找SSRF</h3><p>1、看功能（出现外部访问，如：翻译）</p>
+<p>2、看传参，如果该说传参中存在有后缀的东西，例：?url=<a href="http://127.0.0.1/1.php?urs=2.php" target="_blank" rel="noopener">http://127.0.0.1/1.php?urs=2.php</a></p>
+<p>有传参可能有：</p>
+<p>①、读取文件显示给你；</p>
+<p>②、包含文件（文件包含）；</p>
+<p>③、下载文件</p>
+<p>或者传参中有协议名，如：http://</p>
+<h3 id="防护SSRF"><a href="#防护SSRF" class="headerlink" title="防护SSRF"></a>防护SSRF</h3><p>例：通过正则匹配，不允许你穿内网地址；127.0.0.1=&gt;拦截访问</p>
+<p>怎么绕过正则？</p>
+<p>1、域名肯定是要解析成IP，我们自己申请一个域名，把地址指向127.0.0.1，dnslog.cn这个平台的域名可以解决这个问题，它上面的域名都是访问到本机的</p>
+<p>子域名有一种情况叫做泛解析：当这个域名没有特殊规定的时候，自动解析到某个ip</p>
+<p>2、通过@</p>
+<p>例：?url=<a href="http://http://baidu.com@127.0.0.1/1.php，当被检测不能用http://127.0.0.1时就用@，baidu.com" target="_blank" rel="noopener">http://http://baidu.com@127.0.0.1/1.php，当被检测不能用http://127.0.0.1时就用@，baidu.com</a> 相当于一个名字</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -2195,7 +2227,7 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">14.4k</span> 字
+                <span class="white-color">15.2k</span> 字
             
 
             
@@ -2411,5 +2443,5 @@ $(function () {
             </script>
         
 
-    <script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
+    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script><script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body>
 </html>
