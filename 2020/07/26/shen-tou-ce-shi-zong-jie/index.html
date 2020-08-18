@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        15.1k
+                        15.6k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        55 分
+                        57 分
                     </div>
                     
                 
@@ -1481,6 +1481,39 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 <p>子域名有一种情况叫做泛解析：当这个域名没有特殊规定的时候，自动解析到某个ip</p>
 <p>2、通过@</p>
 <p>例：?url=<a href="http://http://baidu.com@127.0.0.1/1.php，当被检测不能用http://127.0.0.1时就用@，baidu.com" target="_blank" rel="noopener">http://http://baidu.com@127.0.0.1/1.php，当被检测不能用http://127.0.0.1时就用@，baidu.com</a> 相当于一个名字</p>
+<h2 id="支付漏洞"><a href="#支付漏洞" class="headerlink" title="支付漏洞"></a>支付漏洞</h2><h3 id="1、快捷支付原理"><a href="#1、快捷支付原理" class="headerlink" title="1、快捷支付原理"></a>1、快捷支付原理</h3><p>我们在网购平台买东西，花了钱，平台肯定要知道你付了钱，双湖网站接入支付结果有两种方法</p>
+<p>​    ①、浏览器跳转（基本遇不到）</p>
+<p>​                基于用户访问的浏览器，如果用户在银行页面支付成功后，直接关闭了页面，并未等待银行跳转到支付结果页面，那么商户网站就收不到支付结果的通知，导致支付结果难以处理。而且浏览器端数据很容易被篡改而降低安全度。</p>
+<p>​    ②、服务器端异步通知</p>
+<p>​                该方式是支付公司服务器后台直接向用户指定的异步通知URL发送参数，采用POST或GET的方式。商户网站接受异步参数的URL对应的程序中，要对支付公司返回的支付结果进行签名验证，成功后进行支付逻辑处理，如验证金额、订单信息是否与发起支付时一致，验证正常则对订单进行状态处理或者为用户进行网站内入账等。</p>
+<p>支付漏洞属于逻辑漏洞，不需要代码审计</p>
+<h3 id="常见支付漏洞"><a href="#常见支付漏洞" class="headerlink" title="常见支付漏洞"></a>常见支付漏洞</h3><ul>
+<li>修改支付的价格；</li>
+<li>修改支付的状态；</li>
+<li>修改订单数量；</li>
+<li>修改附加值；</li>
+<li>越权支付；</li>
+<li>无限制试用。</li>
+</ul>
+<h3 id="2、如何挖掘支付漏洞"><a href="#2、如何挖掘支付漏洞" class="headerlink" title="2、如何挖掘支付漏洞"></a>2、如何挖掘支付漏洞</h3><ul>
+<li><p>找到关键的数据包</p>
+<p>可能一个支付操作有三四个数据包，我们要对数据包进行挑选。</p>
+</li>
+<li><p>分析数据包</p>
+<p>支付数据包中会包含很多的敏感信息（账号，金额，余额，优惠），要尝试对数据包中的各个参数进行分析。</p>
+</li>
+<li><p>不按套路出牌<br>多去想想开发者没有想到的地方</p>
+</li>
+<li><p>pc端尝试过，wap端也看看，app也试试</p>
+</li>
+</ul>
+<h3 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h3><ul>
+<li>后端检测每一项值，包括支付状态；</li>
+<li>效验价格、数量参数，比如产品数量只能为正整数，并限制购买数量；</li>
+<li>与第三方支付平台检查，实际支付的金额是否与订单金额一致；</li>
+<li>支付参数进行MD5加密、解密、数字签名及验证，这个可以有效的避免数据修改，重放攻击中的各种问题；</li>
+<li>金额查过阈值，进行人工审核。</li>
+</ul>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -2227,7 +2260,7 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">15.2k</span> 字
+                <span class="white-color">15.8k</span> 字
             
 
             
