@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        16.6k
+                        17k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        61 分
+                        63 分
                     </div>
                     
                 
@@ -1634,6 +1634,29 @@ print_r($obj);
 %all;</code></pre><p>这个1.xml会被加载到原本的Xml，然后我们最后来调用，然后你读取出来的文件会用get传承那的方式传参给2.php然后2.php记录下来存储到3.txt中</p>
 <pre><code>&lt;?php fiel_put_contents("3.txt",$_GET["id"],FILE_APPEND;?&gt;</code></pre><p>我们可以通过获取别人访问我这个文件传的参数，然后将这个参数存储下来，来做到获取别人数据的方法，</p>
 <p>所以我们需要一个炮台（公网ip）</p>
+<h2 id="变量覆盖漏洞"><a href="#变量覆盖漏洞" class="headerlink" title="变量覆盖漏洞"></a>变量覆盖漏洞</h2><p>$a=1;$a=2;</p>
+<p>echo $a;=&gt;2</p>
+<p>引发变量覆盖漏洞的函数有：</p>
+<p><strong>extract()：将数组中将变量导入到当前的符号表；</strong></p>
+<p><strong>parse_str()：将查询字符串解析到变量中；</strong></p>
+<p>import_request_variables()</p>
+<p>PHP中一个等号是赋值；两个等号是比较（值）；三个等号是即比较值又比较类型</p>
+<p><strong>trim()：去掉变量头部和尾部的空格；</strong></p>
+<p><strong>isset()：检查变量是否存在。</strong></p>
+<p>变量覆盖漏洞是特属于白盒代码审计的。</p>
+<h3 id="函数解析"><a href="#函数解析" class="headerlink" title="函数解析"></a>函数解析</h3><p>不仅仅是函数会导致变量覆盖，有些特殊符号的特殊搭配也会引起变量覆盖漏洞，比如$$</p>
+<p>$$导致的变量覆盖问题在CTF代码审计题目中经常在foreach中出现，如以下的示例代码，使用foreach来遍历数组中的值，然后再将获取到的数组键名作为变量，数组中的值作为变量的值。因此就产生了变量覆盖漏洞。请求?name=test会将$name的值覆盖，变为test</p>
+<p>例题：</p>
+<pre><code>&lt;?php
+$a=1;
+foreach(array('_COOKIE','_POST','_GET')as $_request){
+foreach($$_request as $_key=&gt;$_value)
+{$$_key=addslashes($_value);}}
+echo $a;
+?&gt;</code></pre><p>这个代码会接受我们的GET提交、POST提交、COOKIE参数，将这个接受来的参数依次放入$_request</p>
+<p>$_key=&gt;$_value是固定搭配，键值分离；$_key为数组里的键；$_value为数组里的值</p>
+<p>正常而言$a=1是一个定值，但是因为$$_key的缘故，当我传参a=2；那么$$_key=addslashes($_value);就变为了$a=2.</p>
+<p><strong>addslashes()：在每个引号前加一个反斜杠0</strong></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -2360,7 +2383,7 @@ address 192.168.0.
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">20.4k</span> 字
+                <span class="white-color">20.8k</span> 字
             
 
             
