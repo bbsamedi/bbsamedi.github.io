@@ -1193,9 +1193,9 @@ if (windowWidth &gt; 768) {
 }
 &lt;/script&gt;
 </code></pre><h3 id="删除评论"><a href="#删除评论" class="headerlink" title="删除评论"></a>删除评论</h3><p>删除评论需要打开leancloud，里面有专门管理comment的界面</p>
-<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/08/21/blog/C:%5CUsers%5Csamedi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200723150241881.png" alt="image-20200723150241881"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/08/21/blog/1.png" alt=""></p>
 <h3 id="设置文章背景图"><a href="#设置文章背景图" class="headerlink" title="设置文章背景图"></a>设置文章背景图</h3><p>在img标签中加入图片链接<br>外链图片：<code>img:link</code> （使用外部链接访问博客时会快一点）<br>本地图片：<code>img: /source/images/xxx.jpg</code></p>
-<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/08/21/blog/C:%5CUsers%5Csamedi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200723150512918.png" alt="image-20200723150512918"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/08/21/blog/2.png" alt=""></p>
 <h3 id="自定义内置标签"><a href="#自定义内置标签" class="headerlink" title="自定义内置标签"></a>自定义内置标签</h3><p>在themes/主题 下新建scripts文件夹，hexo会自动执行此文件夹的内容。<br>在scripts文件夾下新建block.js</p>
 <pre><code>hexo.extend.tag.register('r', function(args, content){
   var className =  args.join(' ');
@@ -2342,7 +2342,7 @@ subtitle:
       &lt;% } %&gt;
 &lt;/div&gt;
 </code></pre><h4 id="动态标题"><a href="#动态标题" class="headerlink" title="动态标题"></a>动态标题</h4><p>先放上效果图再说：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/08/21/blog/C:%5CUsers%5Csamedi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200724160440994.png" alt="image-20200724160440994"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/08/21/blog/3.png" alt=""></p>
 <p>实现方法，引入js文件，在主题文件下的<code>/source/js/</code>下新建<code>FunnyTitle.js</code>，然后在添加到<code>themes/matery/layout/layout.ejs</code>或者添加到<code>themes/matery/layout/_partial/head.ejs</code>，其代码如下：</p>
 <pre><code>&lt;!--浏览器搞笑标题--&gt;
  var OriginTitle = document.title;
