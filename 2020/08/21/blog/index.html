@@ -1,0 +1,3416 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    <!-- shw2018 洪卫  modify 2019.08.15-->
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="blog博客搭建, 渗透测试,C,SQL注入,XSS注入,文件上传漏洞等">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="搭建一个属于自己的博客1.安装Node.js
+2.查看node.js的版本
+node -v
+3.查看npm的版本
+npm -v4.切换成国内的打包工具（使用淘宝的）
+npm install -g cnpm --registry=https:">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>blog博客搭建 | Dusk</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/aos/3.0.0-beta.6/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/lightgallery/1.6.12/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <style type="text/css">
+        
+            
+            code[class*="language-"],
+            pre[class*="language-"] {
+                white-space: pre !important;
+            }
+
+        
+    </style>
+
+    <script src="https://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/favicon.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Dusk</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fas fa-sitemap"></i>
+            
+            <span>统计</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fas fa-address-card"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/contact" class="waves-effect waves-light">
+            
+            <i class="fa fas fa-comments"></i>
+            
+            <span>留言板</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fas fa-share-alt"></i>
+            
+            <span>友链</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/navigate" class="waves-effect waves-light">
+            
+            <i class="fa fas fa-location-arrow"></i>
+            
+            <span>导航</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+              <a href="/" class="waves-effect waves-light">
+                
+                  <i class="fa fas fa-sitemap"></i>
+                
+                <span>统计</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+              </a>
+
+            <ul class="sub-nav menus_item_child ">
+              
+                <li> 
+                  <a href="/categories" >
+                    
+                      <i class="fa fas fa-bookmark" style="margin-top: -20px;"></i>
+                    
+                    <span>分类</span>
+                  </a>
+                </li>
+              
+                <li> 
+                  <a href="/tags" >
+                    
+                      <i class="fa fas fa-tags" style="margin-top: -20px;"></i>
+                    
+                    <span>标签</span>
+                  </a>
+                </li>
+              
+                <li> 
+                  <a href="/archives" >
+                    
+                      <i class="fa fas fa-archive" style="margin-top: -20px;"></i>
+                    
+                    <span>归档</span>
+                  </a>
+                </li>
+               
+            </ul>
+          
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/about" class="waves-effect waves-light">
+              
+                <i class="fa fas fa-address-card"></i>
+              
+              <span>关于</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/contact" class="waves-effect waves-light">
+              
+                <i class="fa fas fa-comments"></i>
+              
+              <span>留言板</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/friends" class="waves-effect waves-light">
+              
+                <i class="fa fas fa-share-alt"></i>
+              
+              <span>友链</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/navigate" class="waves-effect waves-light">
+              
+                <i class="fa fas fa-location-arrow"></i>
+              
+              <span>导航</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/favicon.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Dusk</div>
+        <div class="logo-desc">
+            
+            武昌理工学院 | 计算机网络技术 | web安全工程师
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fas fa-sitemap"></i>
+                
+                统计
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fas fa-address-card"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/contact" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fas fa-comments"></i>
+                
+                留言板
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fas fa-share-alt"></i>
+                
+                友链
+            </a>
+        </li>
+        
+        <li>
+            <a href="/navigate" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fas fa-location-arrow"></i>
+                
+                导航
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="javascript:;">
+                            
+                            <i class="fa fa-fw fas fa-sitemap"></i>
+                            
+                            统计
+                            <span class="m-icon"><i class="fa fa-chevron-right"></i></span>
+                    </a>
+                <ul>
+                  
+                    <li> 
+                      <a href="/categories" >
+                           
+                            <i class="fa fas fa-bookmark" style="left: 18px; position: absolute;"></i>
+                       
+                       <span>分类</span>
+                      </a>
+                    </li>
+                  
+                    <li> 
+                      <a href="/tags" >
+                           
+                            <i class="fa fas fa-tags" style="left: 18px; position: absolute;"></i>
+                       
+                       <span>标签</span>
+                      </a>
+                    </li>
+                  
+                    <li> 
+                      <a href="/archives" >
+                           
+                            <i class="fa fas fa-archive" style="left: 18px; position: absolute;"></i>
+                       
+                       <span>归档</span>
+                      </a>
+                    </li>
+                   
+                </ul>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/about" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fas fa-address-card"></i>
+                        
+                        关于
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/contact" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fas fa-comments"></i>
+                        
+                        留言板
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/friends" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fas fa-share-alt"></i>
+                        
+                        友链
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/navigate" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fas fa-location-arrow"></i>
+                        
+                        导航
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        blog博客搭建
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- shw2018 洪卫  modify 2019.08.15-->
+<!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/blog/" target="_blank">
+                                <span class="chip bg-color">blog</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/blog/" class="post-category" target="_blank">
+                                blog
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-08-21
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        Dusk
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        12.9k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        69 分
+                    </div>
+                    
+                
+                
+                
+                        <span id="busuanzi_container_site_pv" style='display:none'></span>
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv" ></span>
+    
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="搭建一个属于自己的博客"><a href="#搭建一个属于自己的博客" class="headerlink" title="搭建一个属于自己的博客"></a>搭建一个属于自己的博客</h3><p>1.安装Node.js</p>
+<p>2.查看node.js的版本</p>
+<pre class="line-numbers language-shell"><code class="language-shell">node -v<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>3.查看npm的版本</p>
+<pre><code>npm -v</code></pre><p>4.切换成国内的打包工具（使用淘宝的）</p>
+<pre><code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code></pre><p>5.查看cnpm的版本</p>
+<pre><code>cnpm -v</code></pre><p>6.安装博客的框架（hexo）</p>
+<pre><code>cnpm install -g hexo-cli</code></pre><p>7.查看hexo的版本</p>
+<pre><code>hexo -v</code></pre><p>8.安装git</p>
+<p>9.创建一个本地目录（最好不要放在C盘）</p>
+<pre><code>E:/blog</code></pre><p>10.初始化hexo</p>
+<pre><code>hexo init</code></pre><p>会下载hexo框架</p>
+<p>11.启动hexo服务</p>
+<pre><code>hexo s
+</code></pre><p>s代表server</p>
+<p>然后浏览器访问localhost:4000就可以访问到了</p>
+<p>12.创建博客</p>
+<pre><code>hexo n "我的第一个博客"
+</code></pre><p>就会在blog</p>
+<p>13.创建git仓库</p>
+<pre><code>https://gitee.com/samedi/TestBlog.git
+</code></pre><p>14.安装git的部署工具</p>
+<pre><code>cnpm install --save hexo-deployer-git
+</code></pre><ol start="15">
+<li>修改blog根目录下的_config.yml文件</li>
+</ol>
+<pre><code>deploy:
+    type: 'git'
+    repo: https://gitee.com/samedi/TestBlog.git
+    branch: master
+</code></pre><p>16.报错的话</p>
+<pre><code>再次安装git的部署工具
+或者运行
+git config --global user.name "bbsamedi"
+git config --global user.email "1584518096@qq.com"
+</code></pre><p>17.发布项目到码云</p>
+<pre><code>hexo d
+</code></pre><p>18.使用Gitee Pages服务发布项目成一个网站</p>
+<p>19.添加样式</p>
+<p>修改blog根目录下的_config.yml</p>
+<pre><code>url: http://samedi.gitee.io
+root: /testblog/
+peimalink: :year/:month/:day/:title/
+</code></pre><p>20.修改hexo的主题</p>
+<p>先下载yilia-plus</p>
+<pre><code>cd ./themes/
+git clone https://github.com/JoeyBling/hexo-theme-yilia-plus.git
+mv hexo-theme-yilia-plus yilia-plus
+</code></pre><p>21.显示侧边栏</p>
+<pre><code>cnpm i hexo-generator-json-content --save
+</code></pre><ul>
+<li><p>在根目录_config.yml里添加配置：</p>
+</li>
+<li><pre><code>jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: false
+    tags: true
+</code></pre></li>
+</ul>
+<p>首先新建页面，执行下面的命令</p>
+<p>hexo new page navigate</p>
+<p>修改 navigate 目录下的 index.md 的格式</p>
+<hr>
+<p>title: 导航<br>date: 2020-05-09 11:19:14<br>type: “navigate”</p>
+<p>layout: “navigate”</p>
+<p>在主题配置文件中添加导航</p>
+<pre><code># main menu navigation url and icon
+# 配置菜单导航的名称、路径和图标icon.
+menu:
+  Index:
+    url: /
+    icon: fas fa-home
+  统计:
+    url: /
+    icon: fas fa-sitemap
+    children:
+      - name: 分类
+        url: /categories
+        icon: fas fa-bookmark 
+      - name: 标签
+        url: /tags
+        icon: fas fa-tags     
+      - name: 归档
+        url: /archives
+        icon: fas fa-archive
+  About:
+    url: /about
+    icon: fas fa-address-card
+  Contact:
+    url: /contact
+    icon: fas fa-comments
+  友人帐:
+    url: /friends
+    icon: fas fa-share-alt
+  赞助墙:
+    url: /sponsor
+    icon: fa fa-credit-card
+  导航:
+    url: /navigate
+    icon: fas fa-location-arrow
+</code></pre><p>在 matery/layout 下新建 navigate.ejs</p>
+<pre><code>&lt;div class="navi-height bg-cover pd-header "&gt;
+    &lt;div class=" link-box container"&gt;
+        &lt;!-- 搜索框 --&gt;
+        &lt;div class="baidu baidu-2 large-screen"&gt;
+            &lt;form name="f" action="https://www.baidu.com/" target="_blank"&gt;
+                &lt;div id="Select-2"&gt;
+                    &lt;div class="Select-box-2" id="baidu"&gt;
+                        &lt;ul style="height: 46px;"&gt;
+                            &lt;li class="this_s"&gt;百 · 度&lt;/li&gt;
+                            &lt;li class="bing_s"&gt;必 · 应&lt;/li&gt;
+                            &lt;li class="google_s"&gt;谷 · 歌&lt;/li&gt;
+                            &lt;li class="baidu_s"&gt;百 · 度&lt;/li&gt;
+                        &lt;/ul&gt;
+                    &lt;/div&gt; &lt;input name="wd" id="kw-2" maxlength="100" autocomplete="off" type="text"&gt;
+                &lt;/div&gt;
+                &lt;div class="qingkong" id="qingkong" title="清 · 空" style="display: none;"&gt;x&lt;/div&gt; &lt;input value="搜 · 索"
+                    id="su-2" type="submit"&gt;
+                &lt;ul class="keylist"&gt;&lt;/ul&gt;
+            &lt;/form&gt;
+        &lt;/div&gt; &lt;!-- 链接 --&gt;
+        &lt;div class="row tags-posts "&gt;
+            &lt;div class="col s12 m6 l4 friend-div" data-aos="zoom-in-up"&gt;
+                &lt;div class="card"&gt;
+                    &lt;div class="jj-list-tit"&gt;娱乐 · 影视&lt;/div&gt;
+                    &lt;ul class="jj-list-con"&gt;
+                        &lt;li&gt;&lt;a href="https://www.jd.com/" class="link-3" target="_blank"&gt;京东&lt;/a&gt;
+                        &lt;li&gt;&lt;a href="https://www.taobao.com/" class="link-3" target="_blank"&gt;淘宝&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.tmall.com/" class="link-3" target="_blank"&gt;天猫&lt;/a&gt;&lt;/li&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://v.qq.com/" class="link-3" target="_blank"&gt;腾讯视频&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="http://www.iqiyi.com/" class="link-3" target="_blank"&gt;爱奇艺&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.bilibili.com/" class="link-3" target="_blank"&gt;哔哩哔哩&lt;/a&gt; &lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://music.163.com/" class="link-3" target="_blank"&gt;网易云音乐&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://y.qq.com/" class="link-3" target="_blank"&gt;QQ音乐&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="http://www.kugou.com/" class="link-3" target="_blank"&gt;酷狗音乐&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="col s12 m6 l4 friend-div" data-aos="zoom-in-up"&gt;
+                &lt;div class="card"&gt;
+                    &lt;div class="jj-list-tit"&gt;社区 · Code&lt;/div&gt;
+                    &lt;ul class="jj-list-con"&gt;
+                        &lt;li&gt;&lt;a href="https://www.mobaijun.com/contact/" class="link-3" target="_blank"&gt;留言&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://github.com/" class="link-3" target="_blank"&gt;GitHub&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://coding.net/" class="link-3" target="_blank"&gt;Coding&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://juejin.im/" class="link-3" target="_blank"&gt;掘金&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://gitee.com/" class="link-3" target="_blank"&gt;码云&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.csdn.net/" class="link-3" target="_blank"&gt;CSDN&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.jianshu.com/" class="link-3" target="_blank"&gt;简书&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://segmentfault.com/" class="link-3" target="_blank"&gt;思否&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://cloud.tencent.com/developer/" class="link-3" target="_blank"&gt;云+社区&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="col s12 m6 l4 friend-div" data-aos="zoom-in-up"&gt;
+                &lt;div class="card"&gt;
+                    &lt;div class="jj-list-tit"&gt;实用 · 工具&lt;/div&gt;
+                    &lt;ul class="jj-list-con"&gt;
+                        &lt;li&gt;&lt;a href="https://mdnice.com/" class="link-3" target="_blank"&gt;Nice编辑器&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://translate.google.cn/" class="link-3" target="_blank"&gt;谷歌翻译&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.uupoop.com/" class="link-3" target="_blank"&gt;在线PS&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.processon.com/" class="link-3" target="_blank"&gt;思维导图&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://wallhaven.cc/" class="link-3" target="_blank"&gt;超清壁纸&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://cli.im/" class="link-3" target="_blank"&gt;二维码&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="http://www.yinfans.me/" class="link-3" target="_blank"&gt;音范思&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.52pojie.cn/" class="link-3" target="_blank"&gt;吾爱破解&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://my.openwrite.cn/" class="link-3" target="_blank"&gt;OW分发&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="col s12 m6 l4 friend-div" data-aos="zoom-in-up"&gt;
+                &lt;div class="card"&gt;
+                    &lt;div class="jj-list-tit"&gt;编程 · 学习&lt;/div&gt;
+                    &lt;ul class="jj-list-con"&gt;
+                        &lt;li&gt;&lt;a href="https://www.oschina.net/" class="link-3" target="_blank"&gt;开源中国&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://htmldog.com/" class="link-3" target="_blank"&gt;HTML狗&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.icourse163.org/" class="link-3" target="_blank"&gt;中国大学慕课&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.imooc.com/" class="link-3" target="_blank"&gt;慕课网&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="http://www.wxapp-union.com/" class="link-3" target="_blank"&gt;小程序&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.runoob.com/" class="link-3" target="_blank"&gt;菜鸟教程&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://blog.51cto.com/" class="link-3" target="_blank"&gt;51CTO&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.shiyanlou.com/library/" class="link-3" target="_blank"&gt;实验楼&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://spring.io/" class="link-3" target="_blank"&gt;Spring&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="col s12 m6 l4 friend-div" data-aos="zoom-in-up"&gt;
+                &lt;div class="card"&gt;
+                    &lt;div class="jj-list-tit"&gt;资讯 · 趋势&lt;/div&gt;
+                    &lt;ul class="jj-list-con"&gt;
+                        &lt;li&gt;&lt;a href="https://www.huxiu.com/" class="link-3" target="_blank"&gt;虎嗅&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://insights.stackoverflow.com/" class="link-3" target="_blank"&gt;技术调查&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="http://www.asciiworld.com/" class="link-3" target="_blank"&gt;摸鱼&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://sspai.com/" class="link-3" target="_blank"&gt;少数派&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://zh.wikihow.com/" class="link-3" target="_blank"&gt;WikeHom&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.awesomes.cn/rank?sort=hot" class="link-3" target="_blank"&gt;前端趋势&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://github-trending.com/" class="link-3" target="_blank"&gt;GitHub趋势&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.tiobe.com/" class="link-3" target="_blank"&gt;编程趋势&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://trends.google.com/" class="link-3" target="_blank"&gt;Google趋势&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="col s12 m6 l4 friend-div" data-aos="zoom-in-up"&gt;
+                &lt;div class="card"&gt;
+                    &lt;div class="jj-list-tit"&gt;搜索 · 其他&lt;/div&gt;
+                    &lt;ul class="jj-list-con"&gt;
+                        &lt;li&gt;&lt;a href="https://ac.scmor.com/" class="link-3" target="_blank"&gt;谷歌镜像&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="http://www.pansoso.com/" class="link-3" target="_blank"&gt;网盘搜索&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="http://tool.mkblog.cn/music/" class="link-3" target="_blank"&gt;音乐搜索&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.dytt8.net/" class="link-3" target="_blank"&gt;电影天堂&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://carbon.now.sh/" class="link-3" target="_blank"&gt;代码图片&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.zhipin.com/" class="link-3" target="_blank"&gt;Boos&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://fontawesome.com/" class="link-3" target="_blank"&gt;图标库&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.qvdv.com/tools/qvdv-guid.html" class="link-3" target="_blank"&gt;在线工具&lt;/a&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;&lt;a href="http://zhongguose.com/" class="link-3" target="_blank"&gt;中国色&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;script&gt; /*选择搜索引擎*/ $('.Select-box ul').hover(function () { $(this).css('height', 'auto') }, function () { $(this).css('height', '40px') }); $('.Select-box-2 ul').hover(function () { $(this).css('height', 'auto') }, function () { $(this).css('height', '46px') }); $('.Select-box li').click(function () { var _tihs = $(this).attr('class'); var _html = $(this).html(); if (_tihs == 'baidu_s') { _tihs = 'https://www.baidu.com/s'; _name = 'wd'; } if (_tihs == 'google_s') { _tihs = 'https://www.google.com/search'; _name = 'q'; } if (_tihs == 'bing_s') { _tihs = 'https://www.bing.com/search'; _name = 'q'; } $('.baidu form').attr('action', _tihs); $('.this_s').html(_html); $('#kw').attr('name', _name); $('.Select-box ul').css('height', '40px') }); $('.Select-box-2 li').click(function () { var _tihs = $(this).attr('class'); var _html = $(this).html(); if (_tihs == 'baidu_s') { _tihs = 'https://www.baidu.com/s'; _name = 'wd'; } if (_tihs == 'google_s') { _tihs = 'https://www.google.com/search'; _name = 'q'; } if (_tihs == 'bing_s') { _tihs = 'https://www.bing.com/search'; _name = 'q'; } $('.baidu form').attr('action', _tihs); $('.this_s').html(_html); $('#kw-2').attr('name', _name); $('.Select-box-2 ul').css('height', '48px') }); //清空输入框内容 $('.qingkong').click(function () { cls(); $(this).css('display', 'none') }); function cls() { var sum = 0; var t = document.getElementsByTagName("INPUT"); for (var i = 0; i &lt; t.length; i++) { if (t[i].type == 'text') { ++sum; t[i].value = "";//清空 } } } //清空输入框按钮的显示和隐藏 function if_btn() { var btn_obj = document.getElementById("kw") || document.getElementById("kw-2"); var cls_btn = document.getElementById("qingkong"); var btn_obj_val; var times; //当元素获得焦点时 if (btn_obj == '' || btn_obj == null) { return false; //如果没有找到这个元素，则将函数返回，不继续执行 } btn_obj.onfocus = function () { times = setInterval(function () { btn_obj_val = btn_obj.value; if (btn_obj_val != 0) { cls_btn.style.display = "block"; } else { cls_btn.style.display = "none"; } }, 200); } //元素失去焦点时 btn_obj.onblur = function () { clearInterval(times); } } &lt;/script&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;style&gt;
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: "微软雅黑"
+    }
+    ul,li,h1,h2,h3,h4,h5,h6,p,form,dl,dt,dd {
+        margin: 0px;
+        padding: 0px;
+        font-size: 14px;
+        font-weight: normal;
+    }
+
+    img {
+        border-style: none;
+    }
+
+    li {
+        list-style: none;
+        float: left
+    }
+
+    a {
+        text-decoration: none
+    }
+
+    .card {
+        background-color: rgba(25, 240, 229, 0);
+        width: 96%;
+        margin-left: 2%
+    }
+
+    .baidu {
+        float: left;
+        margin-left: 100px;
+    }
+
+    .baidu form {
+        position: relative
+    }
+
+    .Select-box ul {
+        height: 40px;
+        position: absolute;
+        left: -1px;
+        top: 0px;
+        z-index: 9999;
+        background: #FFF;
+        border: 1px solid #ccc;
+        border-top: none;
+        overflow: hidden
+    }
+
+    .Select-box li {
+        width: 60px;
+        line-height: 40px;
+        font-size: 14px;
+        color: #484848;
+        border: 0;
+        cursor: pointer;
+    }
+
+    .Select-box li:hover {
+        background: #3385ff;
+        color: #FFF;
+    }
+
+    .Select-box .this_s {
+        color: #317ef3;
+    }
+
+    .Select-box .this_s:hover {
+        background: #FFF;
+        color: #317ef3;
+    }
+
+    .qingkong {
+        position: absolute;
+        right: 120px;
+        top: 12px;
+        width: 18px;
+        height: 18px;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 18px;
+        line-height: 16px;
+        color: #666666;
+        cursor: pointer;
+        text-align: center;
+        font-size: 14px;
+        display: none;
+    }
+
+    .qingkong:hover {
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .qingkong:active {
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .baidu-2 {
+        width: 100%;
+        height: 110px;
+        margin: 0 auto;
+        background: none;
+        padding-top: 50px;
+    }
+
+    .baidu-2 form {
+        width: 520px;
+        margin: 0 auto;
+    }
+
+    .baidu-2 input {
+        padding: 13px 8px;
+        opacity: 0.9;
+        font-size: 15px;
+    }
+
+    #Select-2 {
+        float: left;
+    }
+
+    .Select-box-2 {
+        text-align: center;
+        float: left;
+        position: relative;
+    }
+
+    .Select-box-2 ul {
+        height: 46px;
+        position: absolute;
+        left: 0px;
+        top: 1px;
+        z-index: 9999;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid #ccc;
+        border-top: none;
+        overflow: hidden
+    }
+
+    .Select-box-2 li {
+        width: 60px;
+        line-height: 46px;
+        font-size: 15px;
+        color: #484848;
+        border: 0;
+        cursor: pointer;
+    }
+
+    .Select-box-2 li:hover {
+        background: #3385ff;
+        color: #FFF;
+    }
+
+    .Select-box-2 .this_s {
+        color: #317ef3;
+    }
+
+    .Select-box-2 .this_s:hover {
+        background: none;
+        color: #317ef3;
+    }
+
+    #kw-2 {
+        width: 335px;
+        outline: 0;
+        border: 1px solid #ccc;
+        background: rgba(255, 255, 255, 0.2);
+        color: #000000;
+        padding-left: 70px;
+        font-weight: bold;
+    }
+
+    /*修改搜索框样式*/
+    #su-2 {
+        width: 90px;
+        background: blue;
+        border: none;
+        border-top: #3385ff 1px solid;
+        border-bottom: 1px solid #2d78f4;
+        color: #FFF;
+        cursor: pointer;
+        /*去轮廓阴影*/
+        outline: none;
+    }
+
+    /*光标移动到搜索框颜色*/
+    #su-2:hover {
+        background: blue;
+        border-bottom: 1px solid blue;
+    }
+
+    #su-2:active {
+        background: blue;
+        box-shadow: inset 1px 1px 3px blue;
+        -webkit-box-shadow: inset 1px 1px 3px blue;
+    }
+
+    .jj-list-tit {
+        font-size: 16px;
+        line-height: 25px;
+        color: #ffffff;
+        width: 100%;
+        padding-left: 38.5%;
+    }
+
+    .jj-list-con {
+        overflow: hidden;
+        margin: 0 auto
+    }
+
+    /*控制网站列表间距*/
+    .jj-list-con li {
+        width: 31.333%;
+        margin: 1%;
+    }
+
+    .link-3 {
+        display: block;
+        background: rgba(0, 0, 0, .35);
+        color: #FFF;
+        font-size: 13px;
+        text-align: center;
+        line-height: 35px;
+        padding: 4px 0;
+        border-radius: 2px;
+        transition: all 0.2s
+    }
+
+    .link-3:hover {
+        background: rgba(0, 0, 0, .45);
+        font-size: 15px;
+        font-weight: bold
+    }
+
+    /*1栏 小于584*/
+    @media only screen and (max-width: 584px) {
+        .navi-height {
+            height: 1300px;
+        }
+
+        .link-box {
+            margin-top: 5%;
+        }
+
+        .large-screen {
+            display: none;
+        }
+    }
+
+    /* 2栏 大于584 小于993px */
+    @media only screen and (min-width: 584px) and (max-width: 993px) {
+        .navi-height {
+            height: 800px;
+        }
+
+        .link-box {
+            margin-top: 5%;
+        }
+
+        .large-screen {
+            display: none;
+        }
+    }
+
+    /*3栏 大于993px*/
+    @media only screen and (min-width: 993px) {
+        .navi-height {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    /* 隐藏footer */
+    .page-footer {
+        display: none;
+    }
+&lt;/style&gt;
+&lt;% if (theme.banner.enable) { %&gt;
+&lt;script&gt;
+    // 每天切换 banner 图.  Switch banner image every day.
+    var bannerUrl = "&lt;%- theme.jsDelivr.url %&gt;&lt;%- url_for('/medias/banner/') %&gt;" + new Date().getDay() + '.jpg';
+    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
+&lt;/script&gt;
+&lt;% } else { %&gt;
+&lt;script&gt;
+    $('.bg-cover').css('background-image', 'url(&lt;%- theme.jsDelivr.url %&gt;&lt;%- url_for('/medias/banner/0.jpg') %&gt;)');
+&lt;/script&gt;
+&lt;% } %&gt;
+</code></pre><h3 id="添加樱花特效"><a href="#添加樱花特效" class="headerlink" title="添加樱花特效"></a>添加樱花特效</h3><p>在 themes/matery/source/js 目录下新建 sakura.js 文件，打开这个网址<a href="https://cdn.jsdelivr.net/gh/Yafine/cdn@3.2.7/source/js/sakura.js，将内容复制粘贴到" target="_blank" rel="noopener">https://cdn.jsdelivr.net/gh/Yafine/cdn@3.2.7/source/js/sakura.js，将内容复制粘贴到</a> sakura.js 即可。</p>
+<p>然后再 themes/matery/layout/layout.ejs 文件内添加下面的内容：</p>
+<pre><code>&lt;script type="text/javascript"&gt;
+//只在桌面版网页启用特效
+var windowWidth = $(window).width();
+if (windowWidth &gt; 768) {
+    document.write('&lt;script type="text/javascript" src="/js/sakura.js"&gt;&lt;\/script&gt;');
+}
+&lt;/script&gt;
+</code></pre><h3 id="删除评论"><a href="#删除评论" class="headerlink" title="删除评论"></a>删除评论</h3><p>删除评论需要打开leancloud，里面有专门管理comment的界面</p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/08/21/blog/C:%5CUsers%5Csamedi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200723150241881.png" alt="image-20200723150241881"></p>
+<h3 id="设置文章背景图"><a href="#设置文章背景图" class="headerlink" title="设置文章背景图"></a>设置文章背景图</h3><p>在img标签中加入图片链接<br>外链图片：<code>img:link</code> （使用外部链接访问博客时会快一点）<br>本地图片：<code>img: /source/images/xxx.jpg</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/08/21/blog/C:%5CUsers%5Csamedi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200723150512918.png" alt="image-20200723150512918"></p>
+<h3 id="自定义内置标签"><a href="#自定义内置标签" class="headerlink" title="自定义内置标签"></a>自定义内置标签</h3><p>在themes/主题 下新建scripts文件夹，hexo会自动执行此文件夹的内容。<br>在scripts文件夾下新建block.js</p>
+<pre><code>hexo.extend.tag.register('r', function(args, content){
+  var className =  args.join(' ');
+  return '&lt;div class="uk-alert uk-alert-danger"&gt;&lt;i class="fa fa-warning"&gt;&lt;/i&gt; ' + content + '&lt;/div&gt;';
+}, {ends: true});
+
+hexo.extend.tag.register('g', function(args, content){
+  var className =  args.join(' ');
+  return '&lt;div class="uk-alert uk-alert-success"&gt;&lt;i class="fa fa-check-circle"&gt;&lt;/i&gt; ' + content + '&lt;/div&gt;';
+}, {ends: true});
+
+hexo.extend.tag.register('y', function(args, content){
+  var className =  args.join(' ');
+  return '&lt;div class="uk-alert uk-alert-warning"&gt;&lt;i class="fa fa-exclamation-circle"&gt;&lt;/i&gt; ' + content + '&lt;/div&gt;';
+}, {ends: true});
+
+</code></pre><p>在themes/主题/source/css/my.css內添加</p>
+<pre><code>.uk-alert {
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #ebf7fd;
+  color: #2d7091;
+  border: 1px solid rgba(45, 112, 145, 0.3);
+  border-radius: 4px;
+  text-shadow: 0 1px 0 #ffffff;
+}
+
+/* Modifier: `uk-alert-success`
+ ========================================================================== */
+.uk-alert-success {
+  background: #f2fae3;
+  color: #659f13;
+  border-color: rgba(101, 159, 19, 0.3);
+}
+/* Modifier: `uk-alert-warning`
+ ========================================================================== */
+.uk-alert-warning {
+  background: #fffceb;
+  color: #e28327;
+  border-color: rgba(226, 131, 39, 0.3);
+}
+/* Modifier: `uk-alert-danger`
+ ========================================================================== */
+.uk-alert-danger {
+  background: #fff1f0;
+  color: #d85030;
+  border-color: rgba(216, 80, 48, 0.3);
+}
+
+</code></pre><p>然後就可以使用了。<br>用法：</p>
+<pre><code>{%r%}
+紅色
+{%endr%}
+{%g%}
+綠色
+{%endg%}
+{%y%}
+黃色
+{%endy%}
+
+</code></pre><h3 id="看板娘"><a href="#看板娘" class="headerlink" title="看板娘"></a>看板娘</h3><ol>
+<li><a href="https://huaji8.top/post/live2d-plugin-2.0/" target="_blank" rel="noopener">模型预览</a>，记住想要下载的模型名字</li>
+<li>安装live2d模块，博客根目录cmd输入代码</li>
+</ol>
+<pre><code>npm install --save hexo-helper-live2d
+
+</code></pre><ol start="3">
+<li>下载模型，比如我选择的是shizuku模型</li>
+</ol>
+<pre><code>npm install live2d-widegt-model-shizuku
+
+</code></pre><ol start="4">
+<li>配置模型，找到根目录的config文件，在最后添加以下代码(注意缩进格式)position可以选left或者right。mobile可以选择显示或者不显示。</li>
+</ol>
+<pre><code>live2d:
+   enable: true
+   scriptFrom: local
+   pluginRootPath: live2dw/
+   pluginJsPath: lib/
+   pluginModelPath: assets/
+   tagMode: false
+   debug: false
+   model:
+     use: live2d-widget-model-koharu
+   display:
+     position: right
+     width: 150
+     height: 300
+   mobile:
+     show: true
+</code></pre><h2 id="Node版本问题"><a href="#Node版本问题" class="headerlink" title="Node版本问题"></a>Node版本问题</h2><p><a href="https://blog.csdn.net/u010263423/article/details/106981801" target="_blank" rel="noopener">https://blog.csdn.net/u010263423/article/details/106981801</a></p>
+<h2 id="博客安装指导"><a href="#博客安装指导" class="headerlink" title="博客安装指导"></a>博客安装指导</h2><p><a href="https://sunhwee.com/posts/6e8839eb.html#toc-heading-23" target="_blank" rel="noopener">https://sunhwee.com/posts/6e8839eb.html#toc-heading-23</a></p>
+<h2 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h2><pre><code>cnpm install -g hexo-cli
+hexo init
+</code></pre><h2 id="新建文章模板修改"><a href="#新建文章模板修改" class="headerlink" title="新建文章模板修改"></a>新建文章模板修改</h2><p>首先为了新建文章方便，我们可以修改一下文章模板，建议将<code>/scaffolds/post.md</code>修改为如下代码：</p>
+<pre><code>---
+title: {{ title }}
+date: {{ date }}
+author: 
+img: 
+coverImg: 
+top: false
+cover: false
+toc: true
+mathjax: false
+password:
+summary:
+tags:
+categories:
+---
+
+</code></pre><p>这样新建文章后 一些<code>Front-matter</code>参数不用你自己补充了，修改对应信息就可以了。</p>
+<h2 id="添加404页面"><a href="#添加404页面" class="headerlink" title="添加404页面"></a>添加404页面</h2><pre><code>title: 404
+date: 2019-08-5 16:41:10
+type: "404"
+layout: "404"
+description: "Oops～，我崩溃了！找不到你想要的页面 :("
+</code></pre><p>然后在<code>/themes/matery/layout/</code>目录下新建一个<code>404.ejs</code>文件，内容如下：</p>
+<pre><code>&lt;style type="text/css"&gt;
+    /* don't remove. */
+    .about-cover {
+        height: 75vh;
+    }
+&lt;/style&gt;
+
+&lt;div class="bg-cover pd-header about-cover"&gt;
+    &lt;div class="container"&gt;
+        &lt;div class="row"&gt;
+            &lt;div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2"&gt;
+                &lt;div class="brand"&gt;
+                    &lt;div class="title center-align"&gt;
+                        404
+                    &lt;/div&gt;
+                    &lt;div class="description center-align"&gt;
+                        &lt;%= page.description %&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+    // 每天切换 banner 图.  Switch banner image every day.
+    $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay() + '.jpg)');
+&lt;/script&gt;
+
+</code></pre><h2 id="“关于”页面增加简历（可选）"><a href="#“关于”页面增加简历（可选）" class="headerlink" title="“关于”页面增加简历（可选）"></a>“关于”页面增加简历（可选）</h2><p>修改<code>/themes/matery/layout/about.ejs</code>，找到<code>标签，然后找到它对应的</code>标签，接在后面新增一个<code>card</code>，语句如下：</p>
+<pre><code>&lt;div class="card"&gt;
+    &lt;div class="card-content"&gt;
+        &lt;div class="card-content article-card-content"&gt;
+                &lt;div class="title center-align" data-aos="zoom-in-up"&gt;
+                    &lt;i class="fa fa-address-book"&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp;&lt;%- __('myCV') %&gt;
+                &lt;/div&gt;
+                &lt;div id="articleContent" data-aos="fade-up"&gt;
+                    &lt;%- page.content %&gt;
+                &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+</code></pre><p>这样就会多出一张<code>card</code>，然后可以在<code>/source/about/index.md</code>下面写上你的简历了，当然这里的位置随你自己设置，你也可以把简历作为第一个<code>card</code></p>
+<h2 id="增加建站时间"><a href="#增加建站时间" class="headerlink" title="增加建站时间"></a>增加建站时间</h2><p>修改<code>/themes/matery/layout/_partial</code>中的<code>footer.ejs</code>，在最后加上：</p>
+<pre><code>&lt;script language=javascript&gt;
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2017, 09, 11, 00, 00, 00); //北京时间2018-2-13 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已运行 " +diffYears+" 年 "+diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+&lt;/script&gt;
+
+</code></pre><p>然后在合适的地方（比如<code>copyright</code>声明后面）加上下面的代码就行了：</p>
+<pre><code>&lt;span id="sitetime"&gt;&lt;/span&gt;
+</code></pre><h2 id="修改不蒜子初始化计数"><a href="#修改不蒜子初始化计数" class="headerlink" title="修改不蒜子初始化计数"></a>修改不蒜子初始化计数</h2><p>因为不蒜子至今未开放注册，所以没办法在官网修改初始化，只能自己动手了。和上一条一样，我们在<code>/themes/matery/layout/_partial</code>里的<code>footer.ejs</code>文件最后加上：</p>
+<pre><code>&lt;script&gt;
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+        var pvcountOffset = 80000;  // 初始化首次数据
+        var uvcountOffset = 20000;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int); // 停止检测
+            }
+        }
+    });
+&lt;/script&gt;
+
+</code></pre><p>然后把上面几行有段代码：</p>
+<pre><code>&lt;% if (theme.busuanziStatistics &amp;&amp; theme.busuanziStatistics.totalTraffic) { %&gt;
+    &lt;span id="busuanzi_container_site_pv"&gt;
+        &lt;i class="fa fa-heart-o"&gt;&lt;/i&gt;
+        本站总访问量 &lt;span id="busuanzi_value_site_pv" class="white-color"&gt;&lt;/span&gt;
+    &lt;/span&gt;
+&lt;% } %&gt;
+&lt;% if (theme.busuanziStatistics &amp;&amp; theme.busuanziStatistics.totalNumberOfvisitors) { %&gt;
+    &lt;span id="busuanzi_container_site_uv"&gt;
+        人次,&amp;nbsp;访客数 &lt;span id="busuanzi_value_site_uv" class="white-color"&gt;&lt;/span&gt; 人.
+    &lt;/span&gt;
+&lt;% } %&gt;
+</code></pre><p>修改为：</p>
+<pre><code>&lt;% if (theme.busuanziStatistics &amp;&amp; theme.busuanziStatistics.totalTraffic) { %&gt;
+    &lt;span id="busuanzi_container_site_pv" style='display:none'&gt;
+        &lt;i class="fa fa-heart-o"&gt;&lt;/i&gt;
+        本站总访问量 &lt;span id="busuanzi_value_site_pv" class="white-color"&gt;&lt;/span&gt;
+    &lt;/span&gt;
+&lt;% } %&gt;
+&lt;% if (theme.busuanziStatistics &amp;&amp; theme.busuanziStatistics.totalNumberOfvisitors) { %&gt;
+    &lt;span id="busuanzi_container_site_uv" style='display:none'&gt;
+        人次,&amp;nbsp;访客数 &lt;span id="busuanzi_value_site_uv" class="white-color"&gt;&lt;/span&gt; 人.
+    &lt;/span&gt;
+&lt;% } %&gt;
+
+</code></pre><p>其实就是增加了两个<code>style='display:none'</code>而已</p>
+<h2 id="添加动漫人物"><a href="#添加动漫人物" class="headerlink" title="添加动漫人物"></a>添加动漫人物</h2><pre><code>npm install --save hexo-helper-live2d
+npm install live2d-widget-model-hijiki
+</code></pre><p>这里的动漫模型可以改，只需要下载对应模型就行了，你可以官方仓库去看有哪些模型，下载你喜欢的就行。<a href="https://blog.csdn.net/wang_123_zy/article/details/87181892" target="_blank" rel="noopener">https://blog.csdn.net/wang_123_zy/article/details/87181892</a></p>
+<p>在根目录配置文件中添加如下代码：</p>
+<pre><code>live2d:
+    enable: true
+    scriptFrom: local
+    pluginRootPath: live2dw/
+    pluginJsPath: lib/
+    pluginModelPath: assets/
+    tagMode: false
+    log: false
+    model:
+        use: live2d-widget-model-hijiki
+    display:
+        position: left
+        width: 150
+        height: 300
+    mobile:
+        show: false
+    react:
+        opacity: 0.7
+
+</code></pre><p>然后<code>hexo g</code>再<code>hexo s</code>就能预览出效果了，但是有个注意的地方，<strong>这个动漫人物最好不要和不蒜子同时使用</strong>，不然不蒜子会显示不出来。至于解决办法后续更新。</p>
+<p><strong>解决动漫人物和不蒜子不能同时使用的<code>bug</code>（2019.08.11）</strong>：</p>
+<p>打开<code>themes\matery\layout\_partial</code>中的<code>footer.ejs</code>，将本站总访问量和访客数的代码改为如下</p>
+<pre><code>&lt;% if (theme.busuanziStatistics &amp;&amp; theme.busuanziStatistics.totalTraffic) { %&gt;      
+    &lt;span id="busuanzi_container_site_pv" style='display:none'&gt;&lt;/span&gt;
+        &lt;i class="fa fa-heart-o"&gt;&lt;/i&gt;
+        本站总访问量 &lt;span id="busuanzi_value_site_pv" class="white-color"&gt;&lt;/span&gt;
+
+&lt;% } %&gt;
+
+&lt;% if (theme.busuanziStatistics &amp;&amp; theme.busuanziStatistics.totalNumberOfvisitors) { %&gt;
+    &lt;span id="busuanzi_container_site_uv" style='display:none'&gt;&lt;/span&gt;
+        人次,&amp;nbsp;访客数 &lt;span id="busuanzi_value_site_uv" class="white-color"&gt;&lt;/span&gt; 人.
+
+&lt;% } %&gt;
+
+</code></pre><p>变化就在下面两句，将源代码对应字段后面的<code>＜/span＞</code>写在前面了。</p>
+<pre><code>&lt;span id="busuanzi_container_site_pv" style='display:none'&gt;&lt;/span&gt;
+&lt;span id="busuanzi_container_site_uv" style='display:none'&gt;&lt;/span&gt;
+
+</code></pre><p><strong>发现按照上面改了过后，又出现一个新<code>bug</code>：文章头部的阅读次数不显示了，解决办法：（2019.08.11）</strong></p>
+<p>打开<code>themes\matery\layout\_partial</code>中的<code>post-detail.ejs</code>，找到对应代码字段：</p>
+<pre><code>&lt;% if (theme.busuanziStatistics &amp;&amp; theme.busuanziStatistics.enable) { %&gt;
+    &lt;div id="busuanzi_container_page_pv" class="info-break-policy"&gt;
+        &lt;i class="fa fa-eye fa-fw"&gt;&lt;/i&gt;&lt;%- __('readCount') %&gt;:&amp;nbsp;&amp;nbsp;
+        &lt;span id="busuanzi_value_page_pv" &gt;&lt;/span&gt;
+    &lt;/div&gt;
+
+&lt;% } %&gt;
+
+</code></pre><p>修改为下面的就可以了：</p>
+<pre><code>&lt;% if (theme.busuanziStatistics &amp;&amp; theme.busuanziStatistics.enable) { %&gt;
+        &lt;span id="busuanzi_container_site_pv" style='display:none'&gt;&lt;/span&gt;
+        &lt;i class="fa fa-eye fa-fw"&gt;&lt;/i&gt;&lt;%- __('readCount') %&gt;:&amp;nbsp;&amp;nbsp;
+        &lt;span id="busuanzi_value_page_pv" &gt;&lt;/span&gt;
+
+&lt;% } %&gt;
+</code></pre><h2 id="添加网易云音乐BGM"><a href="#添加网易云音乐BGM" class="headerlink" title="添加网易云音乐BGM"></a>添加网易云音乐BGM</h2><p>写文章的时候，想插入一段<code>BGM</code>怎么办？</p>
+<p>其实我们可以借助一些在线音乐的外链播放方式，首先打开网易云网页版，找到想听的歌曲，然后点击生成外链：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://raw.githubusercontent.com/shw2018/cdn/master/blog_files/img/Hexo-Blog-Tutorial/14.png" alt="img"></p>
+<p>可能你会遇到问题，比如点击生成外链会提示你由于版权原因，不能生成，那么可以用下面办法目前还有效，不知道后面会不会失效目前还有效，不知道后面会不会失效</p>
+<ol>
+<li>(以 <code>Chrome</code>为例，其他浏览器类似) 打开歌单页面，在“生成外链播放器”上右击，点击审查元素（检查）ctrl+shift+i；</li>
+<li>接着找到生成外链播放器这段文字直接双击复制前面的<code>/outchain/2/20707408/</code></li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://raw.githubusercontent.com/shw2018/cdn/master/blog_files/img/Hexo-Blog-Tutorial/15.png" alt="img"></p>
+<ol>
+<li>然后在浏览器地址栏修改歌单链接，示例：<a href="http://music.163.com/#//outchain/2/20707408/" target="_blank" rel="noopener">http://music.163.com/#//outchain/2/20707408/</a></li>
+<li>然后就转到外链设置页面了。</li>
+</ol>
+<p>复制如下代码：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://raw.githubusercontent.com/shw2018/cdn/master/blog_files/img/Hexo-Blog-Tutorial/16.png" alt="img"></p>
+<p>粘贴到文章对应位置就行了，为了美观，设置一下居中，具体代码如下：</p>
+<p>粘贴到文章对应位置就行了，为了美观，设置一下居中，具体代码如下：</p>
+<pre><code>&lt;div align="middle"&gt;这里粘贴刚刚复制的代码&lt;/div&gt;
+</code></pre><h2 id="博客音乐模板"><a href="#博客音乐模板" class="headerlink" title="博客音乐模板"></a>博客音乐模板</h2><p>如果我们自己写博客写疲劳了，想放松一下听听歌又不想切出博客主页，那么我们可以自己定制一个博客音乐播放界面，把自己喜欢的歌曲都放进来，这里用到是Aplayer插件，但是歌曲来源需要我们自己定义，但是，因为各大音乐平台，由于版权原因，很多歌曲是不支持外链播放的，难道我们就必须每首歌下载然后上传云空间，再获取词曲封面么？这就比较麻烦了。其实不然，研究了半个小时，我发现可以采取下面的办法，很方便：</p>
+<ul>
+<li>首先我们找到网易云在线平台，任意找到一首歌点进去播放，可以在地址栏拿到音乐<code>ID</code>号</li>
+<li>然后通过下面网址：<a href="http://music.163.com/song/media/outer/url?id=XXXXXX.mp3，" target="_blank" rel="noopener">http://music.163.com/song/media/outer/url?id=XXXXXX.mp3，</a> <code>XXXXXX</code>就是歌曲<code>ID</code>号，每一首歌我们只需要换掉这个<code>ID</code>号就行了,就相当于每一首的外链了</li>
+<li>最后封面图也可以按<code>F12</code>去找页面元素的链接，填到对应的<code>musics.jason</code>文件中就可以，批量填入，听到好听的歌曲随时更换随时新增，很方便。</li>
+</ul>
+<h2 id="添加鼠标点击文字特效"><a href="#添加鼠标点击文字特效" class="headerlink" title="添加鼠标点击文字特效"></a>添加鼠标点击文字特效</h2><p>在 /themes/matery/source/js 新建文件 wenzi.js，并添加如下代码</p>
+<p>[ Download Now</p>
+<p>](<a href="http://49.235.106.229/js/wenzi.js" target="_blank" rel="noopener">http://49.235.106.229/js/wenzi.js</a>)</p>
+<p>然后在 /themes/matery/layout/_partial/head.ejs 中添加如下代码：</p>
+<pre><code>&lt;% if (theme.wenzi.enable) { %&gt;
+    &lt;script type="text/javascript"&gt;
+    //只在桌面版网页启用特效
+    var windowWidth = $(window).width();
+    if (windowWidth &gt; 768) {
+        document.write('&lt;script type="text/javascript" src="/js/wenzi.js"&gt;&lt;/script&gt;');
+    }
+    &lt;/script&gt;
+&lt;% } %&gt;
+
+</code></pre><p>在主题配置文件 .yml中配置:</p>
+<pre><code># 页面樱花飘落动效
+wenzi:
+  enable: true
+</code></pre><h2 id="添加二级菜单"><a href="#添加二级菜单" class="headerlink" title="添加二级菜单"></a>添加二级菜单</h2><p>都知道，我们标题栏宽度有限，我们项目一多了，就放不下了，这时候你肯定就需要一个二级菜单来拆分一下项目，既可以减少标题栏项目数，使之更加清爽，又可以间项目分类，逻辑清晰。</p>
+<p>好了，如果你用的matery主题，那么废话不多说，直接上教程，其实需要修改的就四个地方：matery.css/matery.js/navgation.ejs/mobile-nav.ejs</p>
+<p>第一步，在 /themes/matery/layout/_partial 中找到 mobile-nav.ejs ，找到下面这段代码：</p>
+<pre><code>&lt;ul class="menu-list mobile-menu-list"&gt;
+    &lt;% Object.keys(theme.menu).forEach(function(key) { %&gt;
+    &lt;li&gt;
+        &lt;a href="&lt;%- theme.menu[key].url %&gt;" class="waves-effect waves-light"&gt;
+            &lt;% if (theme.menu[key].icon &amp;&amp; theme.menu[key].icon.length &gt; 0) { %&gt;
+            &lt;i class="fa fa-fw &lt;%- theme.menu[key].icon %&gt;"&gt;&lt;/i&gt;
+            &lt;% } else { %&gt;
+            &lt;i class="fa fa-fw fa-link"&gt;&lt;/i&gt;
+            &lt;% } %&gt;
+            &lt;%- (config.language === 'zh-CN' &amp;&amp; menuMap.has(key)) ? menuMap.get(key) : key %&gt;
+        &lt;/a&gt;
+    &lt;/li&gt;
+    &lt;% }); %&gt;
+    &lt;% if (theme.githubLink &amp;&amp; theme.githubLink.enable) { %&gt;
+    &lt;li&gt;&lt;div class="divider"&gt;&lt;/div&gt;&lt;/li&gt;
+    &lt;li&gt;
+        &lt;a href="&lt;%- theme.githubLink.url %&gt;" class="waves-effect waves-light" target="_blank"&gt;
+            &lt;i class="fa fa-github-square fa-fw"&gt;&lt;/i&gt;&lt;%- theme.githubLink.title %&gt;
+        &lt;/a&gt;
+    &lt;/li&gt;
+    &lt;% } %&gt;
+&lt;/ul&gt;
+
+</code></pre><p>替换成下面的：</p>
+<pre><code>&lt;!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  --&gt;
+&lt;ul class="menu-list mobile-menu-list"&gt;
+    &lt;% Object.keys(theme.menu).forEach(function(key) { %&gt;
+        &lt;li class="m-nav-item"&gt;
+                &lt;% if(!theme.menu[key].children) { %&gt;
+                    &lt;a href="&lt;%- theme.menu[key].url %&gt;" class="waves-effect waves-light"&gt;
+                        &lt;% if (theme.menu[key].icon &amp;&amp; theme.menu[key].icon.length &gt; 0) { %&gt;
+                        &lt;i class="fa fa-fw &lt;%- theme.menu[key].icon %&gt;"&gt;&lt;/i&gt;
+                        &lt;% } else { %&gt;
+                        &lt;i class="fa fa-fw fa-link"&gt;&lt;/i&gt;
+                        &lt;% } %&gt;
+                        &lt;%- (config.language === 'zh-CN' &amp;&amp; menuMap.has(key)) ? menuMap.get(key) : key %&gt;
+                    &lt;/a&gt;
+              &lt;% } else { %&gt;
+                    &lt;a href="javascript:;"&gt;
+                            &lt;% if (theme.menu[key].icon &amp;&amp; theme.menu[key].icon.length &gt; 0) { %&gt;
+                            &lt;i class="fa fa-fw &lt;%- theme.menu[key].icon %&gt;"&gt;&lt;/i&gt;
+                            &lt;% } else { %&gt;
+                            &lt;i class="fa fa-fw fa-link"&gt;&lt;/i&gt;
+                            &lt;% } %&gt;
+                            &lt;%- (config.language === 'zh-CN' &amp;&amp; menuMap.has(key)) ? menuMap.get(key) : key %&gt;
+                            &lt;span class="m-icon"&gt;&lt;i class="fa fa-chevron-right"&gt;&lt;/i&gt;&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;ul&gt;
+                  &lt;% for(let childrenLink of theme.menu[key].children){ %&gt;
+                    &lt;li&gt; 
+                      &lt;a href="&lt;%- url_for(childrenLink.url)%&gt;" &gt;
+                           &lt;% if (childrenLink.icon &amp;&amp; childrenLink.icon.length &gt; 0) { %&gt;
+                            &lt;i class="fa &lt;%- childrenLink.icon %&gt;" style="left: 25px; position: absolute;"&gt;&lt;/i&gt;
+                       &lt;% } %&gt;
+                       &lt;span&gt;&lt;%- childrenLink.name %&gt;&lt;/span&gt;
+                      &lt;/a&gt;
+                    &lt;/li&gt;
+                  &lt;% } %&gt; 
+                &lt;/ul&gt;
+              &lt;% } %&gt;
+            &lt;/li&gt;
+        &lt;% }); %&gt;
+
+        &lt;% if (theme.githubLink &amp;&amp; theme.githubLink.enable) { %&gt;
+        &lt;li&gt;&lt;div class="divider"&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;
+            &lt;a href="&lt;%- theme.githubLink.url %&gt;" class="waves-effect waves-light" target="_blank"&gt;
+                &lt;i class="fa fa-github-square fa-fw"&gt;&lt;/i&gt;&lt;%- theme.githubLink.title %&gt;
+            &lt;/a&gt;
+        &lt;/li&gt;
+      &lt;% } %&gt;
+&lt;/ul&gt;
+</code></pre><p>第二步，在 /themes/matery/layout/_partial 中找到 navagtion.ejs ，找到下面这段代码：</p>
+<pre><code>&lt;a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"&gt;&lt;i class="fa fa-navicon"&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;ul class="right"&gt;
+    &lt;% Object.keys(theme.menu).forEach(function(key) { %&gt;
+    &lt;li class="hide-on-med-and-down"&gt;
+        &lt;a href="&lt;%- theme.menu[key].url %&gt;" class="waves-effect waves-light"&gt;
+            &lt;% if (theme.menu[key].icon &amp;&amp; theme.menu[key].icon.length &gt; 0) { %&gt;
+            &lt;i class="fa &lt;%- theme.menu[key].icon %&gt;"&gt;&lt;/i&gt;
+            &lt;% } %&gt;
+            &lt;span&gt;&lt;%- (config.language === 'zh-CN' &amp;&amp; menuMap.has(key)) ? menuMap.get(key) : key %&gt;&lt;/span&gt;
+        &lt;/a&gt;
+    &lt;/li&gt;
+    &lt;% }); %&gt;
+    &lt;li&gt;
+        &lt;a href="#searchModal" class="modal-trigger waves-effect waves-light"&gt;
+            &lt;i id="searchIcon" class="fa fa-search" title="&lt;%= __('search') %&gt;"&gt;&lt;/i&gt;
+        &lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p>替换成下面的：</p>
+<pre><code>&lt;!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  --&gt;
+&lt;a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"&gt;&lt;i class="fa fa-navicon"&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;ul class="right nav-menu"&gt;
+    &lt;% Object.keys(theme.menu).forEach(function(key) { %&gt;
+      &lt;li class="hide-on-med-and-down nav-item" &gt;
+
+        &lt;% if(!theme.menu[key].children) { %&gt;
+            &lt;a href="&lt;%- theme.menu[key].url %&gt;" class="waves-effect waves-light"&gt;
+              &lt;% if (theme.menu[key].icon &amp;&amp; theme.menu[key].icon.length &gt; 0) { %&gt;
+                &lt;i class="fa &lt;%- theme.menu[key].icon %&gt;"&gt;&lt;/i&gt;
+              &lt;% } %&gt;
+              &lt;span&gt;&lt;%- (config.language === 'zh-CN' &amp;&amp; menuMap.has(key)) ? menuMap.get(key) : key %&gt;&lt;/span&gt;
+            &lt;/a&gt;
+
+            &lt;% } else { %&gt;
+              &lt;a href="&lt;%- theme.menu[key].url %&gt;" class="waves-effect waves-light"&gt;
+                &lt;% if (theme.menu[key].icon &amp;&amp; theme.menu[key].icon.length &gt; 0) { %&gt;
+                  &lt;i class="fa &lt;%- theme.menu[key].icon %&gt;"&gt;&lt;/i&gt;
+                &lt;% } %&gt;
+                &lt;span&gt;&lt;%- (config.language === 'zh-CN' &amp;&amp; menuMap.has(key)) ? menuMap.get(key) : key %&gt;&lt;/span&gt;
+                &lt;i class="fa fa-chevron-down" aria-hidden="true"&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+            &lt;ul class="sub-nav menus_item_child "&gt;
+              &lt;% for(let childrenLink of theme.menu[key].children){ %&gt;
+                &lt;li&gt; 
+                  &lt;a href="&lt;%- url_for(childrenLink.url)%&gt;" &gt;
+                    &lt;% if (childrenLink.icon &amp;&amp; childrenLink.icon.length &gt; 0) { %&gt;
+                      &lt;i class="fa &lt;%- childrenLink.icon %&gt;" style="margin-top: -20px;"&gt;&lt;/i&gt;
+                    &lt;% } %&gt;
+                    &lt;span&gt;&lt;%- childrenLink.name %&gt;&lt;/span&gt;
+                  &lt;/a&gt;
+                &lt;/li&gt;
+              &lt;% } %&gt; 
+            &lt;/ul&gt;
+          &lt;% } %&gt;
+      &lt;/li&gt;
+    &lt;% }); %&gt;
+
+    &lt;li&gt;
+        &lt;a href="#searchModal" class="modal-trigger waves-effect waves-light"&gt;
+            &lt;i id="searchIcon" class="fa fa-search" title="&lt;%= __('search') %&gt;"&gt;&lt;/i&gt;
+        &lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p>第三步，在 /themes/matery/source/css 中找到 matery.css ，在最后添加下面这段代码：</p>
+<pre><code>/* 二级菜单样式定义 洪卫 shw2018 add 2019.09.17 */
+
+.nav-menu {}
+
+.nav-menu li .sub-nav {
+    position: absolute;
+    top: 77px;
+    list-style: none;
+    margin-left: -20px;
+    display: none;
+}
+
+.nav-menu li .sub-nav li {
+    text-align: center;
+    clear: left;
+    width: 140px;
+    height: 35px;
+    line-height: 35px;
+    position: relative;
+}
+
+.nav-menu li .sub-nav li a {
+    height: 34px;
+    line-height: 34px;
+    width: 138px;
+    padding: 0px;
+    display: inline-block;
+    border-radius: 5px;
+    color: #000;
+}
+
+.nav-show i[aria-hidden=true] {
+    -webkit-transform: rotate(180deg) !important;
+    -moz-transform: rotate(180deg) !important;
+    -o-transform: rotate(180deg) !important;
+    -ms-transform: rotate(180deg) !important;
+    transform: rotate(180deg) !important;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -o-transition: all .3s;
+    -ms-transition: all .3s;
+    transition: all .3s;
+}
+
+.menus_item_child {
+    background-color: rgba(255, 255, 255, .8);
+    width: fit-content;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 5px 20px -4px rgba(0, 0, 0, .5);
+    box-shadow: 0 5px 20px -4px rgba(0, 0, 0, .5);
+    display: none;
+    opacity: 0.98;
+    -ms-filter: none;
+    filter: none;
+    -webkit-animation: sub_menus .3s .1s ease both;
+    -moz-animation: sub_menus .3s .1s ease both;
+    -o-animation: sub_menus .3s .1s ease both;
+    -ms-animation: sub_menus .3s .1s ease both;
+    animation: sub_menus .3s .1s ease both;
+}
+
+.menus_item_child:before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    margin-left: -10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent rgba(255, 255, 255, .8)
+}
+
+.m-nav-item {
+    /* position: relative; */
+    left: 45px
+}
+
+.m-nav-item ul {
+    display: none;
+    background: rgba(255, 255, 255, .1);
+}
+
+.m-nav-item ul li {
+    width: 245px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
+.m-nav-show .m-icon {
+    -webkit-transform: rotate(90deg) !important;
+    -moz-transform: rotate(90deg) !important;
+    -o-transform: rotate(90deg) !important;
+    -ms-transform: rotate(90deg) !important;
+    transform: rotate(90deg) !important;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -o-transition: all .3s;
+    -ms-transition: all .3s;
+    transition: all .3s;
+}
+
+.m-nav-show .m-nav-item&gt;a:hover {
+    color: #FFF;
+    background: rgba(255, 255, 255, .8);
+}
+
+.m-nav-show&gt;a:before,
+.m-nav-item&gt;a:hover:before {
+    opacity: 1;
+}
+
+.m-nav-item .m-icon {
+    position: absolute;
+    right: 65px;
+    height: 50px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.nav-item li:hover a {
+    color: #FFF;
+    background: rgba(0, 0, 0, .1);
+}
+</code></pre><p>第四步，在 /themes/matery/source/js 中找到 matery.js ，在最后一个 <code>});</code>前添加下面这段代码：</p>
+<pre><code>// 增加二级菜单功能 洪卫 shw2018 add 2019.09.17
+    $(".nav-menu&gt;li").hover(function(){
+        $(this).children('ul').stop(true,true).show();
+        $(this).addClass('nav-show').siblings('li').removeClass('nav-show');
+
+    },function(){
+        $(this).children('ul').stop(true,true).hide();
+        $('.nav-item.nav-show').removeClass('nav-show');
+    })
+
+    $('.m-nav-item&gt;a').on('click',function(){
+            if ($(this).next('ul').css('display') == "none") {
+                $('.m-nav-item').children('ul').slideUp(300);
+                $(this).next('ul').slideDown(300);
+                $(this).parent('li').addClass('m-nav-show').siblings('li').removeClass('m-nav-show');
+            }else{
+                $(this).next('ul').slideUp(300);
+                $('.m-nav-item.m-nav-show').removeClass('m-nav-show');
+            }
+    });
+</code></pre><p>第五步，在主题配置文件.yml修改标题栏内容，按下面格式更改:第五步，在主题配置文件.yml修改标题栏内容，按下面格式更改:</p>
+<pre class="line-numbers language-yml"><code class="language-yml">  标题一级: 
+    url: /XXX
+    icon: fa-XXXX
+    children: 
+      -
+        name: 标题二级1
+        url: /XXX/XXX
+        icon: fa-XXXX
+      -
+        name: 标题二级2
+        url: /XXX/XXX
+        icon: fa-XXXX
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第六步，source 文件夹新疆对应的标题目录，并放 index.md 模板就行了。</p>
+<p>到这一步就大功告成了，快去体验吧</p>
+<h2 id="备份博客源文件"><a href="#备份博客源文件" class="headerlink" title="备份博客源文件"></a>备份博客源文件</h2><p>有时候我们想换一台电脑继续写博客，最简单的方法就是把博客整个目录拷贝过去，就是这么暴力。不过，这种方法有个问题就是要是那天电脑崩了，本地源文件丢失了，比较麻烦，所以这时候就可以将博客目录下的所有源文件都上传到<code>github</code>上面。</p>
+<p>首先在<code>github</code>博客仓库下新建一个分支<code>hexo</code>，然后<code>git clone</code>到本地，把<code>.git</code>文件夹拿出来，放在博客根目录下。</p>
+<p>然后<code>git branch -b hexo</code>切换到<code>hexo</code>分支，然后<code>git add .</code>，然后<code>git commit -m "xxx"</code>，最后<code>git push origin hexo</code>提交就行了。</p>
+<p>具体效果可以看我的博客源文件仓库：<a href="https://github.com/shw2018/shw2018.github.io" target="_blank" rel="noopener">传送门</a>。</p>
+<p>大家也可以先用下文<code>hexo</code>安装方法安装完<code>hexo</code>，然后直接<code>git clone -b hexo https://github.com/shw2018/shw2018.github.io.git</code>克隆我的所有源文件，这是我目前修改完的基本没<code>bug</code>的定制化的博客，可以直接拿来用。</p>
+<h1 id="出现Cannot-find-module-‘xxx’-错误"><a href="#出现Cannot-find-module-‘xxx’-错误" class="headerlink" title="出现Cannot find module ‘xxx’ 错误"></a>出现Cannot find module ‘xxx’ 错误</h1><ol>
+<li>直接进行npm install重新打包；</li>
+<li>如果npm install重新打包之后，仍然出现这个问题，可以进行删除node_modules文件夹，同时清除缓存，如下命令：</li>
+</ol>
+<pre><code>rm -rf node_modules
+
+cnpm cache clean --force
+
+cnpm install 
+</code></pre><h2 id="添加百度导航页面"><a href="#添加百度导航页面" class="headerlink" title="添加百度导航页面"></a>添加百度导航页面</h2><p>在主题的layout文件夹下添加navigate.ejs文件，文件内容如下</p>
+<pre><code>&lt;div class="navi-height bg-cover pd-header "&gt;
+    &lt;div class=" link-box container"&gt;
+        &lt;!-- 搜索框 --&gt;
+        &lt;div class="baidu baidu-2 large-screen"&gt;
+            &lt;form name="f" action="https://www.baidu.com/" target="_blank"&gt;
+                &lt;div id="Select-2"&gt;
+                    &lt;div class="Select-box-2" id="baidu"&gt;
+                        &lt;ul style="height: 46px;"&gt;
+                            &lt;li class="this_s"&gt;百 · 度&lt;/li&gt;
+                            &lt;li class="bing_s"&gt;必 · 应&lt;/li&gt;
+                            &lt;li class="google_s"&gt;谷 · 歌&lt;/li&gt;
+                            &lt;li class="baidu_s"&gt;百 · 度&lt;/li&gt;
+                        &lt;/ul&gt;
+                    &lt;/div&gt; &lt;input name="wd" id="kw-2" maxlength="100" autocomplete="off" type="text"&gt;
+                &lt;/div&gt;
+                &lt;div class="qingkong" id="qingkong" title="清 · 空" style="display: none;"&gt;x&lt;/div&gt; &lt;input value="搜 · 索"
+                    id="su-2" type="submit"&gt;
+                &lt;ul class="keylist"&gt;&lt;/ul&gt;
+            &lt;/form&gt;
+        &lt;/div&gt; &lt;!-- 链接 --&gt;
+        &lt;div class="row tags-posts "&gt;
+            &lt;div class="col s12 m6 l4 friend-div" data-aos="zoom-in-up"&gt;
+                &lt;div class="card"&gt;
+                    &lt;div class="jj-list-tit"&gt;娱乐 · 影视&lt;/div&gt;
+                    &lt;ul class="jj-list-con"&gt;
+                        &lt;li&gt;&lt;a href="https://www.jd.com/" class="link-3" target="_blank"&gt;京东&lt;/a&gt;
+                        &lt;li&gt;&lt;a href="https://www.taobao.com/" class="link-3" target="_blank"&gt;淘宝&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.tmall.com/" class="link-3" target="_blank"&gt;天猫&lt;/a&gt;&lt;/li&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://v.qq.com/" class="link-3" target="_blank"&gt;腾讯视频&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="http://www.iqiyi.com/" class="link-3" target="_blank"&gt;爱奇艺&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.bilibili.com/" class="link-3" target="_blank"&gt;哔哩哔哩&lt;/a&gt; &lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://music.163.com/" class="link-3" target="_blank"&gt;网易云音乐&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://y.qq.com/" class="link-3" target="_blank"&gt;QQ音乐&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="http://www.kugou.com/" class="link-3" target="_blank"&gt;酷狗音乐&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="col s12 m6 l4 friend-div" data-aos="zoom-in-up"&gt;
+                &lt;div class="card"&gt;
+                    &lt;div class="jj-list-tit"&gt;社区 · Code&lt;/div&gt;
+                    &lt;ul class="jj-list-con"&gt;
+                        &lt;li&gt;&lt;a href="https://www.mobaijun.com/contact/" class="link-3" target="_blank"&gt;留言&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://github.com/" class="link-3" target="_blank"&gt;GitHub&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://coding.net/" class="link-3" target="_blank"&gt;Coding&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://juejin.im/" class="link-3" target="_blank"&gt;掘金&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://gitee.com/" class="link-3" target="_blank"&gt;码云&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.csdn.net/" class="link-3" target="_blank"&gt;CSDN&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.jianshu.com/" class="link-3" target="_blank"&gt;简书&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://segmentfault.com/" class="link-3" target="_blank"&gt;思否&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://cloud.tencent.com/developer/" class="link-3" target="_blank"&gt;云+社区&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="col s12 m6 l4 friend-div" data-aos="zoom-in-up"&gt;
+                &lt;div class="card"&gt;
+                    &lt;div class="jj-list-tit"&gt;实用 · 工具&lt;/div&gt;
+                    &lt;ul class="jj-list-con"&gt;
+                        &lt;li&gt;&lt;a href="https://mdnice.com/" class="link-3" target="_blank"&gt;Nice编辑器&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://translate.google.cn/" class="link-3" target="_blank"&gt;谷歌翻译&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.uupoop.com/" class="link-3" target="_blank"&gt;在线PS&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.processon.com/" class="link-3" target="_blank"&gt;思维导图&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://wallhaven.cc/" class="link-3" target="_blank"&gt;超清壁纸&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://cli.im/" class="link-3" target="_blank"&gt;二维码&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="http://www.yinfans.me/" class="link-3" target="_blank"&gt;音范思&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.52pojie.cn/" class="link-3" target="_blank"&gt;吾爱破解&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://my.openwrite.cn/" class="link-3" target="_blank"&gt;OW分发&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="col s12 m6 l4 friend-div" data-aos="zoom-in-up"&gt;
+                &lt;div class="card"&gt;
+                    &lt;div class="jj-list-tit"&gt;编程 · 学习&lt;/div&gt;
+                    &lt;ul class="jj-list-con"&gt;
+                        &lt;li&gt;&lt;a href="https://www.oschina.net/" class="link-3" target="_blank"&gt;开源中国&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://htmldog.com/" class="link-3" target="_blank"&gt;HTML狗&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.icourse163.org/" class="link-3" target="_blank"&gt;中国大学慕课&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.imooc.com/" class="link-3" target="_blank"&gt;慕课网&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="http://www.wxapp-union.com/" class="link-3" target="_blank"&gt;小程序&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.runoob.com/" class="link-3" target="_blank"&gt;菜鸟教程&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://blog.51cto.com/" class="link-3" target="_blank"&gt;51CTO&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.shiyanlou.com/library/" class="link-3" target="_blank"&gt;实验楼&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://spring.io/" class="link-3" target="_blank"&gt;Spring&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="col s12 m6 l4 friend-div" data-aos="zoom-in-up"&gt;
+                &lt;div class="card"&gt;
+                    &lt;div class="jj-list-tit"&gt;资讯 · 趋势&lt;/div&gt;
+                    &lt;ul class="jj-list-con"&gt;
+                        &lt;li&gt;&lt;a href="https://www.huxiu.com/" class="link-3" target="_blank"&gt;虎嗅&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://insights.stackoverflow.com/" class="link-3" target="_blank"&gt;技术调查&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="http://www.asciiworld.com/" class="link-3" target="_blank"&gt;摸鱼&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://sspai.com/" class="link-3" target="_blank"&gt;少数派&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://zh.wikihow.com/" class="link-3" target="_blank"&gt;WikeHom&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.awesomes.cn/rank?sort=hot" class="link-3" target="_blank"&gt;前端趋势&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://github-trending.com/" class="link-3" target="_blank"&gt;GitHub趋势&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.tiobe.com/" class="link-3" target="_blank"&gt;编程趋势&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://trends.google.com/" class="link-3" target="_blank"&gt;Google趋势&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="col s12 m6 l4 friend-div" data-aos="zoom-in-up"&gt;
+                &lt;div class="card"&gt;
+                    &lt;div class="jj-list-tit"&gt;搜索 · 其他&lt;/div&gt;
+                    &lt;ul class="jj-list-con"&gt;
+                        &lt;li&gt;&lt;a href="https://ac.scmor.com/" class="link-3" target="_blank"&gt;谷歌镜像&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="http://www.pansoso.com/" class="link-3" target="_blank"&gt;网盘搜索&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="http://tool.mkblog.cn/music/" class="link-3" target="_blank"&gt;音乐搜索&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.dytt8.net/" class="link-3" target="_blank"&gt;电影天堂&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://carbon.now.sh/" class="link-3" target="_blank"&gt;代码图片&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.zhipin.com/" class="link-3" target="_blank"&gt;Boos&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://fontawesome.com/" class="link-3" target="_blank"&gt;图标库&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="https://www.qvdv.com/tools/qvdv-guid.html" class="link-3" target="_blank"&gt;在线工具&lt;/a&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;&lt;a href="http://zhongguose.com/" class="link-3" target="_blank"&gt;中国色&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;script&gt; /*选择搜索引擎*/ $('.Select-box ul').hover(function () { $(this).css('height', 'auto') }, function () { $(this).css('height', '40px') }); $('.Select-box-2 ul').hover(function () { $(this).css('height', 'auto') }, function () { $(this).css('height', '46px') }); $('.Select-box li').click(function () { var _tihs = $(this).attr('class'); var _html = $(this).html(); if (_tihs == 'baidu_s') { _tihs = 'https://www.baidu.com/s'; _name = 'wd'; } if (_tihs == 'google_s') { _tihs = 'https://www.google.com/search'; _name = 'q'; } if (_tihs == 'bing_s') { _tihs = 'https://www.bing.com/search'; _name = 'q'; } $('.baidu form').attr('action', _tihs); $('.this_s').html(_html); $('#kw').attr('name', _name); $('.Select-box ul').css('height', '40px') }); $('.Select-box-2 li').click(function () { var _tihs = $(this).attr('class'); var _html = $(this).html(); if (_tihs == 'baidu_s') { _tihs = 'https://www.baidu.com/s'; _name = 'wd'; } if (_tihs == 'google_s') { _tihs = 'https://www.google.com/search'; _name = 'q'; } if (_tihs == 'bing_s') { _tihs = 'https://www.bing.com/search'; _name = 'q'; } $('.baidu form').attr('action', _tihs); $('.this_s').html(_html); $('#kw-2').attr('name', _name); $('.Select-box-2 ul').css('height', '48px') }); //清空输入框内容 $('.qingkong').click(function () { cls(); $(this).css('display', 'none') }); function cls() { var sum = 0; var t = document.getElementsByTagName("INPUT"); for (var i = 0; i &lt; t.length; i++) { if (t[i].type == 'text') { ++sum; t[i].value = "";//清空 } } } //清空输入框按钮的显示和隐藏 function if_btn() { var btn_obj = document.getElementById("kw") || document.getElementById("kw-2"); var cls_btn = document.getElementById("qingkong"); var btn_obj_val; var times; //当元素获得焦点时 if (btn_obj == '' || btn_obj == null) { return false; //如果没有找到这个元素，则将函数返回，不继续执行 } btn_obj.onfocus = function () { times = setInterval(function () { btn_obj_val = btn_obj.value; if (btn_obj_val != 0) { cls_btn.style.display = "block"; } else { cls_btn.style.display = "none"; } }, 200); } //元素失去焦点时 btn_obj.onblur = function () { clearInterval(times); } } &lt;/script&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;style&gt;
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: "微软雅黑"
+    }
+    ul,li,h1,h2,h3,h4,h5,h6,p,form,dl,dt,dd {
+        margin: 0px;
+        padding: 0px;
+        font-size: 14px;
+        font-weight: normal;
+    }
+
+    img {
+        border-style: none;
+    }
+
+    li {
+        list-style: none;
+        float: left
+    }
+
+    a {
+        text-decoration: none
+    }
+
+    .card {
+        background-color: rgba(25, 240, 229, 0);
+        width: 96%;
+        margin-left: 2%
+    }
+
+    .baidu {
+        float: left;
+        margin-left: 100px;
+    }
+
+    .baidu form {
+        position: relative
+    }
+
+    .Select-box ul {
+        height: 40px;
+        position: absolute;
+        left: -1px;
+        top: 0px;
+        z-index: 9999;
+        background: #FFF;
+        border: 1px solid #ccc;
+        border-top: none;
+        overflow: hidden
+    }
+
+    .Select-box li {
+        width: 60px;
+        line-height: 40px;
+        font-size: 14px;
+        color: #484848;
+        border: 0;
+        cursor: pointer;
+    }
+
+    .Select-box li:hover {
+        background: #3385ff;
+        color: #FFF;
+    }
+
+    .Select-box .this_s {
+        color: #317ef3;
+    }
+
+    .Select-box .this_s:hover {
+        background: #FFF;
+        color: #317ef3;
+    }
+
+    .qingkong {
+        position: absolute;
+        right: 120px;
+        top: 12px;
+        width: 18px;
+        height: 18px;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 18px;
+        line-height: 16px;
+        color: #666666;
+        cursor: pointer;
+        text-align: center;
+        font-size: 14px;
+        display: none;
+    }
+
+    .qingkong:hover {
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .qingkong:active {
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .baidu-2 {
+        width: 100%;
+        height: 110px;
+        margin: 0 auto;
+        background: none;
+        padding-top: 50px;
+    }
+
+    .baidu-2 form {
+        width: 520px;
+        margin: 0 auto;
+    }
+
+    .baidu-2 input {
+        padding: 13px 8px;
+        opacity: 0.9;
+        font-size: 15px;
+    }
+
+    #Select-2 {
+        float: left;
+    }
+
+    .Select-box-2 {
+        text-align: center;
+        float: left;
+        position: relative;
+    }
+
+    .Select-box-2 ul {
+        height: 46px;
+        position: absolute;
+        left: 0px;
+        top: 1px;
+        z-index: 9999;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid #ccc;
+        border-top: none;
+        overflow: hidden
+    }
+
+    .Select-box-2 li {
+        width: 60px;
+        line-height: 46px;
+        font-size: 15px;
+        color: #484848;
+        border: 0;
+        cursor: pointer;
+    }
+
+    .Select-box-2 li:hover {
+        background: #3385ff;
+        color: #FFF;
+    }
+
+    .Select-box-2 .this_s {
+        color: #317ef3;
+    }
+
+    .Select-box-2 .this_s:hover {
+        background: none;
+        color: #317ef3;
+    }
+
+    #kw-2 {
+        width: 335px;
+        outline: 0;
+        border: 1px solid #ccc;
+        background: rgba(255, 255, 255, 0.2);
+        color: #000000;
+        padding-left: 70px;
+        font-weight: bold;
+    }
+
+    /*修改搜索框样式*/
+    #su-2 {
+        width: 90px;
+        background: blue;
+        border: none;
+        border-top: #3385ff 1px solid;
+        border-bottom: 1px solid #2d78f4;
+        color: #FFF;
+        cursor: pointer;
+        /*去轮廓阴影*/
+        outline: none;
+    }
+
+    /*光标移动到搜索框颜色*/
+    #su-2:hover {
+        background: blue;
+        border-bottom: 1px solid blue;
+    }
+
+    #su-2:active {
+        background: blue;
+        box-shadow: inset 1px 1px 3px blue;
+        -webkit-box-shadow: inset 1px 1px 3px blue;
+    }
+
+    .jj-list-tit {
+        font-size: 16px;
+        line-height: 25px;
+        color: #ffffff;
+        width: 100%;
+        padding-left: 38.5%;
+    }
+
+    .jj-list-con {
+        overflow: hidden;
+        margin: 0 auto
+    }
+
+    /*控制网站列表间距*/
+    .jj-list-con li {
+        width: 31.333%;
+        margin: 1%;
+    }
+
+    .link-3 {
+        display: block;
+        background: rgba(0, 0, 0, .35);
+        color: #FFF;
+        font-size: 13px;
+        text-align: center;
+        line-height: 35px;
+        padding: 4px 0;
+        border-radius: 2px;
+        transition: all 0.2s
+    }
+
+    .link-3:hover {
+        background: rgba(0, 0, 0, .45);
+        font-size: 15px;
+        font-weight: bold
+    }
+
+    /*1栏 小于584*/
+    @media only screen and (max-width: 584px) {
+        .navi-height {
+            height: 1300px;
+        }
+
+        .link-box {
+            margin-top: 5%;
+        }
+
+        .large-screen {
+            display: none;
+        }
+    }
+
+    /* 2栏 大于584 小于993px */
+    @media only screen and (min-width: 584px) and (max-width: 993px) {
+        .navi-height {
+            height: 800px;
+        }
+
+        .link-box {
+            margin-top: 5%;
+        }
+
+        .large-screen {
+            display: none;
+        }
+    }
+
+    /*3栏 大于993px*/
+    @media only screen and (min-width: 993px) {
+        .navi-height {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    /* 隐藏footer */
+    .page-footer {
+        display: none;
+    }
+&lt;/style&gt;
+&lt;% if (theme.banner.enable) { %&gt;
+&lt;script&gt;
+    // 每天切换 banner 图.  Switch banner image every day.
+    var bannerUrl = "&lt;%- theme.jsDelivr.url %&gt;&lt;%- url_for('/medias/banner/') %&gt;" + new Date().getDay() + '.jpg';
+    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
+&lt;/script&gt;
+&lt;% } else { %&gt;
+&lt;script&gt;
+    $('.bg-cover').css('background-image', 'url(&lt;%- theme.jsDelivr.url %&gt;&lt;%- url_for('/medias/banner/0.jpg') %&gt;)');
+&lt;/script&gt;
+&lt;% } %&gt;
+</code></pre><p>且主题的_config.yml文件中导航栏中要有</p>
+<pre><code>导航:
+    url: /navigate
+    icon: fas fa-location-arrow
+</code></pre><h4 id="去掉banner图的动态滤镜颜色并修改导航栏颜色"><a href="#去掉banner图的动态滤镜颜色并修改导航栏颜色" class="headerlink" title="去掉banner图的动态滤镜颜色并修改导航栏颜色"></a>去掉banner图的动态滤镜颜色并修改导航栏颜色</h4><ol>
+<li>去掉动态滤镜颜色</li>
+</ol>
+<p>打开<code>themes/matery/source/css/matery.css</code>文件，查找<strong>rainbow</strong>属性，然后将其注释即可。如下：</p>
+<pre><code>/*如果想去掉banner图的颜色渐变效果，请将以下的css属性注释掉或者删除掉即可*/
+@-webkit-keyframes rainbow {
+   /* 动态切换背景颜色. */
+}
+@keyframes rainbow {
+    /* 动态切换背景颜色. */
+}
+</code></pre><ol>
+<li>修改导航栏颜色及透明效果</li>
+</ol>
+<p>打开<code>themes/matery/source/css/matery.css</code>文件，大约在250行，有一个<code>.bg-color</code>属性，修改其属性值即可，代码如下</p>
+<pre><code>.bg-color {
+    background-image: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%); //修改成自己喜欢的颜色值
+    opacity: 0.8;  //透明效果 值范围 0~1，看情况自己修改
+}
+</code></pre><h4 id="添加首页动态打字效果副标题"><a href="#添加首页动态打字效果副标题" class="headerlink" title="添加首页动态打字效果副标题"></a>添加首页动态打字效果副标题</h4><p>在主题配置文件中，找到下面的配置</p>
+<pre><code># 网站副标题，打字效果
+# 如果有符号 ‘ ，请在 ’ 前面加上 \
+subtitle: 
+  enable: true
+  loop: true # 是否循环
+  showCursor: true # 是否显示光标
+  startDelay: 300 # 开始延迟
+  typeSpeed: 100 # 打字速度
+  backSpeed: 50 # 删除速度
+  sub1: 志之所向，金石为开，谁能御之？
+  sub2: 花开不是为了花落，而是为了开的更加灿烂。
+  sub3: 没有伞的孩子必须努力奔跑！
+  sub4: 欲望以提升热忱，毅力以磨平高山。
+  sub5: 如果放弃太早，你永远都不知道自己会错过什么。
+  sub6: 没有礁石，就没有美丽的浪花；没有挫折，就没有壮丽的人生。
+</code></pre><p>注意：</p>
+<p>网站打字效果副标题默认有两个，即sub1和sub2，如果想写多个，则需要修改两处地方，首先修改配置文件，如上面所示，在sub1和sub2后面继续添加即可，然后在去主题目录下的layout文件夹下的_partial文件夹，修改bg-cover-content.ejs文件，大约在12行左右，如下面所示：</p>
+<pre><code> &lt;div class="description center-align"&gt;
+     &lt;% if (theme.subtitle.enable) { %&gt;
+         &lt;span id="subtitle"&gt;&lt;/span&gt;
+         &lt;script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"&gt;&lt;/script&gt;
+        &lt;script&gt;
+            var typed = new Typed("#subtitle", {
+                strings: ['&lt;%= theme.subtitle.sub1 %&gt;',
+                          '&lt;%= theme.subtitle.sub2 %&gt;',
+                          '&lt;%= theme.subtitle.sub3 %&gt;',
+                          '&lt;%= theme.subtitle.sub4 %&gt;',
+                          '&lt;%= theme.subtitle.sub5 %&gt;',
+                          '&lt;%= theme.subtitle.sub6 %&gt;'],
+                 startDelay: &lt;%= theme.subtitle.startDelay %&gt;,
+                 typeSpeed: &lt;%= theme.subtitle.typeSpeed %&gt;,
+                 loop: &lt;%= theme.subtitle.loop %&gt;,   
+                 backSpeed: &lt;%= theme.subtitle.backSpeed %&gt;,
+                 showCursor: &lt;%= theme.subtitle.showCursor %&gt;
+              });
+          &lt;/script&gt;
+      &lt;% } else { %&gt;
+            &lt;%= config.description %&gt;
+      &lt;% } %&gt;
+&lt;/div&gt;
+</code></pre><h4 id="动态标题"><a href="#动态标题" class="headerlink" title="动态标题"></a>动态标题</h4><p>先放上效果图再说：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/08/21/blog/C:%5CUsers%5Csamedi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200724160440994.png" alt="image-20200724160440994"></p>
+<p>实现方法，引入js文件，在主题文件下的<code>/source/js/</code>下新建<code>FunnyTitle.js</code>，然后在添加到<code>themes/matery/layout/layout.ejs</code>或者添加到<code>themes/matery/layout/_partial/head.ejs</code>，其代码如下：</p>
+<pre><code>&lt;!--浏览器搞笑标题--&gt;
+ var OriginTitle = document.title;
+ var titleTime;
+ document.addEventListener('visibilitychange', function () {
+     if (document.hidden) {
+         $('[rel="icon"]').attr('href', "https://cdn.jsdelivr.net/gh/Yafine/cdn@2.5/source/favicon.png");
+         document.title = 'ヽ(●-`Д´-)ノ你要玩捉迷藏嘛';
+         clearTimeout(titleTime);
+     }
+     else {
+         $('[rel="icon"]').attr('href', "https://cdn.jsdelivr.net/gh/Yafine/cdn@2.5/source/favicon.png");
+         document.title = 'ヾ(Ő∀Ő3)ノ好哦！' + OriginTitle;
+         titleTime = setTimeout(function () {
+             document.title = OriginTitle;
+         }, 2000);
+     }
+ });
+</code></pre><p>我的链接：<strong><a href="https://cdn.jsdelivr.net/gh/Yafine/cdn@3.2.5/source/js/FunnyTitle.js" target="_blank" rel="noopener">https://cdn.jsdelivr.net/gh/Yafine/cdn@3.2.5/source/js/FunnyTitle.js</a></strong>（理论上一直有效）</p>
+<p>或者直接在<code>themes/matery/layout/layout.ejs</code>文件中添加如下代码：</p>
+<pre><code>&lt;script type="text/javascript"&gt;
+    var OriginTitile=document.title,st;
+    document.addEventListener("visibilitychange",function(){
+        document.hidden?(document.title="ヽ(●-`Д´-)ノ你要玩捉迷藏嘛",clearTimeout(st)):(document.title="(Ő∀Ő3)ノ好哦！",st=setTimeout(function(){document.title=OriginTitile},3e3))
+    })
+&lt;/script&gt;
+</code></pre><h2 id="自适应屏幕的时候字体大小"><a href="#自适应屏幕的时候字体大小" class="headerlink" title="自适应屏幕的时候字体大小"></a>自适应屏幕的时候字体大小</h2><p>修改<code>matery/source/css/matery.css</code>,这样在手机等小屏幕上显示的字体大小就正常了,否则会因为标题字太长导致换行</p>
+<pre><code>---------------------------- source/css/matery.css ----------------------------
+
+/*全局基础样式*/
+/*小屏幕下(手机类)的样式*/
+@media only screen and (max-width: 601px) {
+    .container {
+        width: 95%;
+    }
+    header .brand-logo .logo-span {
+        font-size: 1rem;
+    }
+    .bg-cover .title {
+        font-size: 3rem;
+        font-weight: 700;
+        line-height: 1.85em;
+        margin-bottom: 20px;
+        position: relative;
+    }
+}
+
+/*中等屏幕下(平板类)的样式*/
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+    .container {
+        width: 90%;
+    }
+    header .brand-logo .logo-span {
+        font-size: 2rem;
+    }
+    .bg-cover .title {
+        font-size: 4rem;
+        font-weight: 700;
+        line-height: 1.85em;
+        margin-bottom: 20px;
+        position: relative;
+    }
+}
+/*大屏幕下(桌面类)的样式*/
+@media only screen and (min-width: 993px) {
+    .container {
+        width: 85%;
+        max-width: 1125px;
+    }
+
+    .post-container {
+        width: 90%;
+        margin: 0 auto;
+        max-width: 1250px;
+    }
+
+    header .brand-logo .logo-span {
+        font-size: 2rem;
+    }
+
+    .bg-cover .title {
+        font-size: 4rem;
+        font-weight: 700;
+        line-height: 1.85em;
+        margin-bottom: 20px;
+        position: relative;
+    }
+}
+</code></pre><h3 id="文章自动分类"><a href="#文章自动分类" class="headerlink" title="文章自动分类"></a>文章自动分类</h3><p><a href="https://blog.eson.org/pub/e2f6e239/" target="_blank" rel="noopener">https://blog.eson.org/pub/e2f6e239/</a></p>
+<h2 id="添加文章显示作者名字"><a href="#添加文章显示作者名字" class="headerlink" title="添加文章显示作者名字"></a>添加文章显示作者名字</h2><pre><code>---------------------- layout/_partial/post-detail.ejs -----------------------
+
+&lt;div class="info-break-policy"&gt;
+    &lt;% if (page.author &amp;&amp; page.author.length &gt; 0) { %&gt;
+        &lt;i class="fa fa-pencil"&gt;&lt;/i&gt; 作者: &lt;%- page.author %&gt;
+     &lt;% } else { %&gt;
+    &lt;i class="fa fa-pencil"&gt;&lt;/i&gt; 作者: &lt;%- config.author %&gt;
+    &lt;% } %&gt;
+&lt;/div&gt;
+</code></pre><h2 id="Hexo异常报错"><a href="#Hexo异常报错" class="headerlink" title="Hexo异常报错"></a>Hexo异常报错</h2><ol>
+<li>Cannot set property ‘lastIndex’ of undefined</li>
+</ol>
+<pre><code>INFO  Start processing
+FATAL Something's wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html
+TypeError: Cannot set property 'lastIndex' of undefined
+ at highlight (/Users/chenshang/Blog/node_modules/highlight.js/lib/highlight.js:579:35)
+ at /Users/chenshang/Blog/node_modules/highlight.js/lib/highlight.js:629:21
+ at Array.forEach ()
+ at Object.highlightAuto (/Users/chenshang/Blog/node_modules/highlight.js/lib/highlight.js:628:62)
+ at /Users/chenshang/Blog/node_modules/hexo-util/lib/
+</code></pre><p>修改配置文件<code>_config.yml</code>，注意不是主题里面的配置文件！把<code>auto_detect</code>设置为false，即可解决。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力!</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/weixin.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://bbsamedi.github.io" class="b-link-green">Dusk</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2020/08/21/blog/" class="b-link-green">blog博客搭建</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '9YyCXlWufWY4PgDykymcwY2o-gzGzoHsz',
+        appKey: '4tRz77K7211K08iNH3Wc8W9j',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2020/08/21/blog/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="blog博客搭建">
+                        
+                        <span class="card-title">blog博客搭建</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            乱七八糟的收集了一些
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/blog/" class="post-category" target="_blank">
+                                    blog
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/blog/" target="_blank">
+                        <span class="chip bg-color">blog</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/08/18/kali/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="kali">
+                        
+                        <span class="card-title">kali</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Kali Linux（安全牛学习）渗透测试准备基础静态IP配置修改文件/etc/network/interface
+allow-htoplug eth0
+
+iface eht0 inet static
+
+address 192.168.0.
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-18
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Dusk<br />'
+            + '作者: Dusk<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&copy; 2020 Dusk
+
+            <br>
+            <span id="sitetime"></span><span class="my-face"(๑•̀ㅂ•́)و✧</span>
+            <br>
+
+            
+
+            
+                    
+                        <span id="busuanzi_container_site_pv" style='display:none'></span>
+                        总访问量: <span id="busuanzi_value_site_pv" class="white-color"></span>
+                    
+        
+                    
+                        <span id="busuanzi_container_site_uv" style='display:none'></span>
+                        人次&nbsp; | &nbsp;访客人数: <span id="busuanzi_value_site_uv" class="white-color"></span> 人
+                    
+    
+            
+
+            
+                &nbsp; | &nbsp;字数统计:&nbsp;
+                <span class="white-color">34.9k</span> 字
+            
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/https://github.com/bbsamedi" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1584518096@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=1584518096&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /*Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 7, 25, 00, 00, 00); //北京时间2020-7-25 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已勉强运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="https://cdn.bootcss.com/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://cdn.bootcss.com/masonry/4.2.2/masonry.pkgd.min.js"></script>
+        <script src="https://cdn.bootcss.com/aos/3.0.0-beta.6/aos.js"></script>
+        <script src="https://cdn.bootcss.com/scrollprogress/3.0.2/scrollProgress.min.js"></script>
+        <script src="https://cdn.bootcss.com/lightgallery/1.6.12/js/lightgallery-all.min.js"></script>
+        <script src="/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/libs/others/clicklove.js"></script>
+        
+
+        
+            <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+
+        <!-- 洪卫 shw2018 add 2019.08.28 -->
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "ヽ(*。>Д<)o゜gone~", clearTimeout(st)) : (document.title =
+                    "w(ﾟДﾟ)w  Yo ho～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+        <!-- 鼠标点击烟花爆炸效果  洪卫 shw2018 add 2019.09.09 -->
+        
+
+        <!-- 背景雪花飘落特效洪卫 shw2018 add 2019.09.10 -->
+        
+
+        <!-- 鼠标点击文字特效 洪卫 shw2018 add 2019.09.10-->
+        
+            <script src="/js/wenzi.js" type="text/javascript"></script>
+        
+
+        <!-- 背景雪花飘落特效 洪卫 shw2018 add 2019.09.10 -->
+        
+
+        <!-- 在线聊天工具  洪卫 shw2018 add 2019.09.11 -->
+        
+            <script src="//code.tidio.co/xxxxxxxxxxxxxxxxxxxxxxxxxxx.js"></script>
+            <!--  在线聊天位置自定义  洪卫 shw2018 add 2019.09.13  -->
+            <script> 
+                $(document).ready(function () {
+
+                    setInterval(change_Tidio, 50);  
+                    function change_Tidio() { 
+
+                        var tidio=$("#tidio-chat iframe");
+                        if(tidio.css("display")=="block"&& $(window).width()>977 ){
+                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" &&$(window).width()>977)>0? "-40px" : ($("div.toc-title").length&&$(window).width()>977)>0?"80px":"20px";   
+                            document.getElementById("tidio-chat-iframe").style.right="-15px";   
+                            document.getElementById("tidio-chat-iframe").style.height=parseInt(tidio.css("height"))>=520?"520px":tidio.css("height");
+                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
+                        } 
+                        else if(tidio.css("display")=="block"&&$(window).width()>601 &&$(window).width()<992 ){
+                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" && 601< $(window).width()<992)>0? "-40px":"20px" ;   
+                            document.getElementById("tidio-chat-iframe").style.right="-15px"; 
+                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
+                        }
+                        else if(tidio.css("display")=="block"&&$(window).width()<601 && parseInt(tidio.css("height"))<230){
+                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" && $(window).width()<601)>0? "-10px":"45px" ;   
+                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
+                        }
+
+                        if( tidio.css("display")=="block"&&$(window).width()<601 && parseInt(tidio.css("height"))>=230){
+                            document.getElementById("tidio-chat-iframe").style.zIndex="998";
+                        }
+                    } 
+                }); 
+            </script>
+        
+
+        <!-- 背景 canvas-nest  洪卫 shw 2018  add 2019.09.15-->
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" color="0,0,255" pointColor="0,0,255" opacity= "0.8" zIndex="--1" count="150"src="/libs/background/canvas-nest.js"><\/script>');
+            }
+            </script>
+        
+
+        <!-- 背景静止彩带  洪卫 shw 2018  add 2019.09.15-->
+        
+
+        <!-- 背景动态彩带 洪卫 shw 2018  add 2019.09.15-->
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
+</html>
