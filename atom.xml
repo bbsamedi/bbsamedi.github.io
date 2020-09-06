@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bbsamedi.github.io/"/>
-  <updated>2020-08-26T08:59:52.090Z</updated>
+  <updated>2020-09-06T11:03:59.348Z</updated>
   <id>https://bbsamedi.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>多媒体总结</title>
+    <link href="https://bbsamedi.github.io/2020/09/06/duo-mei-ti-zong-jie/"/>
+    <id>https://bbsamedi.github.io/2020/09/06/duo-mei-ti-zong-jie/</id>
+    <published>2020-09-06T10:59:47.000Z</published>
+    <updated>2020-09-06T11:03:59.348Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;网络多媒体&quot;&gt;&lt;a href=&quot;#网络多媒体&quot; class=&quot;headerlink&quot; title=&quot;网络多媒体&quot;&gt;&lt;/a&gt;网络多媒体&lt;/h1&gt;&lt;h2 id=&quot;第一部分：基础级&quot;&gt;&lt;a href=&quot;#第一部分：基础级&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="网络多媒体" scheme="https://bbsamedi.github.io/categories/%E7%BD%91%E7%BB%9C%E5%A4%9A%E5%AA%92%E4%BD%93/"/>
+    
+    
+      <category term="网络多媒体" scheme="https://bbsamedi.github.io/tags/%E7%BD%91%E7%BB%9C%E5%A4%9A%E5%AA%92%E4%BD%93/"/>
+    
+  </entry>
   
   <entry>
     <title>linux服务器</title>
@@ -73,7 +99,7 @@
     <link href="https://bbsamedi.github.io/2020/08/18/kali/"/>
     <id>https://bbsamedi.github.io/2020/08/18/kali/</id>
     <published>2020-08-18T10:57:34.000Z</published>
-    <updated>2020-08-26T07:22:50.030Z</updated>
+    <updated>2020-08-30T04:19:46.984Z</updated>
     
     <summary type="html">
     

