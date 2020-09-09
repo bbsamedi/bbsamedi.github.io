@@ -627,7 +627,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        10.6k
+                        10.7k
                     </div>
                     
 
@@ -805,7 +805,11 @@
 <td>用于HTTPS服务提供访问功能。HTTPS是一种能提供加密和通过安全端口传输的一种协议。</td>
 </tr>
 </tbody></table>
-<h3 id="3-建立本地用户，密码（五类、七类），特权密码（五类、七类），应用到端口"><a href="#3-建立本地用户，密码（五类、七类），特权密码（五类、七类），应用到端口" class="headerlink" title="3.建立本地用户，密码（五类、七类），特权密码（五类、七类），应用到端口"></a>3.建立本地用户，密码（五类、七类），特权密码（五类、七类），应用到端口</h3><h3 id="4-SSH方式访问路由的配置和特点"><a href="#4-SSH方式访问路由的配置和特点" class="headerlink" title="4.SSH方式访问路由的配置和特点"></a>4.SSH方式访问路由的配置和特点</h3><h2 id="第三章ACL"><a href="#第三章ACL" class="headerlink" title="第三章ACL"></a>第三章ACL</h2><h3 id="1-标准ACL"><a href="#1-标准ACL" class="headerlink" title="1.标准ACL"></a>1.标准ACL</h3><p>标准ACL只能通过源IP地址制定需要放行和阻塞的流量。</p>
+<h3 id="3-建立本地用户，密码（五类、七类），特权密码（五类、七类），应用到端口"><a href="#3-建立本地用户，密码（五类、七类），特权密码（五类、七类），应用到端口" class="headerlink" title="3.建立本地用户，密码（五类、七类），特权密码（五类、七类），应用到端口"></a>3.建立本地用户，密码（五类、七类），特权密码（五类、七类），应用到端口</h3><pre><code>R1(config)#username user1 password (secrt *) a111
+R1(config)#enable password b111
+R1(config)#line con 0
+R1(config)#login local</code></pre><h3 id="4-SSH方式访问路由的配置和特点"><a href="#4-SSH方式访问路由的配置和特点" class="headerlink" title="4.SSH方式访问路由的配置和特点"></a>4.SSH方式访问路由的配置和特点</h3><p>第1步：配置至少一个IP地址，以便提供IP连通性。<br>第2步：启动SSH服务器。<br>第3步：配置用户界面使用scheme验证方法，使其支持SSH远程登录协议。<br>第4步：为服务器配置SSH本地用户，供SSH远程登录验证使用。<br>优点：ssh协议更加安全，对传输数据进行了加密。</p>
+<h2 id="第三章ACL"><a href="#第三章ACL" class="headerlink" title="第三章ACL"></a>第三章ACL</h2><h3 id="1-标准ACL"><a href="#1-标准ACL" class="headerlink" title="1.标准ACL"></a>1.标准ACL</h3><p>标准ACL只能通过源IP地址制定需要放行和阻塞的流量。</p>
 <p>用编号定义的标准ACL的命令格式如下：</p>
 <pre><code>Router(config)#access-list access-list-number {permit|deny} source [source-wildcard] [log]</code></pre><p>其中的参数如下：</p>
 <p>Access-list-number：是访问控制列表的编号，标准访问控制列表的规定编号范围时1～99或1300～1999。</p>
@@ -813,7 +817,7 @@
 <p>source：表示源地址，对于标准的IP访问控制列表，源地址是主机或一组主机IP地址。</p>
 <p>source-wildcard：表示源地址的通配符掩码，把对应于地址位中将要被准确匹配的位设置为0，把不关心的位设置为1.</p>
 <p>log：使用关键字log可以生成一个信息日志消息。该设备会把所有和该ACL相匹配的数据包以日志的形式发送给console接口、缓存或系统日志服务器。</p>
-<h3 id="2-扩展ACL"><a href="#2-扩展ACL" class="headerlink" title="2.扩展ACL"></a>2.扩展ACL</h3><p>扩展AC了可以基于源IP地址、目的IP地址、指定协议、端口号和标记（flag）等对流量实施过滤。配置命令如下：</p>
+<h3 id="2-扩展ACL"><a href="#2-扩展ACL" class="headerlink" title="2.扩展ACL"></a>2.扩展ACL</h3><p>扩展ACL可以基于源IP地址、目的IP地址、指定协议、端口号和标记（flag）等对流量实施过滤。配置命令如下：</p>
 <pre><code>Router(config)#access-list access-list-number {permit | deny} protocol source source-wild-card [operator port] destinatiion-wildcard [operator port] [precedence precdence] [dscp value] [tos tos] [log | log-input] [fragments] [established]</code></pre><p>其中的参数如下：</p>
 <p>access-list-number：是访问控制列表的编号，用来标识一个扩展的访问控制列表。扩展访问控制列表的规定标号范围时100～199或2000～2699.</p>
 <p>关键字permit和deny：用来表示满足访问表项的数据是允许通过还是要过滤掉。</p>
@@ -879,7 +883,8 @@ R1(config-if)#end</code></pre><h2 id="第四章-局域网交换机安全"><a hre
 <p>LAN风暴攻击；</p>
 <p>DHCP攻击；</p>
 <p>ARP攻击。</p>
-<h3 id="2-对局域网中的STP协议进行防护的措施"><a href="#2-对局域网中的STP协议进行防护的措施" class="headerlink" title="2.对局域网中的STP协议进行防护的措施"></a>2.对局域网中的STP协议进行防护的措施</h3><h4 id="配置端口安全"><a href="#配置端口安全" class="headerlink" title="配置端口安全"></a>配置端口安全</h4><h5 id="步骤一-：配置端口为接入端口"><a href="#步骤一-：配置端口为接入端口" class="headerlink" title="步骤一 ：配置端口为接入端口"></a>步骤一 ：配置端口为接入端口</h5><pre><code>Switch(config-if)#switchport mode access</code></pre><h5 id="步骤二：使用switchport-port-security在端口上启用端口安全"><a href="#步骤二：使用switchport-port-security在端口上启用端口安全" class="headerlink" title="步骤二：使用switchport port-security在端口上启用端口安全"></a>步骤二：使用switchport port-security在端口上启用端口安全</h5><pre><code>Switch(config-if)#swithcport port-security</code></pre><h5 id="步骤三：为端口设置安全MAC地址的最大数"><a href="#步骤三：为端口设置安全MAC地址的最大数" class="headerlink" title="步骤三：为端口设置安全MAC地址的最大数"></a>步骤三：为端口设置安全MAC地址的最大数</h5><pre><code>Switch(config-if)#switchport port-security maximum value
+<h3 id="2-对局域网中的STP协议进行防护的措施"><a href="#2-对局域网中的STP协议进行防护的措施" class="headerlink" title="2.对局域网中的STP协议进行防护的措施"></a>2.对局域网中的STP协议进行防护的措施</h3><h4 id="配置端口安全"><a href="#配置端口安全" class="headerlink" title="配置端口安全"></a>配置端口安全</h4><h5 id="步骤一-：配置端口为接入端口"><a href="#步骤一-：配置端口为接入端口" class="headerlink" title="步骤一 ：配置端口为接入端口"></a>步骤一 ：配置端口为接入端口</h5><pre><code>Switch(config-if)#switchport mode access</code></pre><h5 id="步骤二：使用switchport-port-security在端口上启用端口安全"><a href="#步骤二：使用switchport-port-security在端口上启用端口安全" class="headerlink" title="步骤二：使用switchport port-security在端口上启用端口安全"></a>步骤二：使用switchport port-security在端口上启用端口安全</h5><pre><code>Switch(config-if)#swithcport port-security
+</code></pre><h5 id="步骤三：为端口设置安全MAC地址的最大数"><a href="#步骤三：为端口设置安全MAC地址的最大数" class="headerlink" title="步骤三：为端口设置安全MAC地址的最大数"></a>步骤三：为端口设置安全MAC地址的最大数</h5><pre><code>Switch(config-if)#switchport port-security maximum value
 </code></pre><h5 id="步骤四：配置处理违例的方法"><a href="#步骤四：配置处理违例的方法" class="headerlink" title="步骤四：配置处理违例的方法"></a>步骤四：配置处理违例的方法</h5><pre><code>Switch(config-if)#switchport port-security violation {protect | restrict | shutdown}
 </code></pre><h5 id="步骤五：配置安全端口上的安全地址"><a href="#步骤五：配置安全端口上的安全地址" class="headerlink" title="步骤五：配置安全端口上的安全地址"></a>步骤五：配置安全端口上的安全地址</h5><pre><code>Switch(config-if)#switchport port-security mac-address {mac-address | sticky}
 </code></pre><h5 id="步骤六：配置安全地址的老化时间"><a href="#步骤六：配置安全地址的老化时间" class="headerlink" title="步骤六：配置安全地址的老化时间"></a>步骤六：配置安全地址的老化时间</h5><pre><code>Switch(config-if)#swtichport port-securit aging {static | time aging-time}
@@ -1966,7 +1971,7 @@ Router(config-if)#exit
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">56k</span> 字
+                <span class="white-color">56.1k</span> 字
             
 
             
