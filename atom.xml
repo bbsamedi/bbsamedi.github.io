@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Dusk</title>
+  <title>月夜烛魂</title>
   
-  <subtitle>Duskの博客</subtitle>
+  <subtitle>月夜烛魂の博客</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bbsamedi.github.io/"/>
@@ -10,7 +10,7 @@
   <id>https://bbsamedi.github.io/</id>
   
   <author>
-    <name>Dusk</name>
+    <name>月夜烛魂</name>
     
   </author>
   
