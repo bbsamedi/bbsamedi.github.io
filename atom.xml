@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bbsamedi.github.io/"/>
-  <updated>2020-09-21T09:03:16.565Z</updated>
+  <updated>2020-10-28T07:25:36.633Z</updated>
   <id>https://bbsamedi.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C语言</title>
+    <link href="https://bbsamedi.github.io/2020/10/22/c-yu-yan/"/>
+    <id>https://bbsamedi.github.io/2020/10/22/c-yu-yan/</id>
+    <published>2020-10-22T06:37:02.000Z</published>
+    <updated>2020-10-28T07:25:36.633Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;程序设计基础（C语言版）丁益祥-胡新荣主编&quot;&gt;&lt;a href=&quot;#程序设计基础（C语言版）丁益祥-胡新荣主编&quot; class=&quot;headerlink&quot; title=&quot;程序设计基础（C语言版）丁益祥    胡新荣主编&quot;&gt;&lt;/a&gt;程序设计基础（C语言版）丁益祥   
+        
+      
+    
+    </summary>
+    
+      <category term="C语言" scheme="https://bbsamedi.github.io/categories/C%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="C语言" scheme="https://bbsamedi.github.io/tags/C%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
   
   <entry>
     <title>网络安全复习</title>
